@@ -19,3 +19,6 @@ Route::get('/profil', [ProfileController::class, 'index'])->name('profil');
 // Rute untuk menangani unggah gambar profil
 Route::post('/profil', [ProfileController::class, 'store'])->name('upload.profile.image');
 
+Route::get('/pasangan', function(){
+    return view('pasangan');
+});
