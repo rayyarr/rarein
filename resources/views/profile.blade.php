@@ -75,6 +75,6 @@
             icon: 'warning',
         });
     }
-});
+}); 
 </script>
 @endsection
