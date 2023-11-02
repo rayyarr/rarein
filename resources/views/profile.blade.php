@@ -24,7 +24,7 @@
                     </div>
                 </div>
 
-                <form id="uploadForm" action="{{ route('profil') }}" method="post" enctype="multipart/form-data">
+                <form id="uploadForm" action="{{ route('upload.profile.image') }}" method="post" enctype="multipart/form-data">
                     @csrf
 
                     <div class="form-group mt-4">
