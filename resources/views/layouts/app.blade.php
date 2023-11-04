@@ -26,7 +26,7 @@
     <div id="app">
 
         <div class="content">
-            <div id="sidebar" class="container" @auth style="width: 170px" @endauth>
+            <div id="sidebar" class="container" @auth style="width:170px" @endauth>
                 <div class="row">
                     <div class="col-3">
                         @auth
@@ -74,7 +74,7 @@
                                         <span class="title">{{ __('Tambah') }}</span>
                                     </a>
                                 </li>
-                                <li class="list @if(request()->is('bagikan*')) active @endif">
+                                <li class="hidden list @if(request()->is('bagikan*')) active @endif">
                                     <b></b>
                                     <b></b>
                                     <a href="{{ route('profil') }}" data-text="Profil">
@@ -171,7 +171,7 @@
                                     </g>
                                 </svg>
                             </label>
-                            <div class="menu shadow">
+                            <div class="menu shadow z-10">
                                 <a href="{{ route('profil') }}">
                                     <span><svg class='line stroke-white' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><g transform='translate(5.000000, 2.400000)'><path d='M6.84454545,19.261909 C3.15272727,19.261909 -8.52651283e-14,18.6874153 -8.52651283e-14,16.3866334 C-8.52651283e-14,14.0858516 3.13272727,11.961909 6.84454545,11.961909 C10.5363636,11.961909 13.6890909,14.0652671 13.6890909,16.366049 C13.6890909,18.6658952 10.5563636,19.261909 6.84454545,19.261909 Z'></path><path d='M6.83729838,8.77363636 C9.26002565,8.77363636 11.223662,6.81 11.223662,4.38727273 C11.223662,1.96454545 9.26002565,-1.0658141e-14 6.83729838,-1.0658141e-14 C4.41457111,-1.0658141e-14 2.45,1.96454545 2.45,4.38727273 C2.44184383,6.80181818 4.39184383,8.76545455 6.80638929,8.77363636 C6.81729838,8.77363636 6.82729838,8.77363636 6.83729838,8.77363636 Z'></path></g></svg></span>
                                     <p>{{ __('Profil') }}</p>

@@ -74,7 +74,7 @@ svg.line{fill: none;stroke-width: 1;}
         }
 
         #sidebar{
-            width: 70px;
+            width: 70px !important;
         }
 
         .toggle {
@@ -87,7 +87,7 @@ svg.line{fill: none;stroke-width: 1;}
             display: none;
         }
         #sidebar{
-            width: 0;
+            width: 0 !important;
         }
     }
 

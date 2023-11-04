@@ -23,7 +23,7 @@
                             }}</label>
                         <input type="email" name="email" id="email"
                             class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 @error('email') is-invalid @enderror"
-                            placeholder="Masukkan email" value="{{ old('email') }}" required autocomplete="email">
+                            placeholder="Masukkan email" value="{{ old('email') }}" required autocomplete="email" autofocus>
                         @error('email')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -34,7 +34,7 @@
                         <label for="name" class="block mb-2 text-sm font-medium text-gray-900">{{ __('Name') }}</label>
                         <input type="text" name="name" id="username" placeholder="Masukkan Nama"
                             class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 @error('name') is-invalid @enderror"
-                            value="{{ old('name') }}" required autocomplete="name" autofocus>
+                            value="{{ old('name') }}" required autocomplete="name">
                         @error('name')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
