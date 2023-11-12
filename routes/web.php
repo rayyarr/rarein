@@ -16,5 +16,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/tambah', [HomeController::class, 'tambah'])->name('tambah');
     Route::get('/profil', [ProfileController::class, 'index'])->name('profil');
     Route::post('/profil', [ProfileController::class, 'store'])->name('upload.profile.image');
+    //Route::get('/profil', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profil', [ProfileController::class, 'update'])->name('profile.update');
     Route::get('/pasangan', function(){return view('pasangan');});
 });

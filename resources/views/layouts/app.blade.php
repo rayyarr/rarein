@@ -59,7 +59,7 @@
                                     class="list @if(request()->is('tambah*') || request()->is('hasilpesan*')) active @endif">
                                     <b></b>
                                     <b></b>
-                                    <a href="{{ route('tambah') }}" data-text="Tambah Undangan">
+                                    <a href="{{ route('tambah') }}" data-text="Buat Undangan">
                                         <svg class='line stroke-black' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'>
                                             <g transform='translate(2.300000, 2.300000)'>
                                                 <line x1='9.73684179' y1='6.162632' x2='9.73684179' y2='13.3110531'>
@@ -71,7 +71,7 @@
                                                 </path>
                                             </g>
                                         </svg>
-                                        <span class="title">{{ __('Tambah') }}</span>
+                                        <span class="title">{{ __('Buat') }}</span>
                                     </a>
                                 </li>
                                 <li class="hidden list @if(request()->is('bagikan*')) active @endif">

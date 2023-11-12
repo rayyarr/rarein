@@ -113,7 +113,7 @@ svg.line{fill: none;stroke-width: 1;}
 * {box-sizing: border-box;}
 .dropdown {translate: 0 -20px;position: relative;display: contents;}
 .dropdown > input[type="checkbox"] {display: none;}
-.dropdown > label {cursor: pointer;width: 120px;height: 50px;border: 0;border-radius: 6px;font-family: inherit;font-size: 17px;background: none;display: flex;align-items: center;justify-content: center;padding: 0 16px;color: #333;}
+.dropdown > label {cursor: pointer;width: auto;height: 50px;border: 0;border-radius: 6px;font-family: inherit;font-size: 17px;background: none;display: flex;align-items: center;justify-content: center;padding: 0 16px;color: #333;}
 .dropdown > label > svg.line{fill: none;stroke: #333;width: 20px;height: 20px;margin-left: 5px;transform:rotate(270deg);transition: all .3s ease;}
 .dropdown > .content > span:first-child {font-size: 20px;}
 .dropdown > .content > span:last-child {transition: 0.3s;}

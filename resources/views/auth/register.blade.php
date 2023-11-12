@@ -4,7 +4,7 @@
 <div class="container mx-auto">
     <div class="flex justify-center mt-16">
 
-        <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0">
+        <div class="w-full bg-white rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0">
             <a class="inline-flex justify-center items-center absolute w-10	h-10 p-2.5 m-2 rounded-full bg-slate-200 hover:bg-slate-100 shadow-2xl transition" href="{{ route('lp') }}">
                 <svg class='fill-none rotate-90 stroke-black stroke-1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'>
                     <g transform='translate(5.000000, 8.500000)'>

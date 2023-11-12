@@ -62,7 +62,7 @@
                     </div>
                 </div>
             </div>
-            <div class="text-xl font-bold">{{ Auth::user()->name }}</div>
+            <div class="text-gray-700 text-xl font-bold md:max-w-[10ch] md:text-ellipsis md:overflow-hidden">{{ Auth::user()->name }}</div>
             <div class="col-start-1 whitespace-nowrap text-slate-500 my-2">VIP User</div>
             <div class="col-start-1 text-pink-500 whitespace-nowrap text-xs hidden"></div>
         </a>

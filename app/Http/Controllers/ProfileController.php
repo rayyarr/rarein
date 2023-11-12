@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\UpdateProfileRequest;
 
 class ProfileController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         // Get the current user
         $user = auth()->user();
@@ -48,6 +49,22 @@ class ProfileController extends Controller
         $user->save();
 
         // Redirect to the profile page
+        return redirect()->route('profil');
+    }
+
+    public function edit(Request $request)
+    {
+        return view('profile', [
+            'user' => $request->user()
+        ]);
+    }
+
+    public function update(UpdateProfileRequest $request)
+    {
+        $request->user()->update(
+            $request->all()
+        );
+
         return redirect()->route('profil');
     }
 }
