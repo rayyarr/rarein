@@ -14,10 +14,13 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.1.1/flowbite.min.css"  rel="stylesheet" />
 
     {{--<link href="{{ asset('/css/daisyUI.css') }}" rel="stylesheet" type="text/css" />--}}
     <script src="https://cdn.tailwindcss.com"></script>
+
     <link rel="stylesheet" type="text/css" href="{{ asset('/css/style.css') }}">
+
 </head>
 <style>
 
@@ -195,6 +198,7 @@
     </div>
 
     <script>
+        /*
         const menuButton = document.getElementById("menu-button");
         const menu = document.getElementById("menu");
 
@@ -208,7 +212,11 @@
                 menu.classList.add("hidden");
             }
         });
+        */
     </script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.1.1/flowbite.min.js"></script>
+
 </body>
 
 </html>

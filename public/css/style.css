@@ -113,13 +113,13 @@ svg.line{fill: none;stroke-width: 1;}
 * {box-sizing: border-box;}
 .dropdown {translate: 0 -20px;position: relative;display: contents;}
 .dropdown > input[type="checkbox"] {display: none;}
-.dropdown > label {cursor: pointer;width: auto;height: 50px;border: 0;border-radius: 6px;font-family: inherit;font-size: 17px;background: none;display: flex;align-items: center;justify-content: center;padding: 0 16px;color: #333;}
+.dropdown > label {cursor: pointer;width: auto;height: 50px;border: 0;border-radius: 6px;font-family: inherit;font-size: 17px;background: none;display: flex;align-items: center;justify-content: center;padding: 0;color: #333;}
 .dropdown > label > svg.line{fill: none;stroke: #333;width: 20px;height: 20px;margin-left: 5px;transform:rotate(270deg);transition: all .3s ease;}
 .dropdown > .content > span:first-child {font-size: 20px;}
 .dropdown > .content > span:last-child {transition: 0.3s;}
 .dropdown>.content>span:last-child::before{content:"<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><path d='M7 10l5 5 5-5H7z' fill='#f7f7f7'/></svg>";display:inline-block;transition:transform .3s;transform:rotate(0)}
 .dropdown>input[type=checkbox]:checked+label>svg{transform:rotate(360deg)}
-.dropdown>.menu{position:absolute;top:58px;width:120px;padding:6px 0;background:#fff;border:1px solid rgba(0,0,0,.1);display:block;transform-origin:top center;transform:scaleY(0);transition:.3s;visibility:hidden;opacity:0}
+.dropdown>.menu{position:absolute;top:58px;right:16px;width:120px;padding:6px 0;background:#fff;border:1px solid rgba(0,0,0,.1);display:block;transform-origin:top center;transform:scaleY(0);transition:.3s;visibility:hidden;opacity:0}
 .dropdown>input[type=checkbox]:checked+label{border-radius: 6px 6px 0 0;}
 .dropdown>input[type=checkbox]:checked+label+.menu{border-radius:6px;visibility:visible;opacity:1;transform:scaleY(1);transition:.3s}
 .dropdown>.menu>a{display:flex;align-items:center;justify-content:flex-start;color:#333;font-size:14px;line-height:50px;padding:0 10px}

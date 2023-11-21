@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TemplateController;
 
 Route::get('/', function () {
     return view('one');
@@ -19,4 +20,5 @@ Route::middleware(['auth'])->group(function () {
     //Route::get('/profil', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profil', [ProfileController::class, 'update'])->name('profile.update');
     Route::get('/pasangan', function(){return view('pasangan');});
+    Route::resource('admin/template', TemplateController::class);
 });

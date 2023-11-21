@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\UserdataUndangan;
+use App\Models\Template;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
@@ -33,5 +34,12 @@ class HomeController extends Controller
     public function profil()
     {
         return view('profile');
+    }
+
+    public function tambah()
+    {
+        $template = Template::latest()->paginate(5);
+        
+        return view('buat',compact('template'))->with('i', (request()->input('page', 1) - 1) * 5);
     }
 }

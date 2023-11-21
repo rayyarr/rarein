@@ -15,7 +15,7 @@ class CreateUserdataUndanganTable extends Migration
             $table->integer('undangan_dilihat');
             $table->integer('total_ucapan');
             $table->timestamps();
-
+ 
             $table->foreign('user_id')->references('id')->on('users');
         });
     }
