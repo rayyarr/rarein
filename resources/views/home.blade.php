@@ -83,17 +83,83 @@
     </div>
 </div>
 
-<div class="w-full md:max-w-[800px] mx-auto">
+<div class="w-full md:max-w-[800px] mx-auto mb-10">
     <div class="card bg-white rounded-2xl p-5 shadow mt-10">
-        <h1 class="font-bold text-2xl flex justify-center mb-10 mt-3">Data Pasangan</h1>
+        <h1 class="font-bold text-2xl flex justify-center mb-10 mt-3 hidden">Data Pasangan</h1>
         <div class="flex items-center justify-between gap-5">
-            <div class="flex p-4 rounded-2xl bg-slate-50 w-full">
-                <div>
-                    Calon Pengantin Pria
+            <div class="flex p-4 rounded-2xl w-full">
+                <div class="w-full">
+                    <h3 class="font-medium text-lg text-gray-900 mb-8">Calon Pengantin Pria</h3>
+
+                    <label class="block mb-3 text-sm text-gray-900">Nama</label>
+                    <input type="text"
+                        class="border border-gray-300 text-black text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        value="Rayya" disabled>
+
+                    <label class="block mt-5 mb-3 text-sm text-gray-900">Bio</label>
+                    <input type="text"
+                        class="hidden border border-gray-300 text-black text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        value="Rayya" disabled>
+                    <textarea id="message" rows="3" class="block p-2.5 w-full text-sm text-gray-900 rounded border border-gray-300 focus:ring-blue-500 focus:border-blue-500" disabled>Ini bio</textarea>
+
+                    <label class="block mt-5 mb-3 text-sm text-gray-900">Instagram</label>
+                    <div class="flex">
+                        <span
+                            class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-e-0 rounded-e-0 border-gray-300 rounded-s-md">
+                            <svg class="w-5 h-5 text-gray-500" xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'>
+                                <g>
+                                    <path
+                                        d='M22,3H10a7,7,0,0,0-7,7V22a7,7,0,0,0,7,7H22a7,7,0,0,0,7-7V10A7,7,0,0,0,22,3Zm5,19a5,5,0,0,1-5,5H10a5,5,0,0,1-5-5V10a5,5,0,0,1,5-5H22a5,5,0,0,1,5,5Z'>
+                                    </path>
+                                    <path
+                                        d='M16,9.5A6.5,6.5,0,1,0,22.5,16,6.51,6.51,0,0,0,16,9.5Zm0,11A4.5,4.5,0,1,1,20.5,16,4.51,4.51,0,0,1,16,20.5Z'>
+                                    </path>
+                                    <circle cx='23' cy='9' r='1'></circle>
+                                </g>
+                            </svg>
+                        </span>
+                        <input type="text"
+                            class="border border-gray-300 text-black text-sm rounded-none rounded-e-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                            value="Rayya" disabled>
+                    </div>
                 </div>
             </div>
-            <div class="flex p-4 rounded-2xl bg-slate-50 w-full">
-                Calon Pengantin Wanita
+            <div class="flex p-4 rounded-2xl w-full">
+                <div class="w-full">
+                    <h3 class="font-medium text-lg text-gray-900 mb-8">Calon Pengantin Wanita</h3>
+
+                    <label class="block mb-3 text-sm text-gray-900">Nama</label>
+                    <input type="text"
+                        class="border border-gray-300 text-black text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        value="Rayya" disabled>
+
+                    <label class="block mt-5 mb-3 text-sm text-gray-900">Bio</label>
+                    <input type="text"
+                        class="hidden border border-gray-300 text-black text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        value="Rayya" disabled>
+                    <textarea id="message" rows="3" class="block p-2.5 w-full text-sm text-gray-900 rounded border border-gray-300 focus:ring-blue-500 focus:border-blue-500" disabled>Ini bio</textarea>
+
+                    <label class="block mt-5 mb-3 text-sm text-gray-900">Instagram</label>
+                    <div class="flex">
+                        <span
+                            class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-e-0 rounded-e-0 border-gray-300 rounded-s-md">
+                            <svg class="w-5 h-5 text-gray-500" xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'>
+                                <g>
+                                    <path
+                                        d='M22,3H10a7,7,0,0,0-7,7V22a7,7,0,0,0,7,7H22a7,7,0,0,0,7-7V10A7,7,0,0,0,22,3Zm5,19a5,5,0,0,1-5,5H10a5,5,0,0,1-5-5V10a5,5,0,0,1,5-5H22a5,5,0,0,1,5,5Z'>
+                                    </path>
+                                    <path
+                                        d='M16,9.5A6.5,6.5,0,1,0,22.5,16,6.51,6.51,0,0,0,16,9.5Zm0,11A4.5,4.5,0,1,1,20.5,16,4.51,4.51,0,0,1,16,20.5Z'>
+                                    </path>
+                                    <circle cx='23' cy='9' r='1'></circle>
+                                </g>
+                            </svg>
+                        </span>
+                        <input type="text"
+                            class="border border-gray-300 text-black text-sm rounded-none rounded-e-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                            value="Rayya" disabled>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
