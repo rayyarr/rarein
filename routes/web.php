@@ -11,6 +11,9 @@ Route::get('/', function () {
     return view('one');
 })->name('lp');
 
+
+Route::get('/play', function(){return view('template.template2');});
+
 // hanya bisa diakses jika sudah login
 Auth::routes();
 Route::group(['middleware' => 'user'], function () {
