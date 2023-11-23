@@ -85,12 +85,15 @@
 
 <div class="w-full md:max-w-[800px] mx-auto">
     <div class="card bg-white rounded-2xl p-5 shadow mt-10">
+        <h1 class="font-bold text-2xl flex justify-center mb-10 mt-3">Data Pasangan</h1>
         <div class="flex items-center justify-between gap-5">
             <div class="flex p-4 rounded-2xl bg-slate-50 w-full">
-                TES
+                <div>
+                    Calon Pengantin Pria
+                </div>
             </div>
             <div class="flex p-4 rounded-2xl bg-slate-50 w-full">
-                TES
+                Calon Pengantin Wanita
             </div>
         </div>
     </div>
