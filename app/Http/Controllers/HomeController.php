@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\UserdataUndangan;
+use App\Models\UserdataPasangan;
 use App\Models\Template;
 use Illuminate\Support\Facades\Auth;
 
@@ -27,8 +28,17 @@ class HomeController extends Controller
     {
         $user_id = Auth::id();
         $userdata = UserdataUndangan::where('user_id', $user_id)->first();
+        $dataPasangan = UserdataPasangan::where('pasangan_id', $user_id)->first();
+
+        return view('home', compact('userdata', 'dataPasangan'));
+    }
+
+    public function pasangan()
+    {
+        $userPasangan = auth()->user();
+        $userDataPasangan = \App\Models\UserDataPasangan::where('pasangan_id', $userPasangan->id)->first();
         
-        return view('home', compact('userdata'));
+        return view('user.setup_pasangan', compact('userPasangan', 'userDataPasangan'));
     }
 
     public function profil()

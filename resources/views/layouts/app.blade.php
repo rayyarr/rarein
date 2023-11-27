@@ -14,9 +14,10 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.1.1/flowbite.min.css"  rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.1.1/flowbite.min.css" rel="stylesheet" />
 
-    {{--<link href="{{ asset('/css/daisyUI.css') }}" rel="stylesheet" type="text/css" />--}}
+    {{--
+    <link href="{{ asset('/css/daisyUI.css') }}" rel="stylesheet" type="text/css" />--}}
     <script src="https://cdn.tailwindcss.com"></script>
 
     <link rel="stylesheet" type="text/css" href="{{ asset('/css/style.css') }}">
@@ -25,14 +26,23 @@
 <style>
 
 </style>
+
 <body>
     <div id="app">
 
         <div class="content">
-            <div id="sidebar" class="container" @auth style="width:170px" @endauth>
+            <div id="sidebar" class="container">
                 <div class="row">
                     <div class="col-3">
                         @auth
+                        @php
+                        $userPasangan = auth()->user();
+                        $userDataPasangan = \App\Models\UserDataPasangan::where('pasangan_id', $userPasangan->id)->first();
+                        @endphp
+                        @if($userPasangan->role === 'user' && $userDataPasangan && collect($userDataPasangan->getAttributes())->every(function ($value) { return $value !== null; }))
+                        
+                        <script>sidebar.style="width:170px"</script>
+                        
                         <div class="navigation shadow active">
                             <div class="head">
                                 <a href="{{ url('/') }}" class="flex items-center">
@@ -46,8 +56,9 @@
                                 <li class="list @if(request()->is('beranda*')) active @endif">
                                     <b></b>
                                     <b></b>
-                                    <a href="{{ route('beranda') }}" data-text="Home">
-                                        <svg class='line stroke-black' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'>
+                                    <a href="{{ url('/') }}" data-text="Home">
+                                        <svg class='line stroke-black' xmlns='http://www.w3.org/2000/svg'
+                                            viewBox='0 0 24 24'>
                                             <g transform='translate(2.400000, 2.000000)'>
                                                 <line x1='6.6787' y1='14.1354' x2='12.4937' y2='14.1354'></line>
                                                 <path
@@ -63,7 +74,8 @@
                                     <b></b>
                                     <b></b>
                                     <a href="{{ route('tambah') }}" data-text="Buat Undangan">
-                                        <svg class='line stroke-black' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'>
+                                        <svg class='line stroke-black' xmlns='http://www.w3.org/2000/svg'
+                                            viewBox='0 0 24 24'>
                                             <g transform='translate(2.300000, 2.300000)'>
                                                 <line x1='9.73684179' y1='6.162632' x2='9.73684179' y2='13.3110531'>
                                                 </line>
@@ -81,7 +93,8 @@
                                     <b></b>
                                     <b></b>
                                     <a href="{{ route('profil') }}" data-text="Profil">
-                                        <svg class='line stroke-black' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'>
+                                        <svg class='line stroke-black' xmlns='http://www.w3.org/2000/svg'
+                                            viewBox='0 0 24 24'>
                                             <g transform='translate(2.800000, 2.800000)'>
                                                 <path
                                                     d='M8.69324995,9.63816777 C8.69324995,9.63816777 -3.28340005,7.16056777 0.878549946,4.75801777 C4.39069995,2.73071777 16.4946499,-0.75483223 18.1856499,0.14576777 C19.0862499,1.83676777 15.6006999,13.9407178 13.5733999,17.4528678 C11.1708499,21.6148178 8.69324995,9.63816777 8.69324995,9.63816777 Z'>
@@ -96,12 +109,22 @@
                                     <b></b>
                                     <b></b>
                                     <a href="{{ route('profil') }}" data-text="Profil">
-                                        <svg class='line stroke-black' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><g><path d='M98.80039,256.86631c-.97137-1.16611-2.19075-2.16707-3.51485-2.16707s-2.54349,1.001-3.51485,2.16707a4.53642,4.53642,0,0,0,.3,6.103h.00006a4.54643,4.54643,0,0,0,6.42959,0h.00006A4.53642,4.53642,0,0,0,98.80039,256.86631Z' transform='translate(-83.28549 -252.69924)'></path><rect x='2' y='15.30177' width='20' height='6.69823' rx='3.34911'></rect></g></svg>
+                                        <svg class='line stroke-black' xmlns='http://www.w3.org/2000/svg'
+                                            viewBox='0 0 24 24'>
+                                            <g>
+                                                <path
+                                                    d='M98.80039,256.86631c-.97137-1.16611-2.19075-2.16707-3.51485-2.16707s-2.54349,1.001-3.51485,2.16707a4.53642,4.53642,0,0,0,.3,6.103h.00006a4.54643,4.54643,0,0,0,6.42959,0h.00006A4.53642,4.53642,0,0,0,98.80039,256.86631Z'
+                                                    transform='translate(-83.28549 -252.69924)'></path>
+                                                <rect x='2' y='15.30177' width='20' height='6.69823' rx='3.34911'>
+                                                </rect>
+                                            </g>
+                                        </svg>
                                         <span class="title">{{ __('Profil') }}</span>
                                     </a>
                                 </li>
                             </ul>
                         </div>
+                        @endif
                         @endauth
                     </div>
                 </div>
@@ -138,7 +161,7 @@
                         --}}
 
                         @auth
-                        
+
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
                             @csrf
                         </form>
@@ -176,11 +199,33 @@
                             </label>
                             <div class="menu shadow z-10">
                                 <a href="{{ route('profil') }}">
-                                    <span><svg class='line stroke-white' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><g transform='translate(5.000000, 2.400000)'><path d='M6.84454545,19.261909 C3.15272727,19.261909 -8.52651283e-14,18.6874153 -8.52651283e-14,16.3866334 C-8.52651283e-14,14.0858516 3.13272727,11.961909 6.84454545,11.961909 C10.5363636,11.961909 13.6890909,14.0652671 13.6890909,16.366049 C13.6890909,18.6658952 10.5563636,19.261909 6.84454545,19.261909 Z'></path><path d='M6.83729838,8.77363636 C9.26002565,8.77363636 11.223662,6.81 11.223662,4.38727273 C11.223662,1.96454545 9.26002565,-1.0658141e-14 6.83729838,-1.0658141e-14 C4.41457111,-1.0658141e-14 2.45,1.96454545 2.45,4.38727273 C2.44184383,6.80181818 4.39184383,8.76545455 6.80638929,8.77363636 C6.81729838,8.77363636 6.82729838,8.77363636 6.83729838,8.77363636 Z'></path></g></svg></span>
+                                    <span><svg class='line stroke-white' xmlns='http://www.w3.org/2000/svg'
+                                            viewBox='0 0 24 24'>
+                                            <g transform='translate(5.000000, 2.400000)'>
+                                                <path
+                                                    d='M6.84454545,19.261909 C3.15272727,19.261909 -8.52651283e-14,18.6874153 -8.52651283e-14,16.3866334 C-8.52651283e-14,14.0858516 3.13272727,11.961909 6.84454545,11.961909 C10.5363636,11.961909 13.6890909,14.0652671 13.6890909,16.366049 C13.6890909,18.6658952 10.5563636,19.261909 6.84454545,19.261909 Z'>
+                                                </path>
+                                                <path
+                                                    d='M6.83729838,8.77363636 C9.26002565,8.77363636 11.223662,6.81 11.223662,4.38727273 C11.223662,1.96454545 9.26002565,-1.0658141e-14 6.83729838,-1.0658141e-14 C4.41457111,-1.0658141e-14 2.45,1.96454545 2.45,4.38727273 C2.44184383,6.80181818 4.39184383,8.76545455 6.80638929,8.77363636 C6.81729838,8.77363636 6.82729838,8.77363636 6.83729838,8.77363636 Z'>
+                                                </path>
+                                            </g>
+                                        </svg></span>
                                     <p>{{ __('Profil') }}</p>
                                 </a>
-                                <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                    <span><svg class='line stroke-white' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><g transform='translate(2.000000, 2.000000)'><line x1='19.791' y1='10.1207' x2='7.75' y2='10.1207'></line><polyline points='16.8643 7.2047 19.7923 10.1207 16.8643 13.0367'></polyline><path d='M0.2588,5.6299 C0.5888,2.0499 1.9288,0.7499 7.2588,0.7499 C14.3598,0.7499 14.3598,3.0599 14.3598,9.9999 C14.3598,16.9399 14.3598,19.2499 7.2588,19.2499 C1.9288,19.2499 0.5888,17.9499 0.2588,14.3699' transform='translate(7.309300, 9.999900) scale(-1, 1) translate(-7.309300, -9.999900) '></path></g></svg></span>
+                                <a href="{{ route('logout') }}"
+                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                    <span><svg class='line stroke-white' xmlns='http://www.w3.org/2000/svg'
+                                            viewBox='0 0 24 24'>
+                                            <g transform='translate(2.000000, 2.000000)'>
+                                                <line x1='19.791' y1='10.1207' x2='7.75' y2='10.1207'></line>
+                                                <polyline points='16.8643 7.2047 19.7923 10.1207 16.8643 13.0367'>
+                                                </polyline>
+                                                <path
+                                                    d='M0.2588,5.6299 C0.5888,2.0499 1.9288,0.7499 7.2588,0.7499 C14.3598,0.7499 14.3598,3.0599 14.3598,9.9999 C14.3598,16.9399 14.3598,19.2499 7.2588,19.2499 C1.9288,19.2499 0.5888,17.9499 0.2588,14.3699'
+                                                    transform='translate(7.309300, 9.999900) scale(-1, 1) translate(-7.309300, -9.999900) '>
+                                                </path>
+                                            </g>
+                                        </svg></span>
                                     <p>{{ __('Logout') }}</p>
                                 </a>
                             </div>
@@ -192,7 +237,7 @@
                 @endauth
 
                 @yield('content')
-                
+
             </div>
         </div>
     </div>
@@ -215,7 +260,7 @@
         */
     </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.1.1/flowbite.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.1.1/flowbite.min.js"></script>
 
 </body>
 

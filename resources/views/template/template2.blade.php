@@ -31,7 +31,7 @@
 <body data-email="user@example.com" data-password="12345678" data-url="https://api.ulems.my.id/" style="overflow-y: hidden;">
 
     <!-- Navbar Bottom -->
-    <nav class="navbar navbar-dark bg-dark navbar-expand fixed-bottom rounded-top-4 p-0" id="navbar-menus">
+    <nav class="navbar navbar-dark bg-dark navbar-expand fixed-bottom rounded-top-4 p-0" id="navbar-menus" style="display: none">
         <ul class="navbar-nav nav-justified w-100 align-items-center">
             <li class="nav-item">
                 <a class="nav-link" href="#home">
@@ -301,7 +301,7 @@
         </svg>
 
         <!-- Hadiah -->
-        <div class="container">
+        <div class="container" style="display: none">
             <div class="py-4">
 
                 <div class="text-center">
@@ -341,7 +341,7 @@
         </div>
 
         <!-- Ucapan -->
-        <section class="m-0 p-0" id="ucapan">
+        <section class="m-0 p-0" id="ucapan" style="display: none">
             <div class="container">
 
                 <div class="card-body border rounded-4 shadow p-3">
@@ -426,15 +426,15 @@
 
                 <hr class="mt-3 mb-2">
 
-                <div class="row align-items-center justify-content-between flex-column flex-sm-row">
+                <div class="row align-items-center justify-content-between flex-column flex-sm-row" style="display: none">
                     <div class="col-auto">
                         <small class="text-light">
-                            Build with<i class="fa-solid fa-heart mx-1"></i>Dewanakl
+                            Build with<i class="fa-solid fa-heart mx-1"></i>
                         </small>
                     </div>
                     <div class="col-auto">
                         <small>
-                            <i class="fa-brands fa-github me-1"></i><a target="_blank" href="https://github.com/dewanakl/undangan">dewanakl</a>
+                            <i class="fa-brands fa-github me-1"></i><a target="_blank" href="#">rare.in</a>
                         </small>
                     </div>
                 </div>
@@ -472,11 +472,11 @@
     <div class="loading-page" id="loading" style="opacity: 1;">
         <div class="d-flex justify-content-center align-items-center" style="height: 100vh !important;">
             <div class="text-center w-75">
-                <img class="img-fluid mb-3" src="{{ asset('template/template2/images/icon-192x192.png') }}" alt="icon" style="width: 3.5rem;">
+                <img class="img-fluid mb-3" src="{{ asset('template/template2/images/icon-192x192.png') }}" alt="icon" style="width: 3.5rem;display:none">
                 <div class="progress" role="progressbar" style="height: 0.5rem;">
                     <div class="progress-bar" id="bar" style="width: 0%"></div>
                 </div>
-                <small class="mt-1 text-light" id="progress-info">Loading asset</small>
+                <small class="mt-1 text-light" id="progress-info">Tunggu bentar ya..</small>
             </div>
         </div>
     </div>

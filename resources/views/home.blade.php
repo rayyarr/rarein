@@ -94,13 +94,13 @@
                     <label class="block mb-3 text-sm text-gray-900">Nama</label>
                     <input type="text"
                         class="border border-gray-300 text-black text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                        value="Rayya" disabled>
+                        value="{{ $dataPasangan->nama_pria ?? '' }}" disabled>
 
                     <label class="block mt-5 mb-3 text-sm text-gray-900">Bio</label>
                     <input type="text"
                         class="hidden border border-gray-300 text-black text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                        value="Rayya" disabled>
-                    <textarea id="message" rows="3" class="block p-2.5 w-full text-sm text-gray-900 rounded border border-gray-300 focus:ring-blue-500 focus:border-blue-500" disabled>Ini bio</textarea>
+                        value="{{ $dataPasangan->bio_pria ?? '' }}" disabled>
+                    <textarea id="message" rows="3" class="block p-2.5 w-full text-sm text-gray-900 rounded border border-gray-300 focus:ring-blue-500 focus:border-blue-500" disabled>{{ $dataPasangan->bio_pria ?? '' }}</textarea>
 
                     <label class="block mt-5 mb-3 text-sm text-gray-900">Instagram</label>
                     <div class="flex">
@@ -131,13 +131,13 @@
                     <label class="block mb-3 text-sm text-gray-900">Nama</label>
                     <input type="text"
                         class="border border-gray-300 text-black text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                        value="Rayya" disabled>
+                        value="{{ $dataPasangan->nama_wanita ?? '' }}" disabled>
 
                     <label class="block mt-5 mb-3 text-sm text-gray-900">Bio</label>
                     <input type="text"
                         class="hidden border border-gray-300 text-black text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                        value="Rayya" disabled>
-                    <textarea id="message" rows="3" class="block p-2.5 w-full text-sm text-gray-900 rounded border border-gray-300 focus:ring-blue-500 focus:border-blue-500" disabled>Ini bio</textarea>
+                        value="{{ $dataPasangan->bio_wanita ?? '' }}" disabled>
+                    <textarea id="message" rows="3" class="block p-2.5 w-full text-sm text-gray-900 rounded border border-gray-300 focus:ring-blue-500 focus:border-blue-500" disabled>{{ $dataPasangan->bio_wanita ?? '' }}</textarea>
 
                     <label class="block mt-5 mb-3 text-sm text-gray-900">Instagram</label>
                     <div class="flex">

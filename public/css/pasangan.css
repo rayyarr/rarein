@@ -1,27 +1,11 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
-}
-
-body{
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
-
-}
-.container{
+.container-cus{
     max-width: 700px;
     width: 100%;
     background-color: #fff;
     padding: 25px 30px;
     border-radius: 5px;
-    box-shadow: 05px 10px rgba(0, 0, 0, 0.15);
 }
-.container .content > *{
+.container-cus .content-cus > *{
     display: flex;
     gap: 30px;
 
@@ -29,12 +13,12 @@ body{
 .button{
     display: block;
 }
-.container .title{
+.container-cus .title{
     font-size: 25px;
     font-weight: 500;
     position: relative;
 }
-.container .title::before{
+.container-cus .title::before{
     content:"";
     position: absolute;
     left: 0;
@@ -44,7 +28,7 @@ body{
     border-radius: 5px;
     background: linear-gradient(135deg, #71b7e6, #9b59b6);
 }
-.content form .user-details{
+.content-cus form .user-details{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -72,7 +56,7 @@ form .user-details .input-box{
  }
  .user-details .input-box input:focus,
  .user-details .input-box input:valid{
-    border-color: #9b59b6;
+    /*border-color: #9b59b6;*/
  }
  form .gender-details .gender-title{
     font-size: 20px;
@@ -110,8 +94,9 @@ form input[type="radio"]{
 form .button input{
     height: 100%;
     width: 100%;
-    padding: 20px;
+    padding: 17px;
     border-radius: 5px;
+    margin-top: 18px;
     border: none;
     color: #fff;
     font-size: 18px;
@@ -119,13 +104,13 @@ form .button input{
     letter-spacing: 1px;
     cursor: pointer;
     transition: all 0.3s ease;
-    background: linear-gradient(135deg, #71b7e6, #f8f7f9);
+    background: linear-gradient(135deg, #1a73e8, #93b6e4);
 }
-form .button input:hover{
-    background: linear-gradient(-135deg, #71b7e6, #f8f7f9);
-}
+/*form .button input:hover{
+    background: linear-gradient(-135deg, #1a73e8, #93b6e4);
+}*/
 @media(max-width: 584px){
-    .container{
+    .container-cus{
         max-width: 100%;
     }
 }
@@ -136,7 +121,7 @@ form .user-details .input-box{
 form .category{
     width: 100%;
 }
-.content form .user-details{
+.content-cus form .user-details{
     max-height: 300px;
     overflow-y: scroll;
 }
@@ -144,7 +129,7 @@ form .category{
     width: 5px;
 }
 @media(max-width: 459px){
-    .container .content .category{
+    .container-cus .content-cus .category{
         flex-direction: column;
     }
 }

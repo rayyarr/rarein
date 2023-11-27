@@ -18,14 +18,15 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    protected function authenticated(Request $request, $user)
+    /*protected function authenticated(Request $request, $user)
     {
         if ($user->role === 'admin') {
             return redirect('/admin');
         } elseif ($user->role === 'user') {
             return redirect('/beranda');
         } else {
-            return redirect('/'); // Atau alamat lain jika role tidak sesuai
+            return redirect('/');
         }
     }
+    */
 }

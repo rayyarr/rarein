@@ -10,7 +10,9 @@ class UserdataPasangan extends Model
     protected $fillable = [
         'pasangan_id',
         'nama_pria',
+        'bio_pria',
         'nama_wanita',
+        'bio_wanita',
         'tanggal_pernikahan',
         'waktu_pernikahan',
         'tempat_pernikahan',

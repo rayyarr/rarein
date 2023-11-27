@@ -18,7 +18,7 @@ class UserMiddleware
             }
             // Jika peran pengguna adalah 'admin', arahkan mereka ke '/admin'
             elseif (auth()->user()->role === 'admin') {
-                return redirect('/admin');
+                //return redirect('/admin');
             }
         }
 

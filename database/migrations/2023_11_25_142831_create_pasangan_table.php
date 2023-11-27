@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('pasangan_id');
             $table->string('nama_pria')->nullable();
+            $table->string('bio_pria')->nullable();
             $table->string('nama_wanita')->nullable();
+            $table->string('bio_wanita')->nullable();
             $table->string('tanggal_pernikahan')->nullable();
             $table->string('waktu_pernikahan')->nullable();
             $table->string('tempat_pernikahan')->nullable();
