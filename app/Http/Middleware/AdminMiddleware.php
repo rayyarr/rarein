@@ -13,7 +13,7 @@ class AdminMiddleware
     {
         if (auth()->check()) {
             if (auth()->user()->role === 'admin') {
-                //return $next($request);
+                return $next($request);
             }
             elseif (auth()->user()->role === 'user') {
                 return redirect('/beranda');

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin/layouts.app')
 {{--@section('judul', 'Rayys — Formulir') --}}
 @section('judul')
 {{-- {!! config('app.name', 'Rayys') !!} <span class="title-animation"> — Beranda</span> --}}
