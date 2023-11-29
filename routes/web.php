@@ -24,6 +24,7 @@ Route::get('/', function () {
     return view('one');
 })->name('lp');
 
+Route::get('/mulai', function(){return view('user.setup_mulai');});
 
 Route::get('/play', function(){return view('template.template2');});
 
