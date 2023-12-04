@@ -7,6 +7,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\File;
 
 class TemplateController extends Controller
 {
@@ -83,13 +84,37 @@ class TemplateController extends Controller
     public function update(Request $request, Template $template): RedirectResponse
     {
         $request->validate([
-            'name' => 'required',
-            'price' => 'required',
-            'image' => 'required',
+            'name' => 'required|string|max:255',
+            'price' => 'required|numeric',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'desc' => 'required|string|max:255',
         ]);
 
-        $template->update($request->all());
+        // Dapatkan ID template
+        $templateId = $template->id;
+
+        // Hapus file gambar sebelumnya jika ada
+        $previousImage = $template->image;
+        if ($previousImage) {
+            $imagePath = public_path('images/template/' . $previousImage);
+            if (File::exists($imagePath)) {
+                File::delete($imagePath);
+            }
+        }
+
+        // Update data template
+        $template->update([
+            'name' => $request->input('name'),
+            'price' => $request->input('price'),
+            'desc' => $request->input('desc'),
+        ]);
+
+        // Ubah nama file gambar sesuai dengan ID template
+        $imageName = $templateId . '.' . $request->file('image')->getClientOriginalExtension();
+        $request->file('image')->move(public_path('images/template'), $imageName);
+
+        // Update nama file gambar dalam data template
+        $template->update(['image' => $imageName]);
 
         return redirect()->route('template.index')->with('success', 'Template updated successfully');
     }
@@ -99,6 +124,15 @@ class TemplateController extends Controller
      */
     public function destroy(Template $template)
     {
+        // Hapus file gambar sebelumnya jika ada
+        $previousImage = $template->image;
+        if ($previousImage) {
+            $imagePath = public_path('images/template/' . $previousImage);
+            if (File::exists($imagePath)) {
+                File::delete($imagePath);
+            }
+        }
+
         $template->delete();
 
         return redirect()->route('template.index')->with('success', 'Template deleted successfully');

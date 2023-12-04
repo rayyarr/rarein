@@ -90,7 +90,7 @@
                             Add template
                         </a>
                         <div class="flex items-center space-x-3 w-full md:w-auto">
-                            <button id="actionsDropdownButton" data-dropdown-toggle="actionsDropdown"
+                            <button class="hidden" id="actionsDropdownButton" data-dropdown-toggle="actionsDropdown"
                                 class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200"
                                 type="button">
                                 <svg class="-ml-1 mr-1.5 w-5 h-5" fill="currentColor" viewbox="0 0 20 20"
@@ -130,6 +130,7 @@
                                 <th scope="col" class="px-4 py-3">Nama</th>
                                 <th scope="col" class="px-4 py-3">Gambar</th>
                                 <th scope="col" class="px-4 py-3">Harga</th>
+                                <th scope="col" class="px-4 py-3">Deskripsi</th>
                                 <th scope="col" class="px-4 py-3">
                                     <span class="sr-only">Actions</span>
                                 </th>
@@ -148,10 +149,9 @@
                                 <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">{{ $t->name }}</td>
                                 <td class="px-4 py-3"><img src="{{ asset('images/template/' . $t->image) }}" class="w-14 h-auto rounded-lg" loading="lazy" /></td>
                                 <td class="px-4 py-3">Rp{{ $t->price }}</td>
+                                <td class="px-4 py-3">{{ $t->desc }}</td>
                                 <td class="px-4 py-3 flex items-center justify-end">
                                     <form action="{{ route('template.destroy', $t->id) }}" method="POST">
-                                        <a class="font-medium text-blue-600 mr-3"
-                                            href="{{ route('template.show', $t->id) }}">Show</a>
                                         <a class="font-medium text-blue-600 mr-3"
                                             href="{{ route('template.edit', $t->id) }}">Edit</a>
                                         @csrf
