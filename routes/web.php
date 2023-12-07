@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\TemplateController;
+use App\Http\Controllers\CrudTamuController;
 use App\Http\Controllers\SetupUser_1_PasanganController;
 
 Route::get('/', function () {
@@ -26,7 +27,7 @@ Route::get('/', function () {
 
 Route::get('/mulai', function(){return view('user.setup_mulai');});
 
-Route::get('/play', function(){return view('template.template2');});
+Route::get('/demo', function(){return view('template.template2');});
 
 // hanya bisa diakses jika sudah login
 Auth::routes();
@@ -38,6 +39,13 @@ Route::group(['middleware' => 'user'], function () {
     Route::post('/profil', [ProfileController::class, 'store'])->name('upload.profile.image');
     //Route::get('/profil', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profil', [ProfileController::class, 'update'])->name('profile.update');
+
+    Route::get('/tamu', [CrudTamuController::class, 'index'])->name('tamu.index');
+    Route::get('/tamu/tambah', [CrudTamuController::class, 'tambah'])->name('tamu.tambah');
+    Route::post('/tamu/store', [CrudTamuController::class, 'store'])->name('tamu.store');
+    Route::get('/tamu/edit/{id}', [CrudTamuController::class, 'edit'])->name('tamu.edit');
+    Route::put('/tamu/update/{id}', [CrudTamuController::class, 'update'])->name('tamu.update');
+    Route::get('/tamu/hapus/{id}', [CrudTamuController::class, 'delete'])->name('tamu.delete');
 });
 
 // hanya bisa diakses oleh admin

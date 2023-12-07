@@ -37,12 +37,11 @@
                                 <div class="flex space-x-4 mb-5 text-sm font-medium">
                                     <div class="flex-auto flex space-x-4">
                                         <button class="h-10 px-6 font-semibold rounded-full bg-violet-600 text-white" type="submit">
-                                            Beli
+                                            Gunakan
                                         </button>
-                                        <button class="h-10 px-6 font-semibold rounded-full border border-slate-200 text-slate-900"
-                                            type="button">
-                                            Wish
-                                        </button>
+                                        <a href="/demo" target="_blank" class="flex items-center h-10 px-6 font-semibold rounded-full border border-slate-200 text-slate-900">
+                                            Demo
+                                        </a>
                                     </div>
                                 </div>
                             </form>
