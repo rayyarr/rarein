@@ -100,24 +100,24 @@
                 <div class="input-box">
                     <span class="details">Nama Pria</span>
                     <input type="text" name="nama_pria" placeholder="Nama Lengkap"
-                        value="{{ $dataPasangan->nama_pria ?? '' }}" required>
+                        value="{{ $dataAcara->nama_pria ?? '' }}" required>
                 </div>
                 <div class="input-box">
                     <span class="details">Nama Wanita</span>
                     <input type="text" name="nama_wanita" placeholder="Nama Lengkap"
-                        value="{{ $dataPasangan->nama_wanita ?? '' }}" required>
+                        value="{{ $dataAcara->nama_wanita ?? '' }}" required>
                 </div>
             </div>
 
             <div class="user-details">
                 <div class="input-box">
                     <span class="details">Bio Pria</span>
-                    <input type="text" name="bio_pria" placeholder="Bio" value="{{ $dataPasangan->bio_pria ?? '' }}"
+                    <input type="text" name="bio_pria" placeholder="Bio" value="{{ $dataAcara->bio_pria ?? '' }}"
                         required>
                 </div>
                 <div class="input-box">
                     <span class="details">Bio Wanita</span>
-                    <input type="text" name="bio_wanita" placeholder="Bio" value="{{ $dataPasangan->bio_wanita ?? '' }}"
+                    <input type="text" name="bio_wanita" placeholder="Bio" value="{{ $dataAcara->bio_wanita ?? '' }}"
                         required>
                 </div>
             </div>

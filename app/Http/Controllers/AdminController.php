@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
-use App\Models\UserdataUndangan;
+use App\Models\User;
 use App\Models\Template;
 use Illuminate\Support\Facades\Auth;
 
@@ -25,10 +25,13 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $user_id = Auth::id();
-        $userdata = UserdataUndangan::where('user_id', $user_id)->first();
-        
-        return view('admin.beranda.beranda', compact('userdata'));
+        $search = request()->query('search');
+        $userCount = User::where('role', '<>', 'admin')->count();
+        $templateCount = Template::count();
+        $latestUser = User::orderBy('id', 'desc')->whereNotIn('role', ['admin'])->take(4)->get();
+
+    
+        return view('admin.beranda', compact('userCount', 'templateCount', 'latestUser'));
     }
 
 }

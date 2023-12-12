@@ -6,7 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\UpdateProfileRequest;
 
-class ProfileController extends Controller
+class AdminSettingController extends Controller
 {
     public function index(Request $request)
     {
@@ -14,7 +14,7 @@ class ProfileController extends Controller
         $user = auth()->user();
 
         // Return the view
-        return view('user.profile', compact('user'));
+        return view('admin.setting', compact('user'));
     }
 
     public function store(Request $request)
@@ -49,12 +49,12 @@ class ProfileController extends Controller
         $user->save();
 
         // Redirect to the profile page
-        return redirect()->route('profil');
+        return redirect()->route('admin.pengaturan.index');
     }
 
     public function edit(Request $request)
     {
-        return view('profile', [
+        return view('admin.setting', [
             'user' => $request->user()
         ]);
     }
@@ -65,6 +65,6 @@ class ProfileController extends Controller
             $request->all()
         );
 
-        return redirect()->route('profil')->with('success', 'Profil berhasil diperbarui');
+        return redirect()->route('admin.pengaturan.index');
     }
 }

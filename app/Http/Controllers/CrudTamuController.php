@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
-use App\Models\Tamu;
+use App\Models\UserdataTamu;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class CrudTamuController extends Controller
 {
@@ -20,12 +21,18 @@ class CrudTamuController extends Controller
 	public function index(Request $request)
 	{
 		$search = $request->input('search');
-		$user = Tamu::when($search, function ($query, $search) {
+		$user = UserdataTamu::when($search, function ($query, $search) {
 			return $query->where('name', 'like', '%' . $search . '%')
 				->orWhere('address', 'like', '%' . $search . '%');
 		})->get();
 
-		return view('user.crud_tamu.index', ['user' => $user]);
+		/*$comments = DB::table('userdata_tamu')
+                    ->join('users', 'userdata_tamu.users_id', '=', 'users.id')
+                    ->where('userdata_tamu.users_id', '=', Auth::user()->id)
+                    ->select('userdata_tamu.id', 'users.name as nama_pasangan')
+                    ->first();
+		*/
+		return view('user.crud_tamu.index', compact('user'));
 	}
 
 	public function tambah()
@@ -35,7 +42,7 @@ class CrudTamuController extends Controller
 
 	public function store(Request $request): RedirectResponse
 	{
-		$this->validate($request, [
+		$request->validate([
 			'name' => 'required',
 			'address' => 'required',
 		]);
@@ -43,8 +50,8 @@ class CrudTamuController extends Controller
 		$userId = Auth::id();
 
 		// Simpan ke database
-		$user = Tamu::create([
-			'tamu_id' => $userId,
+		$user = UserdataTamu::create([
+			'users_id' => $userId,
 			'name' => $request->name,
 			'address' => $request->address,
 		]);
@@ -54,7 +61,7 @@ class CrudTamuController extends Controller
 
 	public function edit($id)
 	{
-		$user = Tamu::find($id);
+		$user = UserdataTamu::find($id);
 		return view('user.crud_tamu.edit', ['user' => $user]);
 	}
 
@@ -65,7 +72,7 @@ class CrudTamuController extends Controller
 			'address' => 'required',
 		]);
 
-		$user = Tamu::find($id);
+		$user = UserdataTamu::find($id);
 
 		// Update name and email
 		$user->name = $request->name;
@@ -80,7 +87,7 @@ class CrudTamuController extends Controller
 
 	public function delete($id)
 	{
-		$user = Tamu::find($id);
+		$user = UserdataTamu::find($id);
 
 		$user->delete();
 		return redirect('/tamu')->with('success', 'Anda berhasil menghapus data!');

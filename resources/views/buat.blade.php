@@ -36,9 +36,12 @@
                                 </div>
                                 <div class="flex space-x-4 mb-5 text-sm font-medium">
                                     <div class="flex-auto flex space-x-4">
-                                        <button class="h-10 px-6 font-semibold rounded-full bg-violet-600 text-white" type="submit">
+                                        <!--<button class="h-10 px-6 font-semibold rounded-full bg-violet-600 text-white" type="submit">
                                             Gunakan
-                                        </button>
+                                        </button>-->
+                                        <a href="/tambah/create" class="flex items-center h-10 px-6 font-semibold rounded-full bg-violet-600 text-white">
+                                            Gunakan
+                                        </a>
                                         <a href="/demo" target="_blank" class="flex items-center h-10 px-6 font-semibold rounded-full border border-slate-200 text-slate-900">
                                             Demo
                                         </a>

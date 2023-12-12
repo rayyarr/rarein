@@ -10,13 +10,13 @@ class CreateUserdataUndanganTable extends Migration
     {
         Schema::create('userdata_undangan', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->integer('total_undangan');
-            $table->integer('undangan_dilihat');
-            $table->integer('total_ucapan');
+            $table->unsignedBigInteger('users_id');
+            $table->integer('total_undangan')->default(0)->nullable();
+            $table->integer('undangan_dilihat')->default(0)->nullable();
+            $table->integer('total_ucapan')->default(0)->nullable();
             $table->timestamps();
  
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('users_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

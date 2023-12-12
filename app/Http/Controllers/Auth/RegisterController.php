@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use App\Models\UserdataUndangan;
-use App\Models\UserdataPasangan;
+use App\Models\UserdataAcara;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -74,14 +74,11 @@ class RegisterController extends Controller
         ]);
     
         UserdataUndangan::create([
-            'user_id' => $user->id, // Menggunakan ID pengguna yang baru dibuat
-            'total_undangan' => 0,
-            'undangan_dilihat' => 0,
-            'total_ucapan' => 0,
+            'users_id' => $user->id, // Menggunakan ID pengguna yang baru dibuat
         ]);
 
-        UserdataPasangan::create([
-            'pasangan_id' => $user->id,
+        UserdataAcara::create([
+            'users_id' => $user->id,
         ]);
     
         return $user;

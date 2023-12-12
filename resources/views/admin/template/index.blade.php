@@ -5,13 +5,7 @@
 <span class="title-animation">Template</span>
 @endsection
 @section('content')
-<div class="flex flex-col justify-center mx-auto w-4/5 py-10">
-
-    @if ($message = Session::get('success'))
-    <div class="alert alert-success">
-        <p>{{ $message }}</p>
-    </div>
-    @endif
+<div class="flex flex-col justify-center mx-auto w-4/5">
 
     <div class="hidden my-8">
         <a class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 shadow-md focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200"
@@ -55,14 +49,21 @@
     {!! $template->links() !!}
 
 
-    <section class="p-3 sm:p-5">
+    <section class="px-3 sm:px-5">
         <div class="mx-auto max-w-screen-xl px-4 lg:px-12">
+            @if(session('success'))
+            <div class="bg-green-100 border border-green-400 text-green-700 m-2 px-4 py-3 rounded relative"
+                role="alert">
+                <strong class="font-bold">Hore!</strong>
+                <span class="block sm:inline">{{ session('success') }}</span>
+            </div>
+            @endif
             <div class="bg-white relative shadow-md sm:rounded-lg overflow-hidden">
                 <div
                     class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
                     <div class="w-full md:w-1/2">
                         <form class="flex items-center">
-                            <label for="simple-search" class="sr-only">Search</label>
+                            <label for="simple-search" class="sr-only">Search for templates</label>
                             <div class="relative w-full">
                                 <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                                     <svg aria-hidden="true" class="w-5 h-5 text-gray-500" fill="currentColor"
@@ -73,8 +74,8 @@
                                     </svg>
                                 </div>
                                 <input type="text" id="simple-search"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2"
-                                    placeholder="Search" required="">
+                                    class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-80 pl-10 p-2"
+                                    placeholder="Search for templates" required="">
                             </div>
                         </form>
                     </div>
@@ -87,7 +88,7 @@
                                 <path clip-rule="evenodd" fill-rule="evenodd"
                                     d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
                             </svg>
-                            Add template
+                            Tambah
                         </a>
                         <div class="flex items-center space-x-3 w-full md:w-auto">
                             <button class="hidden" id="actionsDropdownButton" data-dropdown-toggle="actionsDropdown"
@@ -120,7 +121,7 @@
                     <table class="w-full text-sm text-left text-gray-500">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                             <tr>
-                                <th scope="col" class="px-4 py-3">
+                                <th scope="col" class="p-4">
                                     <div class="flex items-center">
                                         <input id="checkbox-all" type="checkbox"
                                             class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2">
@@ -131,9 +132,7 @@
                                 <th scope="col" class="px-4 py-3">Gambar</th>
                                 <th scope="col" class="px-4 py-3">Harga</th>
                                 <th scope="col" class="px-4 py-3">Deskripsi</th>
-                                <th scope="col" class="px-4 py-3">
-                                    <span class="sr-only">Actions</span>
-                                </th>
+                                <th scope="col" class="px-4 py-3">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -147,58 +146,21 @@
                                     </div>
                                 </td>
                                 <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">{{ $t->name }}</td>
-                                <td class="px-4 py-3"><img src="{{ asset('images/template/' . $t->image) }}" class="w-14 h-auto rounded-lg" loading="lazy" /></td>
+                                <td class="px-4 py-3"><img src="{{ asset('images/template/' . $t->image) }}"
+                                        class="w-14 h-auto rounded-lg" loading="lazy" /></td>
                                 <td class="px-4 py-3">Rp{{ $t->price }}</td>
                                 <td class="px-4 py-3">{{ $t->desc }}</td>
-                                <td class="px-4 py-3 flex items-center justify-end">
+                                <td class="px-4 py-3">
                                     <form action="{{ route('template.destroy', $t->id) }}" method="POST">
                                         <a class="font-medium text-blue-600 mr-3"
-                                            href="{{ route('template.edit', $t->id) }}">Edit</a>
+                                            href="{{ route('template.edit', $t->id) }}">Ubah</a>
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="font-medium text-blue-600">Delete</button>
+                                        <button type="submit" class="font-medium text-blue-600">Hapus</button>
                                     </form>
                                 </td>
                             </tr>
                             @endforeach
-                            {{--
-                            <tr class="border-b">
-                                <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">Apple iMac
-                                    27&#34;</th>
-                                <td class="px-4 py-3">PC</td>
-                                <td class="px-4 py-3">Apple</td>
-                                <td class="px-4 py-3">300</td>
-                                <td class="px-4 py-3">$2999</td>
-                                <td class="px-4 py-3 flex items-center justify-end">
-                                    <button id="apple-imac-27-dropdown-button"
-                                        data-dropdown-toggle="apple-imac-27-dropdown"
-                                        class="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none"
-                                        type="button">
-                                        <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" />
-                                        </svg>
-                                    </button>
-                                    <div id="apple-imac-27-dropdown"
-                                        class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow">
-                                        <ul class="py-1 text-sm text-gray-700"
-                                            aria-labelledby="apple-imac-27-dropdown-button">
-                                            <li>
-                                                <a href="#" class="block py-2 px-4 hover:bg-gray-100">Show</a>
-                                            </li>
-                                            <li>
-                                                <a href="#" class="block py-2 px-4 hover:bg-gray-100">Edit</a>
-                                            </li>
-                                        </ul>
-                                        <div class="py-1">
-                                            <a href="#"
-                                                class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">Delete</a>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            --}}
                         </tbody>
                     </table>
                 </div>

@@ -56,7 +56,7 @@
                                         <button type="button" id="closeButton" class="absolute p-1 top-3 right-3 text-white bg-violet-700 hover:bg-violet-500 rounded-full shadow-xl"><svg class='fill-none stroke-2 stroke-white w-4 h-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><g transform='translate(3.500000, 2.000000)'><path d='M15.3891429,7.55409524 C15.3891429,15.5731429 16.5434286,19.1979048 8.77961905,19.1979048 C1.01485714,19.1979048 2.19295238,15.5731429 2.19295238,7.55409524'></path><line x1='16.8651429' y1='4.47980952' x2='0.714666667' y2='4.47980952'></line><path d='M12.2148571,4.47980952 C12.2148571,4.47980952 12.7434286,0.714095238 8.78914286,0.714095238 C4.83580952,0.714095238 5.36438095,4.47980952 5.36438095,4.47980952'></path></g></svg></button>
                                     </div>
                                     <script>
-                                        const uploadInput = document.getElementById('uploadInput');
+                                    const uploadInput = document.getElementById('uploadInput');
                                     const updateImage = document.getElementById('updateImage');
                                     const closeButton = document.getElementById('closeButton');
 
@@ -116,7 +116,7 @@
                                             <button type="submit"
                                                 class="h-10 px-8 font-semibold rounded-full bg-violet-600 border text-white hover:bg-transparent hover:border-slate-200 hover:text-slate-900 transition"
                                                 type="submit">
-                                                update
+                                                Simpan
                                             </button>
                                         </div>
                                     </div>

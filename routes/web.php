@@ -5,9 +5,12 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AdminSettingController;
 use App\Http\Controllers\TemplateController;
+use App\Http\Controllers\WebUndanganController;
 use App\Http\Controllers\CrudTamuController;
-use App\Http\Controllers\SetupUser_1_PasanganController;
+use App\Http\Controllers\CrudUserController;
+use App\Http\Controllers\SetupUserUtama;
 
 Route::get('/', function () {
     if (auth()->check()) {
@@ -20,25 +23,29 @@ Route::get('/', function () {
             return redirect('/beranda');
         }
     }
-
     // Jika belum login, tampilkan halaman one
     return view('one');
 })->name('lp');
 
-Route::get('/mulai', function(){return view('user.setup_mulai');});
+Route::get('/mulai', function () {
+    return view('user.setup_acara');
+});
 
-Route::get('/demo', function(){return view('template.template2');});
+Route::get('/demo', [WebUndanganController::class, 'index']);
 
-// hanya bisa diakses jika sudah login
+// hanya bisa diakses user
 Auth::routes();
 Route::group(['middleware' => 'user'], function () {
     Route::get('/beranda', [HomeController::class, 'index'])->name('beranda');
-    Route::resource('/setup', SetupUser_1_PasanganController::class);
-    Route::get('/tambah', [HomeController::class, 'tambah'])->name('tambah');
+    Route::resource('/setup', SetupUserUtama::class)->except(['publish']);
+    Route::post('/setup/publish', [SetupUserUtama::class, 'publish'])->name('setup.publish');
     Route::get('/profil', [ProfileController::class, 'index'])->name('profil');
     Route::post('/profil', [ProfileController::class, 'store'])->name('upload.profile.image');
     //Route::get('/profil', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profil', [ProfileController::class, 'update'])->name('profile.update');
+    
+    Route::get('/tambah', [HomeController::class, 'tambah'])->name('tambah');
+    Route::get('/tambah/create', [WebUndanganController::class, 'create']);
 
     Route::get('/tamu', [CrudTamuController::class, 'index'])->name('tamu.index');
     Route::get('/tamu/tambah', [CrudTamuController::class, 'tambah'])->name('tamu.tambah');
@@ -48,8 +55,26 @@ Route::group(['middleware' => 'user'], function () {
     Route::get('/tamu/hapus/{id}', [CrudTamuController::class, 'delete'])->name('tamu.delete');
 });
 
-// hanya bisa diakses oleh admin
-Route::group(['middleware' => 'admin'], function () {
-    Route::get('/admin', [AdminController::class, 'index']);
-    Route::resource('/admin/template', TemplateController::class);
+// hanya bisa diakses admin
+Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
+    Route::get('/', [AdminController::class, 'index']);
+
+    Route::resource('pengaturan', AdminSettingController::class)->names([
+        'index' => 'admin.pengaturan.index',
+        'create' => 'admin.pengaturan.create',
+        'store' => 'admin.pengaturan.store',
+        'show' => 'admin.pengaturan.show',
+        'edit' => 'admin.pengaturan.edit',
+        'destroy' => 'admin.pengaturan.destroy',
+    ])->except(['update']);
+
+    Route::patch('/pengaturan', [AdminSettingController::class, 'update'])->name('admin.pengaturan.update');
+
+    Route::resource('pengguna', CrudUserController::class);
+    Route::resource('template', TemplateController::class);
+});
+
+// bisa diakses siapa saja
+Route::middleware('auth')->group(function () {
+    
 });

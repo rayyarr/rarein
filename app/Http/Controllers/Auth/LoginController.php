@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -18,15 +19,37 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    /*protected function authenticated(Request $request, $user)
+    public function login(Request $request)
     {
-        if ($user->role === 'admin') {
-            return redirect('/admin');
-        } elseif ($user->role === 'user') {
-            return redirect('/beranda');
-        } else {
-            return redirect('/');
+        $credentials = $request->only('email', 'password');
+
+        if (Auth::attempt($credentials, $request->has('remember'))) {
+            // Jika otentikasi berhasil
+            return redirect()->intended('/');
         }
+
+        // Jika otentikasi gagal
+        return back()->withErrors(['email' => 'Email atau password salah.']);
     }
-    */
 }
+
+/*
+namespace App\Http\Controllers\Auth;
+
+use App\Http\Controllers\Controller;
+use App\Providers\RouteServiceProvider;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+
+class LoginController extends Controller
+{
+    use AuthenticatesUsers;
+
+    protected $redirectTo = RouteServiceProvider::HOME;
+
+    public function __construct()
+    {
+        $this->middleware('guest')->except('logout');
+    }
+}
+*/

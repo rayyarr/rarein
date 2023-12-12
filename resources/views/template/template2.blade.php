@@ -5,7 +5,7 @@
     <!-- Common Tag -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Website Undangan Pernikahan Wahyu & Riski Secara Online</title>
+    <title>Undangan Pernikahan Digital</title>
 
 
     <!-- Preconnect CDN -->
@@ -81,7 +81,10 @@
                     </div>
                 </div>
 
-                <h1 class="font-esthetic my-4" style="font-size: 3rem;">Wahyu & Riski</h1>
+                <h1 id="awalan" class="font-esthetic my-4" style="font-size: 3rem;"></h1>
+                <script>
+                    awalan.innerHTML = "" + {{ $data->nama_pria }} & {{ $data->nama_wanita }}
+                </script>
                 <h4>Rabu, 15 Maret 2023</h4>
 
                 <a class="btn btn-outline-light btn-sm shadow rounded-pill px-3 my-2" target="_blank" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=The%20Wedding%20of%20Wahyu%20and%20Riski&details=The%20Wedding%20of%20Wahyu%20and%20Riski%20%7C%2015%20Maret%202023%20%7C%20RT%2010%20RW%2002,%20Desa%20Pajerukan,%20Kec.%20Kalibagor,%20Kab.%20Banyumas,%20Jawa%20Tengah%2053191%20%7C%2010.00%20-%2011.00%20WIB&dates=20230315T100000/20230315T110000&location=https://goo.gl/maps/ALZR6FJZU3kxVwN86">
@@ -94,7 +97,7 @@
                     </div>
                 </div>
 
-                <p class="m-0">Scroll Down</p>
+                <p class="m-0">Scroll ke bawah ya!</p>
             </div>
         </section>
 
@@ -121,7 +124,7 @@
                         <div class="img-crop border border-3 border-light shadow my-4 mx-auto">
                             <img src="{{ asset('template/template2/images/cowo.png') }}" alt="cowo" onclick="util.modal(this)">
                         </div>
-                        <h1 class="font-esthetic" style="font-size: 3rem;">Wahyu Siapa</h1>
+                        <h1 class="font-esthetic" style="font-size: 3rem;">{{ $data->nama_pria }}</h1>
                         <h5 class="mt-3 mb-0">Putra</h5>
                         <p class="mb-0">Bapak ... & Ibu ...</p>
                     </div>
@@ -132,7 +135,7 @@
                         <div class="img-crop border border-3 border-light shadow my-4 mx-auto">
                             <img src="{{ asset('template/template2/images/cewe.png') }}" alt="cewe" onclick="util.modal(this)">
                         </div>
-                        <h1 class="font-esthetic" style="font-size: 3rem;">Riski Siapa</h1>
+                        <h1 class="font-esthetic" style="font-size: 3rem;">{{ $data->nama_wanita }}</h1>
                         <h5 class="mt-3 mb-0">Putri</h5>
                         <p class="mb-0">Bapak ... & Ibu ...</p>
                     </div>
@@ -453,7 +456,7 @@
                     <img src="{{ asset('template/template2/images/bg.jpeg') }}" alt="bg">
                 </div>
 
-                <h1 class="font-esthetic my-4" style="font-size: 2.5rem;">Wahyu & Riski</h1>
+                <h1 class="font-esthetic my-4" style="font-size: 2.5rem;">{{ $data->nama_pria }} & {{ $data->nama_wanita }}</h1>
                 <div id="nama-tamu"></div>
 
                 <button type="button" class="btn btn-light shadow rounded-4 mt-4" onclick="util.buka()">

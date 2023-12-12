@@ -63,6 +63,7 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+            'table' => 'users',
         ],
 
         // 'users' => [
@@ -94,7 +95,7 @@ return [
         'users' => [
             'provider' => 'users',
             'table' => 'password_reset_tokens',
-            'expire' => 60,
+            'expire' => 43200, // 30 hari x 24 jam x 60 menit - deff 60
             'throttle' => 60,
         ],
     ],

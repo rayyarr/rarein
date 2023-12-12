@@ -8,7 +8,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AdminMiddleware
 {
-    // AdminMiddleware.php
     public function handle($request, Closure $next)
     {
         if (auth()->check()) {
@@ -20,7 +19,8 @@ class AdminMiddleware
             }
         }
 
-        return redirect()->back();
+        return redirect('/login');
+        //return redirect()->back();
         //abort(403, 'Anda tidak memiliki izin.');
     }
 }

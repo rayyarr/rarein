@@ -1,7 +1,6 @@
-@extends('layouts.app')
-
+@extends('admin/layouts.app')
 @section('judul')
-<span class="title-animation">Profil</span>
+<span class="title-animation">Pengaturan</span>
 @endsection
 
 @section('content')
@@ -9,7 +8,7 @@
 
     <div class="flex justify-center">
         <div class="w-full md:w-1/2">
-            <div class="card bg-white rounded-2xl p-5 shadow mt-10">
+            <div class="card bg-white rounded-2xl p-5 shadow">
                 <div class="flex items-center">
                     <div class="flex p-4 rounded-2xl bg-slate-50 w-full">
                         <div class="flex items-center flex-shrink-0">
@@ -38,7 +37,7 @@
                                     </svg>
                                 </label>
 
-                                <form id="uploadForm" action="{{ route('upload.profile.image') }}" method="post"
+                                <form id="uploadForm" action="{{ route('admin.pengaturan.store') }}" method="post"
                                     enctype="multipart/form-data">
                                     @csrf
                                     <input type="file" name="image" id="image" class="hidden">
@@ -64,7 +63,7 @@
             <div class="bg-white shadow-md rounded-2xl p-5 mb-4">
                 <div class="mb-4 text-xl font-bold hidden">Update Profile</div>
 
-                <form method="POST" action="{{ route('profile.update') }}">
+                <form method="POST" action="{{ route('admin.pengaturan.update') }}">
                     @method('patch')
                     @csrf
 

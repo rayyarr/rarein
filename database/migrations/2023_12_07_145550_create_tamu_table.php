@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tamu_undangan', function (Blueprint $table) {
+        Schema::create('userdata_tamu', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('tamu_id');
+            $table->unsignedBigInteger('users_id');
             $table->string('name')->nullable();
             $table->string('address')->nullable();
             $table->timestamps();
 
-            $table->foreign('tamu_id')->references('id')->on('users');
+            $table->foreign('users_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

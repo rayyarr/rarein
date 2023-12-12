@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'rare.in') }} - Undangan Digital Paling Unik!</title>
     <link rel="icon" type="image/x-icon" href="https://feeldreams.github.io/main-icon.png">
 
     <!-- Fonts -->
@@ -19,6 +19,7 @@
     {{--
     <link href="{{ asset('/css/daisyUI.css') }}" rel="stylesheet" type="text/css" />--}}
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.0/datepicker.min.js"></script>
 
     <link rel="stylesheet" type="text/css" href="{{ asset('/css/style.css') }}">
 
@@ -28,8 +29,6 @@
 </style>
 
 <body>
-
-
 
     <nav class="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
         <div class="px-3 py-3 lg:px-5 lg:pl-3">
@@ -48,7 +47,7 @@
                     </button>
                     <a href="/" class="flex ms-2 sm:me-16">
                         <img src="https://feeldreams.github.io/main-icon.png" class="h-8 me-3 rotate-on-load"
-                            alt="FlowBite Logo" />
+                            alt="rare.in" />
                         <span
                             class="slide-on-load self-center text-xl font-semibold sm:text-lg whitespace-nowrap dark:text-white">{{
                             config('app.name','rare.in') }}</span>
@@ -82,25 +81,15 @@
                             </div>
                             <ul class="py-1" role="none">
                                 <li>
-                                    <a href="#"
+                                    <a href="{{ route('profil') }}"
                                         class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                                        role="menuitem">Dashboard</a>
-                                </li>
-                                <li>
-                                    <a href="#"
-                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                                        role="menuitem">Settings</a>
-                                </li>
-                                <li>
-                                    <a href="#"
-                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                                        role="menuitem">Earnings</a>
+                                        role="menuitem">Profil</a>
                                 </li>
                                 <li>
                                     <a href="{{ route('logout') }}"
                                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
                                         class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                                        role="menuitem">Sign out</a>
+                                        role="menuitem">Keluar</a>
                                 </li>
                             </ul>
                         </div>
@@ -111,7 +100,51 @@
         </div>
     </nav>
 
+    @if(session('success'))
+    <div class="flex items-center justify-center">
+        <div id="toast-success"
+            class="fixed top-5 sm:right-5 flex items-center w-[90%] md:w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-2xl shadow dark:text-gray-400 dark:bg-gray-800 z-50 transition"
+            role="alert">
+            <div
+                class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-2xl dark:bg-green-800 dark:text-green-200">
+                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                    viewBox="0 0 20 20">
+                    <path
+                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+                </svg>
+                <span class="sr-only">Check icon</span>
+            </div>
+            <div class="ms-3 text-sm font-normal">{{ session('success') }}</div>
+            <button type="button"
+                class="ms-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
+                data-dismiss-target="#toast-success" aria-label="Close">
+                <span class="sr-only">Close</span>
+                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 14 14">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        var navElement = document.querySelector("nav");
+      var navHeight = navElement.clientHeight;
+      var toastElement = document.querySelector("#toast-success");
+      toastElement.style.marginTop = navHeight + "px";
+      setTimeout(function() {
+      toastElement.style.transform = "translateY(calc(-100%))";
+      toastElement.style.opacity = "0";
+      setTimeout(function() {
+        toastElement.style.display = "none";
+      }, 100);
+    }, 3000);
+    </script>
+    @endif
+
     @auth
+    @if(request()->path() !== 'setup')
     <aside id="logo-sidebar"
         class="fixed top-0 left-0 z-40 w-64 sm:w-[170px] h-screen pt-20 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
         aria-label="Sidebar">
@@ -150,27 +183,65 @@
                             </g>
                         </svg>
                         <span class="flex-1 ms-3 whitespace-nowrap">{{ __('Buat') }}</span>
-                        <span class="@if(request()->is('tambah*')) hidden @endif inline-flex items-center justify-center px-2 py-1 ms-3 text-xs font-medium text-gray-800 bg-gray-100 rounded-full dark:bg-gray-700 dark:text-gray-300">New</span>
+                        <span
+                            class="@if(request()->is('tambah*')) hidden @endif inline-flex items-center justify-center px-2 py-1 ms-3 text-xs font-medium text-gray-800 bg-gray-100 rounded-full dark:bg-gray-700 dark:text-gray-300">New</span>
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('tamu.index') }}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group @if(request()->is('tamu*')) bg-gray-100 @endif">
-                        <svg class='flex-shrink-0 w-5 h-5 fill-none stroke-black stroke-[1.5]' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><g transform='translate(1.000000, 3.000000)'><path d='M10.9725,17.3682 C7.7335,17.3682 4.9665,16.8782 4.9665,14.9162 C4.9665,12.9542 7.7155,11.2462 10.9725,11.2462 C14.2115,11.2462 16.9785,12.9382 16.9785,14.8992 C16.9785,16.8602 14.2295,17.3682 10.9725,17.3682 Z'></path><path d='M10.9725,8.4487 C13.0985,8.4487 14.8225,6.7257 14.8225,4.5997 C14.8225,2.4737 13.0985,0.7497 10.9725,0.7497 C8.8465,0.7497 7.12248426,2.4737 7.12248426,4.5997 C7.1165,6.7177 8.8265,8.4417 10.9455,8.4487 L10.9725,8.4487 Z'></path><path d='M17.3622,7.3916 C18.5992,7.0606 19.5112,5.9326 19.5112,4.5896 C19.5112,3.1886 18.5182,2.0186 17.1962,1.7486'></path><path d='M17.9432,10.5444 C19.6972,10.5444 21.1952,11.7334 21.1952,12.7954 C21.1952,13.4204 20.6782,14.1014 19.8942,14.2854'></path><path d='M4.5838,7.3916 C3.3458,7.0606 2.4338,5.9326 2.4338,4.5896 C2.4338,3.1886 3.4278,2.0186 4.7488,1.7486'></path><path d='M4.0018,10.5444 C2.2478,10.5444 0.7498,11.7334 0.7498,12.7954 C0.7498,13.4204 1.2668,14.1014 2.0518,14.2854'></path></g></svg>
+                    <a href="{{ route('tamu.index') }}"
+                        class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group @if(request()->is('tamu*')) bg-gray-100 @endif">
+                        <svg class='flex-shrink-0 w-5 h-5 fill-none stroke-black stroke-[1.5]'
+                            xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'>
+                            <g transform='translate(1.000000, 3.000000)'>
+                                <path
+                                    d='M10.9725,17.3682 C7.7335,17.3682 4.9665,16.8782 4.9665,14.9162 C4.9665,12.9542 7.7155,11.2462 10.9725,11.2462 C14.2115,11.2462 16.9785,12.9382 16.9785,14.8992 C16.9785,16.8602 14.2295,17.3682 10.9725,17.3682 Z'>
+                                </path>
+                                <path
+                                    d='M10.9725,8.4487 C13.0985,8.4487 14.8225,6.7257 14.8225,4.5997 C14.8225,2.4737 13.0985,0.7497 10.9725,0.7497 C8.8465,0.7497 7.12248426,2.4737 7.12248426,4.5997 C7.1165,6.7177 8.8265,8.4417 10.9455,8.4487 L10.9725,8.4487 Z'>
+                                </path>
+                                <path
+                                    d='M17.3622,7.3916 C18.5992,7.0606 19.5112,5.9326 19.5112,4.5896 C19.5112,3.1886 18.5182,2.0186 17.1962,1.7486'>
+                                </path>
+                                <path
+                                    d='M17.9432,10.5444 C19.6972,10.5444 21.1952,11.7334 21.1952,12.7954 C21.1952,13.4204 20.6782,14.1014 19.8942,14.2854'>
+                                </path>
+                                <path
+                                    d='M4.5838,7.3916 C3.3458,7.0606 2.4338,5.9326 2.4338,4.5896 C2.4338,3.1886 3.4278,2.0186 4.7488,1.7486'>
+                                </path>
+                                <path
+                                    d='M4.0018,10.5444 C2.2478,10.5444 0.7498,11.7334 0.7498,12.7954 C0.7498,13.4204 1.2668,14.1014 2.0518,14.2854'>
+                                </path>
+                            </g>
+                        </svg>
                         <span class="flex-1 ms-3 whitespace-nowrap">{{ __('Tamu') }}</span>
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('profil') }}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group @if(request()->is('profil*')) bg-gray-100 @endif">
-                        <svg class='flex-shrink-0 w-5 h-5 fill-none stroke-black stroke-[1.5]' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><g transform='translate(4.000000, 4.000000)'><line x1='7.14366842' y1='13.8828263' x2='0.671142105' y2='13.8828263'></line><path d='M11.2049684,13.8837211 C11.2049684,15.9255105 11.8858632,16.6055105 13.9267579,16.6055105 C15.9676526,16.6055105 16.6485474,15.9255105 16.6485474,13.8837211 C16.6485474,11.8419316 15.9676526,11.1619316 13.9267579,11.1619316 C11.8858632,11.1619316 11.2049684,11.8419316 11.2049684,13.8837211 Z'></path><line x1='10.1765579' y1='3.39418421' x2='16.6481895' y2='3.39418421'></line><path d='M6.11525789,3.39284211 C6.11525789,1.35194737 5.43436316,0.671052632 3.39346842,0.671052632 C1.35167895,0.671052632 0.670784211,1.35194737 0.670784211,3.39284211 C0.670784211,5.43463158 1.35167895,6.11463158 3.39346842,6.11463158 C5.43436316,6.11463158 6.11525789,5.43463158 6.11525789,3.39284211 Z'></path></g></svg>
+                    <a href="{{ route('profil') }}"
+                        class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group @if(request()->is('profil*')) bg-gray-100 @endif">
+                        <svg class='flex-shrink-0 w-5 h-5 fill-none stroke-black stroke-[1.5]'
+                            xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'>
+                            <g transform='translate(4.000000, 4.000000)'>
+                                <line x1='7.14366842' y1='13.8828263' x2='0.671142105' y2='13.8828263'></line>
+                                <path
+                                    d='M11.2049684,13.8837211 C11.2049684,15.9255105 11.8858632,16.6055105 13.9267579,16.6055105 C15.9676526,16.6055105 16.6485474,15.9255105 16.6485474,13.8837211 C16.6485474,11.8419316 15.9676526,11.1619316 13.9267579,11.1619316 C11.8858632,11.1619316 11.2049684,11.8419316 11.2049684,13.8837211 Z'>
+                                </path>
+                                <line x1='10.1765579' y1='3.39418421' x2='16.6481895' y2='3.39418421'></line>
+                                <path
+                                    d='M6.11525789,3.39284211 C6.11525789,1.35194737 5.43436316,0.671052632 3.39346842,0.671052632 C1.35167895,0.671052632 0.670784211,1.35194737 0.670784211,3.39284211 C0.670784211,5.43463158 1.35167895,6.11463158 3.39346842,6.11463158 C5.43436316,6.11463158 6.11525789,5.43463158 6.11525789,3.39284211 Z'>
+                                </path>
+                            </g>
+                        </svg>
                         <span class="flex-1 ms-3 whitespace-nowrap">{{ __('Pengaturan') }}</span>
                     </a>
                 </li>
             </ul>
         </div>
     </aside>
+    @endif
     @endauth
 
-    <div class="p-4 sm:ml-[170px]">
+    <div class="p-4 @auth @if(request()->path() !== 'setup') sm:ml-[170px] @endif @endauth">
         <div class="border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-16 border-none">
             @yield('content')
         </div>

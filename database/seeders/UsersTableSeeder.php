@@ -33,10 +33,38 @@ class UsersTableSeeder extends Seeder
                 'password' => Hash::make('123123123'),
                 'role' => 1,
             ],
-            // Add more users as needed
         ];
 
-        // Insert data into the users table
         DB::table('users')->insert($users);
+
+        $userdata_undangan = [
+            [
+                'users_id' =>
+                    DB::table('users')->where('email', 'indra@gmail.com')->first()->id,
+                    'created_at' => now(),
+            ],
+            [
+                'users_id' => 
+                    DB::table('users')->where('email', 'rivai@gmail.com')->first()->id,
+                    'created_at' => now(),
+            ],
+        ];
+
+        DB::table('userdata_undangan')->insert($userdata_undangan);
+
+        $userdata_acara = [
+            [
+                'users_id' =>
+                    DB::table('users')->where('email', 'indra@gmail.com')->first()->id,
+                'created_at' => now(),
+            ],
+            [
+                'users_id' => 
+                    DB::table('users')->where('email', 'rivai@gmail.com')->first()->id,
+                'created_at' => now(),
+            ],
+        ];
+
+        DB::table('userdata_acara')->insert($userdata_acara);
     }
 }

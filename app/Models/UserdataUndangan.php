@@ -10,7 +10,7 @@ class UserdataUndangan extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id',
+        'users_id',
         'total_undangan',
         'undangan_dilihat',
         'total_ucapan',

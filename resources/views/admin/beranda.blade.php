@@ -1,17 +1,18 @@
-@extends('layouts.app')
-{{--@section('judul', 'Rayys — Formulir') --}}
+@extends('admin/layouts.app')
 @section('judul')
-{{-- {!! config('app.name', 'Rayys') !!} <span class="title-animation"> — Beranda</span> --}}
 <span class="title-animation">Beranda</span>
 @endsection
 @section('content')
+<div class="hidden flex flex-row">
+    <h1 class="text-2xl font-bold text-gray-700">Selamat datang kembali, {{ Auth::user()->name }}!</h1>
+</div>
 <div class="flex flex-col lg:flex-row justify-center w-full gap-5">
 
-    <div class="flex flex-col justify-center max-w-[768px]">
+    <div class="flex flex-col max-w-[768px]">
         <div
             class="inline-grid sm:grid-cols-2 md:grid-cols-4 overflow-hidden w-full rounded-3xl bg-transparent md:bg-white shadow">
 
-            <a href="#"
+            <a href="{{ route('pengguna.index') }}"
                 class="inline-grid border-gray-200 md:border-e w-full p-4 sm:col-span-1 bg-white hover:bg-slate-50 md:bg-transparent sm:border-e gap-x-4 hover:scale-105 transition ease-in-out duration-200">
                 <div class="col-start-2 row-span-3 row-start-1 place-self-center justify-self-end text-blue-600">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -21,13 +22,13 @@
                         </path>
                     </svg>
                 </div>
-                <div class="col-start-1 whitespace-nowrap text-slate-500">Total Undangan</div>
-                <div class="col-start-1 text-blue-600 whitespace-nowrap text-4xl font-extrabold my-2">{{
-                    $userdata->total_undangan }}</div>
-                <div class="col-start-1 text-slate-400 whitespace-nowrap text-xs">2 undangan aktif</div>
+                <div class="col-start-1 whitespace-nowrap text-slate-500">Total Pengguna</div>
+                <div class="col-start-1 text-blue-600 whitespace-nowrap text-4xl font-extrabold my-2">{{ $userCount }}
+                </div>
+                <div class="hidden col-start-1 text-slate-400 whitespace-nowrap text-xs"></div>
             </a>
 
-            <a href="#"
+            <a href="{{ route('template.index') }}"
                 class="inline-grid border-gray-200 w-full p-4 sm:col-span-1 bg-white hover:bg-slate-50 md:bg-transparent border-t sm:border-0 md:border-e gap-x-4 hover:scale-105 transition ease-in-out duration-200">
                 <div class="col-start-2 row-span-3 row-start-1 place-self-center justify-self-end text-pink-500">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -36,9 +37,9 @@
                             d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                     </svg>
                 </div>
-                <div class="col-start-1 whitespace-nowrap text-slate-500">Undangan Dilihat</div>
-                <div class="col-start-1 text-pink-500 whitespace-nowrap text-4xl font-extrabold my-2">{{
-                    $userdata->undangan_dilihat }}</div>
+                <div class="col-start-1 whitespace-nowrap text-slate-500">Total Template</div>
+                <div class="col-start-1 text-pink-500 whitespace-nowrap text-4xl font-extrabold my-2">{{ $templateCount
+                    }}</div>
                 <div class="col-start-1 text-slate-400 whitespace-nowrap text-xs hidden"></div>
             </a>
 
@@ -57,13 +58,12 @@
                         </g>
                     </svg>
                 </div>
-                <div class="col-start-1 whitespace-nowrap text-slate-500">Ucapan & Do'a</div>
-                <div class="col-start-1 text-teal-600 whitespace-nowrap text-4xl font-extrabold my-2">{{
-                    $userdata->total_ucapan }}</div>
+                <div class="col-start-1 whitespace-nowrap text-slate-500">Transaksi</div>
+                <div class="col-start-1 text-teal-600 whitespace-nowrap text-4xl font-extrabold my-2">0</div>
                 <div class="col-start-1 text-slate-400 whitespace-nowrap text-xs hidden"></div>
             </a>
 
-            <a href="{{ route('profil') }}"
+            <a href="{{ route('admin.pengaturan.index') }}"
                 class="inline-grid border-gray-200 w-full p-4 sm:col-span-2 md:col-span-1 order-first md:order-last bg-white hover:bg-slate-50 md:bg-transparent border-b md:border-0 md:border-e gap-x-4 hover:scale-105 transition ease-in-out duration-200">
                 <div class="col-start-2 row-span-3 row-start-1 place-self-center justify-self-end text-pink-500">
                     <div class="relative inline-flex ">
@@ -78,7 +78,7 @@
                 </div>
                 <div class="text-gray-700 text-xl font-bold md:max-w-[10ch] md:text-ellipsis md:overflow-hidden">{{
                     Auth::user()->name }}</div>
-                <div class="col-start-1 whitespace-nowrap text-slate-500 my-2">VIP User</div>
+                <div class="col-start-1 whitespace-nowrap text-slate-500 my-2">Admin</div>
                 <div class="col-start-1 text-pink-500 whitespace-nowrap text-xs hidden"></div>
             </a>
 
@@ -95,15 +95,15 @@
                         <label class="block mb-2 text-xs text-gray-700 font-medium">Nama</label>
                         <input type="text"
                             class="border-0 border-b-2 border-gray-700 text-black text-sm focus:ring-blue-500 focus:border-blue-500 block w-full pb-2.5 px-0"
-                            value="{{ $dataAcara->nama_pria ?? '' }}" disabled>
-                        
+                            value="{{ $dataPasangan->nama_pria ?? '' }}" disabled>
+
                         <label class="block mt-5 mb-2 text-xs text-gray-700 font-medium">Biodata</label>
                         <input type="text"
                             class="hidden border border-gray-300 text-black text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                            value="{{ $dataAcara->bio_pria ?? '' }}" disabled>
+                            value="{{ $dataPasangan->bio_pria ?? '' }}" disabled>
                         <textarea id="message" rows="3"
                             class="block p-2.5 px-0 w-full text-sm text-gray-900 border-0 border-b-2 border-gray-700 focus:ring-blue-500 focus:border-blue-500"
-                            disabled>{{ $dataAcara->bio_pria ?? '' }}</textarea>
+                            disabled>{{ $dataPasangan->bio_pria ?? '' }}</textarea>
 
                         <label class="block hidden mt-5 mb-3 text-sm text-gray-900">Instagram</label>
                         <div class="flex hidden">
@@ -134,16 +134,16 @@
 
                         <label class="block mb-2 text-xs text-gray-700 font-medium">Nama</label>
                         <input type="text"
-                        class="border-0 border-b-2 border-gray-700 text-black text-sm focus:ring-blue-500 focus:border-blue-500 block w-full pb-2.5 px-0"
-                        value="{{ $dataAcara->nama_wanita ?? '' }}" disabled>
+                            class="border-0 border-b-2 border-gray-700 text-black text-sm focus:ring-blue-500 focus:border-blue-500 block w-full pb-2.5 px-0"
+                            value="{{ $dataPasangan->nama_wanita ?? '' }}" disabled>
 
                         <label class="block mt-5 mb-2 text-xs text-gray-700 font-medium">Biodata</label>
                         <input type="text"
                             class="hidden border border-gray-300 text-black text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                            value="{{ $dataAcara->bio_wanita ?? '' }}" disabled>
+                            value="{{ $dataPasangan->bio_wanita ?? '' }}" disabled>
                         <textarea id="message" rows="3"
-                        class="block p-2.5 px-0 w-full text-sm text-gray-900 border-0 border-b-2 border-gray-700 focus:ring-blue-500 focus:border-blue-500"
-                        disabled>{{ $dataAcara->bio_wanita ?? '' }}</textarea>
+                            class="block p-2.5 px-0 w-full text-sm text-gray-900 border-0 border-b-2 border-gray-700 focus:ring-blue-500 focus:border-blue-500"
+                            disabled>{{ $dataPasangan->bio_wanita ?? '' }}</textarea>
 
                         <label class="block hidden mt-5 mb-3 text-sm text-gray-900">Instagram</label>
                         <div class="flex hidden">
@@ -173,33 +173,118 @@
     </div>
 
     <div class="flex flex-col w-full lg:max-w-[300px] gap-y-5">
+
         <div
-            class="w-full p-6 bg-white border border-gray-200 rounded-2xl shadow dark:bg-gray-800 dark:border-gray-700">
-            <svg class="hidden w-7 h-7 text-gray-500 dark:text-gray-400 mb-3" aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                <path
-                    d="M18 5h-.7c.229-.467.349-.98.351-1.5a3.5 3.5 0 0 0-3.5-3.5c-1.717 0-3.215 1.2-4.331 2.481C8.4.842 6.949 0 5.5 0A3.5 3.5 0 0 0 2 3.5c.003.52.123 1.033.351 1.5H2a2 2 0 0 0-2 2v3a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1V7a2 2 0 0 0-2-2ZM8.058 5H5.5a1.5 1.5 0 0 1 0-3c.9 0 2 .754 3.092 2.122-.219.337-.392.635-.534.878Zm6.1 0h-3.742c.933-1.368 2.371-3 3.739-3a1.5 1.5 0 0 1 0 3h.003ZM11 13H9v7h2v-7Zm-4 0H2v5a2 2 0 0 0 2 2h3v-7Zm6 0v7h3a2 2 0 0 0 2-2v-5h-5Z" />
-            </svg>
-            <a href="#">
-                <h5 class="mb-2 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">Eh kamu.. Kapan
-                    nikah? Nunggu jodoh turun dari langit? 🤣</h5>
-            </a>
-            <p class="mb-3 font-normal text-gray-500 dark:text-gray-400">Mending segera deh! Kami siap mendesain
-                undangan pernikahan digital untuk Anda ;)</p>
-            <a href="/demo" target="_blank" class="inline-flex items-center text-blue-600 hover:underline">
-                Lihat demo
-                <svg class="w-3 h-3 ms-2.5 rtl:rotate-[270deg]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                    fill="none" viewBox="0 0 18 18">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M15 11v4.833A1.166 1.166 0 0 1 13.833 17H2.167A1.167 1.167 0 0 1 1 15.833V4.167A1.166 1.166 0 0 1 2.167 3h4.618m4.447-2H17v5.768M9.111 8.889l7.778-7.778" />
-                </svg>
-            </a>
+            class="w-full max-w-md p-6 bg-white border border-gray-200 rounded-2xl shadow dark:bg-gray-800 dark:border-gray-700">
+            <div class="flex items-center justify-between mb-4">
+                <h5 class="text-lg font-bold leading-none text-gray-900 dark:text-white">Pengguna Terakhir</h5>
+                <a href="{{ route('pengguna.index') }}"
+                    class="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500">
+                    Tampilkan
+                </a>
+            </div>
+            <div class="flow-root">
+                <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
+                    @foreach($latestUser as $d)
+                    <li class="py-3 sm:py-4">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0">
+                                <img class="w-8 h-8 rounded-full" src="{{ asset('images/' . $d->image) }}"
+                                    alt="{{ $d->name }}">
+                            </div>
+                            <div class="flex-1 min-w-0 ms-4">
+                                <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                                    {{ $d->name }}
+                                </p>
+                                <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                                    {{ $d->email }}
+                                </p>
+                            </div>
+                            <div
+                                class="hidden inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                                $320
+                            </div>
+                        </div>
+                    </li>
+                    @endforeach
+                </ul>
+            </div>
         </div>
+
         <div
             class="w-full h-fit p-6 bg-white border border-gray-200 rounded-2xl shadow dark:bg-gray-800 dark:border-gray-700">
-            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Pengen punya cuan sendiri?
-                😲</h5>
-            <p class="font-normal text-gray-700 dark:text-gray-400">Mohon maaf kami bukan mesin ATM 🏃</p>
+
+            <div class="flex items-center justify-between mb-4">
+                <h5 class="text-lg font-bold leading-none text-gray-900 dark:text-white">Rating Situs</h5>
+            </div>
+            <div class="flex items-center mb-2">
+
+                <svg class="w-4 h-4 text-yellow-300 me-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor" viewBox="0 0 22 20">
+                    <path
+                        d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                </svg>
+                <svg class="w-4 h-4 text-yellow-300 me-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor" viewBox="0 0 22 20">
+                    <path
+                        d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                </svg>
+                <svg class="w-4 h-4 text-yellow-300 me-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor" viewBox="0 0 22 20">
+                    <path
+                        d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                </svg>
+                <svg class="w-4 h-4 text-yellow-300 me-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor" viewBox="0 0 22 20">
+                    <path
+                        d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                </svg>
+                <svg class="w-4 h-4 text-gray-300 me-1 dark:text-gray-500" aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                    <path
+                        d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                </svg>
+                <p class="ms-1 text-sm font-medium text-gray-500 dark:text-gray-400">4.95</p>
+                <p class="ms-1 text-sm font-medium text-gray-500 dark:text-gray-400">out of</p>
+                <p class="ms-1 text-sm font-medium text-gray-500 dark:text-gray-400">5</p>
+            </div>
+            <p class="text-sm font-medium text-gray-500 dark:text-gray-400">1,745 global ratings</p>
+            <div class="flex items-center mt-4">
+                <a href="#" class="text-sm font-medium text-blue-600 dark:text-blue-500 hover:underline">5 star</a>
+                <div class="w-2/4 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
+                    <div class="h-5 bg-yellow-300 rounded" style="width: 70%"></div>
+                </div>
+                <span class="text-sm font-medium text-gray-500 dark:text-gray-400">70%</span>
+            </div>
+            <div class="flex items-center mt-4">
+                <a href="#" class="text-sm font-medium text-blue-600 dark:text-blue-500 hover:underline">4 star</a>
+                <div class="w-2/4 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
+                    <div class="h-5 bg-yellow-300 rounded" style="width: 17%"></div>
+                </div>
+                <span class="text-sm font-medium text-gray-500 dark:text-gray-400">17%</span>
+            </div>
+            <div class="flex items-center mt-4">
+                <a href="#" class="text-sm font-medium text-blue-600 dark:text-blue-500 hover:underline">3 star</a>
+                <div class="w-2/4 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
+                    <div class="h-5 bg-yellow-300 rounded" style="width: 8%"></div>
+                </div>
+                <span class="text-sm font-medium text-gray-500 dark:text-gray-400">8%</span>
+            </div>
+            <div class="flex items-center mt-4">
+                <a href="#" class="text-sm font-medium text-blue-600 dark:text-blue-500 hover:underline">2 star</a>
+                <div class="w-2/4 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
+                    <div class="h-5 bg-yellow-300 rounded" style="width: 4%"></div>
+                </div>
+                <span class="text-sm font-medium text-gray-500 dark:text-gray-400">4%</span>
+            </div>
+            <div class="flex items-center mt-4">
+                <a href="#" class="text-sm font-medium text-blue-600 dark:text-blue-500 hover:underline">1 star</a>
+                <div class="w-2/4 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
+                    <div class="h-5 bg-yellow-300 rounded" style="width: 1%"></div>
+                </div>
+                <span class="text-sm font-medium text-gray-500 dark:text-gray-400">1%</span>
+            </div>
+
         </div>
     </div>
 

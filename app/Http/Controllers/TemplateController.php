@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Template;
+use App\Models\UserdataPasangan;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -59,7 +60,7 @@ class TemplateController extends Controller
         // Update nama file gambar dalam data template
         $template->update(['image' => $imageName]);
 
-        return redirect()->route('template.index')->with('success', 'Template created successfully.');
+        return redirect()->route('template.index')->with('success', 'Berhasil menambahkan template.');
     }
 
     /**
@@ -86,37 +87,39 @@ class TemplateController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'price' => 'required|numeric',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'desc' => 'required|string|max:255',
         ]);
 
         // Dapatkan ID template
         $templateId = $template->id;
 
-        // Hapus file gambar sebelumnya jika ada
+        // Simpan nama file gambar sebelumnya
         $previousImage = $template->image;
-        if ($previousImage) {
-            $imagePath = public_path('images/template/' . $previousImage);
-            if (File::exists($imagePath)) {
-                File::delete($imagePath);
-            }
-        }
 
-        // Update data template
+        // Update data template tanpa memperbarui gambar jika tidak ada perubahan
         $template->update([
             'name' => $request->input('name'),
             'price' => $request->input('price'),
             'desc' => $request->input('desc'),
         ]);
 
-        // Ubah nama file gambar sesuai dengan ID template
-        $imageName = $templateId . '.' . $request->file('image')->getClientOriginalExtension();
-        $request->file('image')->move(public_path('images/template'), $imageName);
+        // Periksa apakah ada file gambar baru diupload
+        if ($request->hasFile('image')) {
+            // Hapus file gambar sebelumnya jika ada
+            if ($previousImage) {
+                $imagePath = public_path('images/template/' . $previousImage);
+                if (File::exists($imagePath)) {
+                    File::delete($imagePath);
+                }
+            }
 
-        // Update nama file gambar dalam data template
-        $template->update(['image' => $imageName]);
+            // Pindahkan file gambar baru dan update nama file
+            $imageName = $templateId . '.' . $request->file('image')->getClientOriginalExtension();
+            $request->file('image')->move(public_path('images/template'), $imageName);
+            $template->update(['image' => $imageName]);
+        }
 
-        return redirect()->route('template.index')->with('success', 'Template updated successfully');
+        return redirect()->route('template.index')->with('success', 'Berhasil memperbarui template.');
     }
 
     /**
@@ -135,6 +138,13 @@ class TemplateController extends Controller
 
         $template->delete();
 
-        return redirect()->route('template.index')->with('success', 'Template deleted successfully');
+        return redirect()->route('template.index')->with('success', 'Berhasil menghapus template.');
+    }
+
+    public function play()
+    {
+        $data = UserdataPasangan::latest();
+
+        return view('template.template2', compact('data'));
     }
 }
