@@ -11,6 +11,7 @@ use App\Http\Controllers\WebUndanganController;
 use App\Http\Controllers\CrudTamuController;
 use App\Http\Controllers\CrudUserController;
 use App\Http\Controllers\SetupUserUtama;
+use App\Http\Controllers\PembayaranController;
 
 Route::get('/', function () {
     if (auth()->check()) {
@@ -54,7 +55,16 @@ Route::group(['middleware' => 'user'], function () {
     Route::get('/tamu/edit/{id}', [CrudTamuController::class, 'edit'])->name('tamu.edit');
     Route::put('/tamu/update/{id}', [CrudTamuController::class, 'update'])->name('tamu.update');
     Route::get('/tamu/hapus/{id}', [CrudTamuController::class, 'delete'])->name('tamu.delete');
+
+    Route::get('/pembayaran', [PembayaranController::class, 'index'])->name('pembayaran.index');
+    Route::get('/pembayaran/tambah', [PembayaranController::class, 'create'])->name('pembayaran.tambah');
+    Route::post('/pembayaran/store', [PembayaranController::class, 'store'])->name('pembayaran.store');
+    Route::get('/pembayaran/edit/{id}', [PembayaranController::class, 'edit'])->name('pembayaran.edit');
+    Route::put('/pembayaran/update/{id}', [PembayaranController::class, 'update'])->name('pembayaran.update');
+    Route::get('/pembayaran/hapus/{id}', [PembayaranController::class, 'delete'])->name('pembayaran.delete');
 });
+
+
 
 // hanya bisa diakses admin
 Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
