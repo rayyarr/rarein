@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Template;
-use App\Models\UserdataPasangan;
+use App\Models\UserdataAcara;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -143,7 +143,7 @@ class TemplateController extends Controller
 
     public function play()
     {
-        $data = UserdataPasangan::latest();
+        $data = UserdataAcara::latest();
 
         return view('template.template2', compact('data'));
     }
