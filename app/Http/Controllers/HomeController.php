@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use App\Models\UserdataUndangan;
 use App\Models\UserdataAcara;
 use App\Models\Template;
+use App\Models\ChartTamu;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -41,7 +42,9 @@ class HomeController extends Controller
                     ->select('userdata_acara.id', 'users.name as nama_pasangan')
                     ->first();
 
-        return view('home', compact('userdata', 'dataAcara', 'comments'));
+        $countByKehadiran = ChartTamu::countByKehadiran();
+
+        return view('home', compact('userdata', 'dataAcara', 'comments', 'countByKehadiran'));
     }
 
     private function hasEmptyColumns($model)

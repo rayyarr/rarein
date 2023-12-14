@@ -11,6 +11,7 @@ use App\Http\Controllers\WebUndanganController;
 use App\Http\Controllers\CrudTamuController;
 use App\Http\Controllers\CrudUserController;
 use App\Http\Controllers\SetupUserUtama;
+use App\Http\Controllers\ChartTamuController;
 
 Route::get('/', function () {
     if (auth()->check()) {
@@ -46,6 +47,8 @@ Route::group(['middleware' => 'user'], function () {
     
     Route::get('/tambah', [HomeController::class, 'tambah'])->name('tambah');
     Route::get('/tambah/create', [WebUndanganController::class, 'create']);
+
+    Route::get('/chart', [ChartTamuController::class, 'donutChart'])->name('user.chart_tamu');
 
     Route::get('/tamu', [CrudTamuController::class, 'index'])->name('tamu.index');
     Route::get('/tamu/tambah', [CrudTamuController::class, 'tambah'])->name('tamu.tambah');

@@ -5,9 +5,10 @@
 <span class="title-animation">Beranda</span>
 @endsection
 @section('content')
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <div class="flex flex-col lg:flex-row justify-center w-full gap-5">
 
-    <div class="flex flex-col justify-center max-w-[768px]">
+    <div class="flex flex-col max-w-[768px]">
         <div
             class="inline-grid sm:grid-cols-2 md:grid-cols-4 overflow-hidden w-full rounded-3xl bg-transparent md:bg-white shadow">
 
@@ -197,9 +198,27 @@
         </div>
         <div
             class="w-full h-fit p-6 bg-white border border-gray-200 rounded-2xl shadow dark:bg-gray-800 dark:border-gray-700">
-            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Pengen punya cuan sendiri?
-                😲</h5>
-            <p class="font-normal text-gray-700 dark:text-gray-400">Mohon maaf kami bukan mesin ATM 🏃</p>
+            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white text-center">Statistik Tamu</h5>
+            <canvas id="donutChart" width="100" height="100"></canvas>
+            <script>
+                var ctx = document.getElementById('donutChart').getContext('2d');
+                var data = @json(array_values($countByKehadiran));
+                var labels = @json(array_keys($countByKehadiran));
+        
+                var donutChart = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            data: data,
+                            backgroundColor: [
+                                'rgba(75, 192, 192, 0.7)', // Hadir
+                                'rgba(255, 99, 132, 0.7)', // Tidak Hadir
+                            ],
+                        }],
+                    },
+                });
+            </script>
         </div>
     </div>
 
