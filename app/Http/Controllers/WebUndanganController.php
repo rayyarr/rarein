@@ -21,11 +21,20 @@ class WebUndanganController extends Controller
         return view('template.template2', compact('data'));
     }
 
-    public function create()
-    {
-        $userId = Auth::id();
+    public function play($id,$userId){
         $data = UserDataAcara::where('users_id', $userId)->first();
     
-        return view('template.buat_template2', compact('data'));
+        if ($data) {
+            return view('template.' . $id, compact('data'));
+        } else {
+            return redirect()->back()->with('error', 'Data not found');
+        }
+    }
+
+    public function create($id, $userId)
+    {
+        $data = UserDataAcara::where('users_id', $userId)->first();
+    
+        return view('template.buat_' . $id, compact('data','id'));
     }
 }

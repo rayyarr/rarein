@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\UserDataAcara;
+use App\Models\UserdataTemplate;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -20,10 +21,12 @@ class SetupUserUtama extends Controller
         if (empty($dataAcara->nama_acara) || empty($dataAcara->tanggal_akad)) {
             // Jika salah satu kolom kosong, arahkan ke tampilan 'user.setup_mulai'
             return view('user.setup_mulai', compact('userAcara', 'dataAcara'));
-        } else {
+        } else if (empty($dataAcara->nama_pria) || empty($dataAcara->nama_wanita) || empty($dataAcara->bio_pria) || empty($dataAcara->bio_wanita)) {
             // Jika kedua kolom sudah terisi, tetapi kolom lain masih kosong
             // arahkan ke tampilan 'user.setup_pasangan'
             return view('user.setup_pasangan', compact('userAcara', 'dataAcara'));
+        } else {
+            return view('user.setup_acara', compact('userAcara', 'dataAcara'));
         }
     }
 
@@ -59,7 +62,7 @@ class SetupUserUtama extends Controller
                     'users_id' => $userId,
                 ]);
             }
-        } else {
+        } else if (empty($dataAcara->nama_pria) || empty($dataAcara->nama_wanita) || empty($dataAcara->bio_pria) || empty($dataAcara->bio_wanita)) {
             $request->validate([
                 'nama_pria' => 'required|string|max:255',
                 'nama_wanita' => 'required|string|max:255',
@@ -78,8 +81,6 @@ class SetupUserUtama extends Controller
                     'nama_wanita' => $request->input('nama_wanita'),
                     'bio_pria' => $request->input('bio_pria'),
                     'bio_wanita' => $request->input('bio_wanita'),
-                    'tempat_akad' => "Indonesia",
-                    'tempat_resepsi' => "Indonesia",
                 ]);
             } else {
                 // Jika data belum ada, lakukan create
@@ -88,9 +89,30 @@ class SetupUserUtama extends Controller
                     'nama_wanita' => $request->input('nama_wanita'),
                     'bio_pria' => $request->input('bio_pria'),
                     'bio_wanita' => $request->input('bio_wanita'),
-                    'tempat_akad' => "Indonesia",
-                    'tempat_resepsi' => "Indonesia",
                     'users_id' => $userId,
+                ]);
+            }
+        } else {
+            $request->validate([
+                'tempat_akad' => 'required|string|max:255',
+                'tempat_resepsi' => 'required|string|max:255',
+            ]);
+
+            $userId = Auth::id();
+
+            $pasangan = UserdataAcara::where('users_id', $userId)->first();
+
+            if ($pasangan) {
+                // Jika data sudah ada, lakukan update
+                $pasangan->update([
+                    'tempat_akad' => $request->input('tempat_akad'),
+                    'tempat_resepsi' => $request->input('tempat_resepsi'),
+                ]);
+            } else {
+                // Jika data belum ada, lakukan create
+                UserdataAcara::create([
+                    'tempat_akad' => $request->input('tempat_akad'),
+                    'tempat_resepsi' => $request->input('tempat_resepsi'),
                 ]);
             }
         }
@@ -133,7 +155,7 @@ class SetupUserUtama extends Controller
         return redirect()->route('beranda')->with('success', 'Template created successfully.');
     }
 
-    public function publish(Request $request): RedirectResponse
+    public function publish($id, Request $request): RedirectResponse
     {
         $userId = Auth::id();
 
@@ -175,6 +197,12 @@ class SetupUserUtama extends Controller
             'tanggal_resepsi' => $request->input('tanggal_resepsi'),
             'tempat_akad' => $request->input('tempat_akad'),
             'tempat_resepsi' => $request->input('tempat_resepsi'),
+        ]);
+
+        $userdata_template = UserdataTemplate::where('users_id', $userId)->where('templates_id', $id)->first();
+
+        $userdata_template->update([
+            'status' => 1,
         ]);
 
         return redirect()->route('beranda')->with('success', 'Template created successfully.');

@@ -11,13 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('userdata_tamu', function (Blueprint $table) {
+        Schema::create('userdata_template', function (Blueprint $table) {
             $table->bigIncrements('id')->unique()->unsigned();
+            $table->unsignedBigInteger('templates_id');
             $table->unsignedBigInteger('users_id');
-            $table->string('name')->nullable();
-            $table->string('address')->nullable();
+            $table->string('foto_pria')->default('default_pria.webp');
+            $table->string('foto_wanita')->default('default_wanita.webp');
+            $table->enum('status', ['aktif', 'nonaktif'])->default('nonaktif');
             $table->timestamps();
 
+            $table->foreign('templates_id')->references('id')->on('template')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('users_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
         });
     }
@@ -27,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tamu_undangan');
+        Schema::dropIfExists('userdata_template');
     }
 };

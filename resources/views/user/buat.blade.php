@@ -39,7 +39,7 @@
                                         <!--<button class="h-10 px-6 font-semibold rounded-full bg-violet-600 text-white" type="submit">
                                             Gunakan
                                         </button>-->
-                                        <a href="/tambah/create" class="flex items-center h-10 px-6 font-semibold rounded-full bg-violet-600 text-white">
+                                        <a href="/tambah/edit/{{ $t->id }}/{{ Auth::id() }}" class="flex items-center h-10 px-6 font-semibold rounded-full bg-violet-600 text-white">
                                             Gunakan
                                         </a>
                                         <a href="/demo" target="_blank" class="flex items-center h-10 px-6 font-semibold rounded-full border border-slate-200 text-slate-900">
