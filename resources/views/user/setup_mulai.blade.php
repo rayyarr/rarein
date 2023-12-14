@@ -28,7 +28,7 @@
                 class="flex items-center justify-center w-6 h-6 me-2 text-xs border border-gray-500 rounded-full shrink-0 dark:border-gray-400">
                 3
             </span>
-            Review
+            Lokasi Acara
         </li>
     </ol>
 

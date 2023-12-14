@@ -74,8 +74,9 @@ class HomeController extends Controller
 
     public function tambah()
     {
-        $template = Template::latest()->paginate(5);
+        $userId = Auth::id();
+        $template = Template::orderBy('id', 'asc')->paginate(5);
         
-        return view('buat',compact('template'))->with('i', (request()->input('page', 1) - 1) * 5);
+        return view('user.buat',compact('template', 'userId'))->with('i', (request()->input('page', 1) - 1) * 5);
     }
 }

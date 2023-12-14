@@ -33,20 +33,21 @@ Route::get('/mulai', function () {
 });
 
 Route::get('/demo', [WebUndanganController::class, 'index']);
+Route::get('/play/{id}{userId}', [WebUndanganController::class, 'play']);
 
 // hanya bisa diakses user
 Auth::routes();
 Route::group(['middleware' => 'user'], function () {
     Route::get('/beranda', [HomeController::class, 'index'])->name('beranda');
     Route::resource('/setup', SetupUserUtama::class)->except(['publish']);
-    Route::post('/setup/publish', [SetupUserUtama::class, 'publish'])->name('setup.publish');
+    Route::post('/setup/publish/{id}', [SetupUserUtama::class, 'publish'])->name('setup.publish');
     Route::get('/profil', [ProfileController::class, 'index'])->name('profil');
     Route::post('/profil', [ProfileController::class, 'store'])->name('upload.profile.image');
     //Route::get('/profil', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profil', [ProfileController::class, 'update'])->name('profile.update');
     
     Route::get('/tambah', [HomeController::class, 'tambah'])->name('tambah');
-    Route::get('/tambah/create', [WebUndanganController::class, 'create']);
+    Route::get('/tambah/edit/{id}/{userId}', [WebUndanganController::class, 'create']);
 
     Route::get('/chart', [ChartTamuController::class, 'donutChart'])->name('user.chart_tamu');
 

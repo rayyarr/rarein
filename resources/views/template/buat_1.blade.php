@@ -9,7 +9,7 @@
 
     <div class="flex flex-col max-w-[600px] lg:w-[600px]">
 
-        <form method="POST" action="{{ route('setup.publish') }}">
+        <form method="POST" action="{{ route('setup.publish', ['id' => $id]) }}">
             @csrf
             <div class="card bg-white rounded-2xl p-5 shadow">
                 <h1 class="font-bold text-2xl flex justify-center mb-10 mt-3 hidden">Data Pasangan</h1>
@@ -20,11 +20,11 @@
                             <div class="alert alert-danger mb-5">
                                 <p class="flex py-5 px-5 text-md text-gray-800">
                                     Waduh! Terjadi kesalahan dengan input kamu.<br>
-                                    <ul class="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400">
+                                <ul class="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400">
                                     @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
+                                    <li>{{ $error }}</li>
                                     @endforeach
-                                    </ul>
+                                </ul>
                                 </p>
                             </div>
                             @endif
@@ -90,38 +90,62 @@
                             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
                             <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
-                            <div class="relative w-full mb-5">
-                                <div class="absolute inset-y-0 start-0 flex items-center pointer-events-none">
-                                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                        <path
-                                            d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
-                                    </svg>
+                            <div class="w-full flex flex-col sm:flex-row gap-5 sm:gap-x-7">
+                                <div class="relative z-0 w-full mb-5 group">
+                                    <div class="absolute inset-y-0 start-0 flex items-center pointer-events-none">
+                                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                            <path
+                                                d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                                        </svg>
+                                    </div>
+                                    <input type="datetime-local" name="tanggal_akad"
+                                        placeholder="Tanggal dan waktu akad" id="akad"
+                                        class="datetimePicker border-0 border-b-2 border-gray-300 text-gray-900 text-sm focus:border-blue-500 focus:outline-none focus:ring-0 block w-full ps-7 py-2.5 px-0 dark:bg-gray-700 dark:border-gray-600 placeholder-gray-500 dark:text-white dark:focus:border-blue-500">
+                                    <label
+                                        class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 z-10 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                                        Tanggal dan waktu akad
+                                    </label>
                                 </div>
-                                <input type="datetime-local" name="tanggal_akad" placeholder="Tanggal dan waktu akad"
-                                    id="akad"
-                                    class="datetimePicker border-0 border-b-2 border-gray-300 text-gray-900 text-sm focus:border-blue-500 focus:outline-none focus:ring-0 block w-full ps-7 py-2.5 px-0 dark:bg-gray-700 dark:border-gray-600 placeholder-gray-500 dark:text-white dark:focus:border-blue-500">
-                                <label
-                                    class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 z-10 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                                    Tanggal dan waktu akad
-                                </label>
+                                <div class="relative z-0 w-full mb-5 group">
+                                    <input type="text" name="tempat_akad"
+                                        value="{{ $data->tempat_akad ?? 'Hotel Bunga Indah Indramayu' }}"
+                                        class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                        placeholder=" " required />
+                                    <label
+                                        class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                                        Lokasi Akad
+                                    </label>
+                                </div>
                             </div>
 
-                            <div class="relative w-full mb-5">
-                                <div class="absolute inset-y-0 start-0 flex items-center pointer-events-none">
-                                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                        <path
-                                            d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
-                                    </svg>
+                            <div class="w-full flex flex-col sm:flex-row gap-5 sm:gap-x-7">
+                                <div class="relative z-0 w-full mb-5 group">
+                                    <div class="absolute inset-y-0 start-0 flex items-center pointer-events-none">
+                                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                            <path
+                                                d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                                        </svg>
+                                    </div>
+                                    <input type="datetime-local" name="tanggal_resepsi"
+                                        placeholder="Tanggal dan waktu resepsi" id="resepsi"
+                                        class="datetimePicker border-0 border-b-2 border-gray-300 text-gray-900 text-sm focus:border-blue-500 focus:outline-none focus:ring-0 block w-full ps-7 py-2.5 px-0 dark:bg-gray-700 dark:border-gray-600 placeholder-gray-500 dark:text-white dark:focus:border-blue-500">
+                                    <label
+                                        class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 z-10 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                                        Tanggal dan waktu resepsi
+                                    </label>
                                 </div>
-                                <input type="datetime-local" name="tanggal_resepsi"
-                                    placeholder="Tanggal dan waktu resepsi" id="resepsi"
-                                    class="datetimePicker border-0 border-b-2 border-gray-300 text-gray-900 text-sm focus:border-blue-500 focus:outline-none focus:ring-0 block w-full ps-7 py-2.5 px-0 dark:bg-gray-700 dark:border-gray-600 placeholder-gray-500 dark:text-white dark:focus:border-blue-500">
-                                <label
-                                    class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 z-10 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                                    Tanggal dan waktu resepsi
-                                </label>
+                                <div class="relative z-0 w-full mb-5 group">
+                                    <input type="text" name="tempat_resepsi"
+                                        value="{{ $data->tempat_resepsi ?? 'Hotel Bunga Indah Indramayu' }}"
+                                        class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                        placeholder=" " required />
+                                    <label
+                                        class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                                        Lokasi Resepsi
+                                    </label>
+                                </div>
                             </div>
 
                             <script>
