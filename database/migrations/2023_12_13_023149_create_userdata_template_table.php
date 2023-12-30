@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('foto_pria')->default('default_pria.webp');
             $table->string('foto_wanita')->default('default_wanita.webp');
             $table->enum('status', ['aktif', 'nonaktif'])->default('nonaktif');
+            $table->string('link')->nullable();
             $table->timestamps();
 
             $table->foreign('templates_id')->references('id')->on('template')->onDelete('cascade')->onUpdate('cascade');

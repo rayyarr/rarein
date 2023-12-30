@@ -96,11 +96,11 @@
                     <input type="text" name="nama_acara" placeholder=""
                         value="{{ $dataAcara->nama_acara ?? '' }}" required>
                 </div>
-                <div class="input-box">
+                {{--<div class="input-box">
                     <span class="details">Tanggal & Waktu Acara</span>
                     <input type="datetime-local" name="tanggal_akad" placeholder="Tanggal Acara"
                     value="{{ $dataAcara->tanggal_akad ? \Carbon\Carbon::parse($dataAcara->tanggal_akad)->format('Y-m-d\TH:i') : '' }}" required>
-                </div>
+                </div>--}}
             </div>
             <div class="button">
                 <input type="submit" value="Lanjut">

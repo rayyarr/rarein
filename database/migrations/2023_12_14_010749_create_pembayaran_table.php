@@ -11,18 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pembayaran', function (Blueprint $table) {
+        Schema::create('userdata_pembayaran', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('users_id');
-            $table->string('nama_pemesan');
-            $table->string('template');
+            $table->unsignedBigInteger('template_id');
             $table->dateTime('tanggal_pemesanan');
             $table->unsignedBigInteger('jumlah_tagihan');
-            $table->string('metode_pembayaran');
-            $table->string('gambar');
+            $table->string('metode_pembayaran')->nullable();
+            $table->enum('status', ['Belum Bayar', 'Selesai'])->default('Belum Bayar');
+            $table->string('gambar')->nullable();
             $table->timestamps();
 
             $table->foreign('users_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('template_id')->references('id')->on('template')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
@@ -31,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pembayaran');
+        Schema::dropIfExists('userdata_pembayaran');
     }
 };

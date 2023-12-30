@@ -260,30 +260,50 @@
   <div class="parallax-window" data-parallax="scroll" data-image-src="images/kamera.jpg">
     <div class="header-tittle"><span class="invitation-text">Undangan Digital</span></div>
     <div class="header-bottom">
+      <div class="about-container">
+        <div class="image-gallery">
+          <div class="image-box">
+            <img src="{{ asset('images/landingpage/demo-1.webp') }}" alt="blank" style="border-radius: 12px">
+            <h2 class="gunung"></h2>
+          </div>
+          <div class="image-box">
+            <img src="{{ asset('images/landingpage/demo-2.webp') }}" alt="blank" style="border-radius: 12px">
+            <h2 class="gunung"></h2>
+          </div>
+          <div class="image-box">
+            <img src="{{ asset('images/landingpage/demo-1.webp') }}" alt="blank" style="border-radius: 12px">
+            <h2 class="gunung"></h2>
+          </div>
+          <div class="image-box">
+            <img src="{{ asset('images/landingpage/demo-2.webp') }}" alt="blank" style="border-radius: 12px">
+            <h2 class="gunung"></h2>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-  <section id="about">
+  {{--<section id="about">
     <div class="about-container">
       <div class="image-gallery">
         <div class="image-box">
-          <img src="https://indonesiatraveler.id/wp-content/uploads/2020/06/Gunung-Prau1.jpg" alt="blank">
+          <img src="{{ asset('images/landingpage/demo-1.webp') }}" alt="blank">
           <h2 class="gunung"></h2>
         </div>
         <div class="image-box">
-          <img src="https://indonesiatraveler.id/wp-content/uploads/2020/06/Gunung-Prau1.jpg" alt="blank">
+          <img src="{{ asset('images/landingpage/demo-2.webp') }}" alt="blank">
           <h2 class="gunung"></h2>
         </div>
         <div class="image-box">
-          <img src="https://indonesiatraveler.id/wp-content/uploads/2020/06/Gunung-Prau1.jpg" alt="blank">
+          <img src="{{ asset('images/landingpage/demo-3.webp') }}" alt="blank">
           <h2 class="gunung"></h2>
         </div>
         <div class="image-box">
-          <img src="https://indonesiatraveler.id/wp-content/uploads/2020/06/Gunung-Prau1.jpg" alt="blank">
+          <img src="{{ asset('images/landingpage/demo-4.webp') }}" alt="blank">
           <h2 class="gunung"></h2>
         </div>
       </div>
     </div>
-  </section>
+  </section>--}}
 
   <!-- Scripts -->
   <script src="js/scripts.js"></script>

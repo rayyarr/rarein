@@ -27,7 +27,7 @@
                 class="flex items-center justify-center w-6 h-6 me-2 text-xs border border-blue-600 rounded-full shrink-0">
                 3
             </span>
-            Lokasi Acara
+            Waktu & Lokasi Acara
         </li>
     </ol>
 </div>
@@ -43,13 +43,23 @@
         @endif
         <div class="content-cus">
             <div class="flex flex-col items-center justify-center">
-                <h2 class="font-bold text-xl text-black mb-5">LOKASI ACARA</h2>
+                <h2 class="font-bold text-xl text-black mb-5">WAKTU & LOKASI ACARA</h2>
             </div>
-            <div class="user-details flex-col !gap-4">
+            <div class="user-details flex-col !gap-2">
+                <div class="input-box">
+                    <span class="details">Tanggal & Waktu Akad</span>
+                    <input type="datetime-local" name="tanggal_akad" placeholder="Tanggal Acara"
+                    value="{{ $dataAcara->tanggal_akad ? \Carbon\Carbon::parse($dataAcara->tanggal_akad)->format('Y-m-d\TH:i') : '' }}" required>
+                </div>
                 <div class="input-box">
                     <span class="details">Tempat Akad</span>
                     <input type="text" name="tempat_akad" placeholder="e.g. Hotel 1"
                         value="{{ $dataAcara->tempat_akad ?? '' }}" required>
+                </div>
+                <div class="input-box">
+                    <span class="details">Tanggal & Waktu Resepsi</span>
+                    <input type="datetime-local" name="tanggal_resepsi" placeholder="Tanggal Acara"
+                    value="{{ $dataAcara->tanggal_resepsi ? \Carbon\Carbon::parse($dataAcara->tanggal_resepsi)->format('Y-m-d\TH:i') : '' }}" required>
                 </div>
                 <div class="input-box">
                     <span class="details">Tempat Resepsi</span>

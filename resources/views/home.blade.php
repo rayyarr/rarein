@@ -12,7 +12,7 @@
         <div
             class="inline-grid sm:grid-cols-2 md:grid-cols-4 overflow-hidden w-full rounded-3xl bg-transparent md:bg-white shadow">
 
-            <a href="#"
+            <a href="{{ route('tambah') }}"
                 class="inline-grid border-gray-200 md:border-e w-full p-4 sm:col-span-1 bg-white hover:bg-slate-50 md:bg-transparent sm:border-e gap-x-4 hover:scale-105 transition ease-in-out duration-200">
                 <div class="col-start-2 row-span-3 row-start-1 place-self-center justify-self-end text-blue-600">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -24,11 +24,11 @@
                 </div>
                 <div class="col-start-1 whitespace-nowrap text-slate-500">Total Undangan</div>
                 <div class="col-start-1 text-blue-600 whitespace-nowrap text-4xl font-extrabold my-2">{{
-                    $userdata->total_undangan }}</div>
-                <div class="col-start-1 text-slate-400 whitespace-nowrap text-xs">2 undangan aktif</div>
+                    $totalUndangan }}</div>
+                <div class="hidden col-start-1 text-slate-400 whitespace-nowrap text-xs">2 undangan aktif</div>
             </a>
 
-            <a href="#"
+            <a href="{{ route('pembayaran.index') }}"
                 class="inline-grid border-gray-200 w-full p-4 sm:col-span-1 bg-white hover:bg-slate-50 md:bg-transparent border-t sm:border-0 md:border-e gap-x-4 hover:scale-105 transition ease-in-out duration-200">
                 <div class="col-start-2 row-span-3 row-start-1 place-self-center justify-self-end text-pink-500">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -37,9 +37,24 @@
                             d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                     </svg>
                 </div>
-                <div class="col-start-1 whitespace-nowrap text-slate-500">Undangan Dilihat</div>
+                <div class="col-start-1 whitespace-nowrap text-slate-500">Total Transaksi</div>
                 <div class="col-start-1 text-pink-500 whitespace-nowrap text-4xl font-extrabold my-2">{{
-                    $userdata->undangan_dilihat }}</div>
+                    $totalTagihan }}</div>
+                <div class="col-start-1 text-slate-400 whitespace-nowrap text-xs hidden"></div>
+            </a>
+
+            <a href="{{ route('tamu.index') }}"
+                class="inline-grid border-gray-200 w-full p-4 sm:col-span-1 bg-white hover:bg-slate-50 md:bg-transparent border-t sm:border-0 md:border-e gap-x-4 hover:scale-105 transition ease-in-out duration-200">
+                <div class="col-start-2 row-span-3 row-start-1 place-self-center justify-self-end text-pink-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                        class="hidden inline-block w-8 h-8 stroke-current">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                    </svg>
+                </div>
+                <div class="col-start-1 whitespace-nowrap text-slate-500">Total Tamu</div>
+                <div class="col-start-1 text-sky-700 whitespace-nowrap text-4xl font-extrabold my-2">{{
+                    $totalTamu }}</div>
                 <div class="col-start-1 text-slate-400 whitespace-nowrap text-xs hidden"></div>
             </a>
 
@@ -64,113 +79,200 @@
                 <div class="col-start-1 text-slate-400 whitespace-nowrap text-xs hidden"></div>
             </a>
 
-            <a href="{{ route('profil') }}"
-                class="inline-grid border-gray-200 w-full p-4 sm:col-span-2 md:col-span-1 order-first md:order-last bg-white hover:bg-slate-50 md:bg-transparent border-b md:border-0 md:border-e gap-x-4 hover:scale-105 transition ease-in-out duration-200">
-                <div class="col-start-2 row-span-3 row-start-1 place-self-center justify-self-end text-pink-500">
-                    <div class="relative inline-flex ">
-                        <div class="w-16 rounded-full">
-                            @if (auth()->user()->image)
-                            <img src="{{ asset('images/' . auth()->user()->image) }}" alt="Profile image">
-                            @else
-                            <img src="{{ asset('images/default.webp') }}" alt="Profile image">
-                            @endif
-                        </div>
-                    </div>
-                </div>
-                <div class="text-gray-700 text-xl font-bold md:max-w-[10ch] md:text-ellipsis md:overflow-hidden">{{
-                    Auth::user()->name }}</div>
-                <div class="col-start-1 whitespace-nowrap text-slate-500 my-2">VIP User</div>
-                <div class="col-start-1 text-pink-500 whitespace-nowrap text-xs hidden"></div>
-            </a>
-
         </div>
 
+        @forelse ($dataTemplate as $tmp)
+        @if ($tmp->link !== null)
+        <div class="card bg-white rounded-2xl p-5 pt-2 shadow mt-5">
+            @foreach ($dataTemplate as $tmp)
+            @if ($tmp->link !== null)
+            <div class="text-sm mt-3" role="alert">
+                {{ $loop->iteration }}. <span class="font-medium">{{ $tmp->nama_acara }}</span> - <a
+                    class="text-blue-700 font-medium hover:text-blue-500" href="{{ url('play/' . $tmp->link) }}" target="_blank">Lihat hasil</a>
+            </div>
+            @endif
+            @endforeach
+        </div>
+        @endif
+        @empty
+        @endforelse
 
         <div class="card bg-white rounded-2xl p-5 shadow mt-5">
-            <h1 class="font-bold text-2xl flex justify-center mb-10 mt-3 hidden">Data Pasangan</h1>
-            <div class="flex flex-col sm:flex-row items-center justify-between gap-5">
-                <div class="flex p-4 rounded-2xl w-full">
-                    <div class="w-full">
-                        <h3 class="font-medium text-lg text-gray-900 mb-8">Calon Pengantin Pria</h3>
+            <div class="font-bold text-slate-800 text-3xl text-center justify-center flex flex-col px-0"
+                data-waktu="{{ isset($dataAcara->tanggal_akad) ? $dataAcara->tanggal_akad : '2023-12-12 12:00:00' }}"
+                id="tampilan-waktu">
 
-                        <label class="block mb-2 text-xs text-gray-700 font-medium">Nama</label>
-                        <input type="text"
-                            class="border-0 border-b-2 border-gray-700 text-black text-sm focus:ring-blue-500 focus:border-blue-500 block w-full pb-2.5 px-0"
-                            value="{{ $dataAcara->nama_pria ?? '' }}" disabled>
-                        
-                        <label class="block mt-5 mb-2 text-xs text-gray-700 font-medium">Biodata</label>
-                        <input type="text"
-                            class="hidden border border-gray-300 text-black text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                            value="{{ $dataAcara->bio_pria ?? '' }}" disabled>
-                        <textarea id="message" rows="3"
-                            class="block p-2.5 px-0 w-full text-sm text-gray-900 border-0 border-b-2 border-gray-700 focus:ring-blue-500 focus:border-blue-500"
-                            disabled>{{ $dataAcara->bio_pria ?? '' }}</textarea>
-
-                        <label class="block hidden mt-5 mb-3 text-sm text-gray-900">Instagram</label>
-                        <div class="flex hidden">
-                            <span
-                                class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-e-0 rounded-e-0 border-gray-300 rounded-s-md">
-                                <svg class="w-5 h-5 text-gray-500" xmlns='http://www.w3.org/2000/svg'
-                                    viewBox='0 0 32 32'>
-                                    <g>
-                                        <path
-                                            d='M22,3H10a7,7,0,0,0-7,7V22a7,7,0,0,0,7,7H22a7,7,0,0,0,7-7V10A7,7,0,0,0,22,3Zm5,19a5,5,0,0,1-5,5H10a5,5,0,0,1-5-5V10a5,5,0,0,1,5-5H22a5,5,0,0,1,5,5Z'>
-                                        </path>
-                                        <path
-                                            d='M16,9.5A6.5,6.5,0,1,0,22.5,16,6.51,6.51,0,0,0,16,9.5Zm0,11A4.5,4.5,0,1,1,20.5,16,4.51,4.51,0,0,1,16,20.5Z'>
-                                        </path>
-                                        <circle cx='23' cy='9' r='1'></circle>
-                                    </g>
-                                </svg>
-                            </span>
-                            <input type="text"
-                                class="border border-gray-300 text-black text-sm rounded-none rounded-e-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                                value="Rayya" disabled>
-                        </div>
+                <div class="grid grid-cols-4 gap-4">
+                    <div class="col">
+                        <h2 id="hari">0</h2>
+                        <p class="text-sm font-medium">Hari</p>
                     </div>
-                </div>
-                <div class="flex p-4 rounded-2xl w-full">
-                    <div class="w-full">
-                        <h3 class="font-medium text-lg text-gray-900 mb-8">Calon Pengantin Wanita</h3>
-
-                        <label class="block mb-2 text-xs text-gray-700 font-medium">Nama</label>
-                        <input type="text"
-                        class="border-0 border-b-2 border-gray-700 text-black text-sm focus:ring-blue-500 focus:border-blue-500 block w-full pb-2.5 px-0"
-                        value="{{ $dataAcara->nama_wanita ?? '' }}" disabled>
-
-                        <label class="block mt-5 mb-2 text-xs text-gray-700 font-medium">Biodata</label>
-                        <input type="text"
-                            class="hidden border border-gray-300 text-black text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                            value="{{ $dataAcara->bio_wanita ?? '' }}" disabled>
-                        <textarea id="message" rows="3"
-                        class="block p-2.5 px-0 w-full text-sm text-gray-900 border-0 border-b-2 border-gray-700 focus:ring-blue-500 focus:border-blue-500"
-                        disabled>{{ $dataAcara->bio_wanita ?? '' }}</textarea>
-
-                        <label class="block hidden mt-5 mb-3 text-sm text-gray-900">Instagram</label>
-                        <div class="flex hidden">
-                            <span
-                                class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-e-0 rounded-e-0 border-gray-300 rounded-s-md">
-                                <svg class="w-5 h-5 text-gray-500" xmlns='http://www.w3.org/2000/svg'
-                                    viewBox='0 0 32 32'>
-                                    <g>
-                                        <path
-                                            d='M22,3H10a7,7,0,0,0-7,7V22a7,7,0,0,0,7,7H22a7,7,0,0,0,7-7V10A7,7,0,0,0,22,3Zm5,19a5,5,0,0,1-5,5H10a5,5,0,0,1-5-5V10a5,5,0,0,1,5-5H22a5,5,0,0,1,5,5Z'>
-                                        </path>
-                                        <path
-                                            d='M16,9.5A6.5,6.5,0,1,0,22.5,16,6.51,6.51,0,0,0,16,9.5Zm0,11A4.5,4.5,0,1,1,20.5,16,4.51,4.51,0,0,1,16,20.5Z'>
-                                        </path>
-                                        <circle cx='23' cy='9' r='1'></circle>
-                                    </g>
-                                </svg>
-                            </span>
-                            <input type="text"
-                                class="border border-gray-300 text-black text-sm rounded-none rounded-e-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                                value="Rayya" disabled>
-                        </div>
+                    <div class="col">
+                        <h2 id="jam">0</h2>
+                        <p class="text-sm font-medium">Jam</p>
+                    </div>
+                    <div class="col">
+                        <h2 id="menit">0</h2>
+                        <p class="text-sm font-medium">Menit</p>
+                    </div>
+                    <div class="col">
+                        <h2 id="detik">0</h2>
+                        <p class="text-sm font-medium">Detik</p>
                     </div>
                 </div>
             </div>
+            <script>
+                let countDownDate = (new Date(document.getElementById('tampilan-waktu').getAttribute('data-waktu').replace(' ', 'T'))).getTime();
+
+                setInterval(() => {
+                    let now = new Date().getTime();
+                    let distance = Math.abs(countDownDate - now);
+
+                    if (now > countDownDate) {
+                        document.getElementById('tampilan-waktu').innerHTML = "Acara Telah Selesai";
+                        document.getElementById('tampilan-waktu').style.fontSize = "25px";
+                    } else {
+                        document.getElementById('hari').innerText = Math.floor(distance / (1000 * 60 * 60 * 24));
+                        document.getElementById('jam').innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                        document.getElementById('menit').innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                        document.getElementById('detik').innerText = Math.floor((distance % (1000 * 60)) / 1000);
+                    }
+                }, 1000);
+            </script>
         </div>
+
+        <div class="card bg-white rounded-2xl p-5 mt-5 shadow">
+            <div class="flex flex-col sm:flex-col justify-between gap-0">
+                <div class="flex p-4 w-full">
+                    <div class="w-full">
+                        <h3 class="font-medium text-lg text-gray-900 mt-0 mb-5">Data Acara</h3>
+
+                        <div class="relative z-0 w-full mb-5 group">
+                            <input value="{{ $dataAcara->nama_acara ?? 'Pernikahan Wahyu & Riski' }}" type="text"
+                                disabled
+                                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                placeholder=" " required />
+                            <label
+                                class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                                Judul Acara
+                            </label>
+                        </div>
+
+                        <div class="w-full flex flex-col sm:flex-row gap-5 sm:gap-x-7">
+                            <div class="relative z-0 w-full mb-5 group">
+                                <input value="{{ $dataAcara->nama_pria ?? 'Wahyu' }}" type="text" disabled
+                                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                    placeholder=" " required />
+                                <label
+                                    class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                                    Nama Pria
+                                </label>
+                            </div>
+
+                            <div class="relative z-0 w-full mb-5 group">
+                                <input value="{{ $dataAcara->nama_wanita ?? 'Riski' }}" type="text" disabled
+                                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                    placeholder=" " required />
+                                <label
+                                    class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                                    Nama Wanita
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="w-full flex flex-col sm:flex-row gap-5 sm:gap-x-7">
+                            <div class="relative z-0 w-full mb-5 group">
+                                <input type="text" disabled
+                                    value="{{ $dataAcara->bio_pria ?? 'Saya seorang UI/UX Designer' }}"
+                                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                    placeholder=" " required />
+                                <label
+                                    class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                                    Biodata Pria
+                                </label>
+                            </div>
+
+                            <div class="relative z-0 w-full mb-5 group">
+                                <input type="text" disabled
+                                    value="{{ $dataAcara->bio_wanita ?? 'Saya seorang SEO Specialist' }}"
+                                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                    placeholder=" " required />
+                                <label
+                                    class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                                    Biodata Wanita
+                                </label>
+                            </div>
+                        </div>
+
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+                        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+                        <div class="w-full flex flex-col sm:flex-row gap-5 sm:gap-x-7">
+                            <div class="relative z-0 w-full mb-5 group">
+                                <div class="absolute inset-y-0 start-0 flex items-center pointer-events-none">
+                                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                        <path
+                                            d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                                    </svg>
+                                </div>
+                                <input type="text" disabled
+                                    value="{{ \Carbon\Carbon::parse($dataAcara->tanggal_akad)->locale('id')->isoFormat('dddd, DD MMMM YYYY') }}"
+                                    placeholder="Tanggal dan waktu akad" id="akad"
+                                    class="border-0 border-b-2 border-gray-300 text-gray-900 text-sm focus:border-blue-500 focus:outline-none focus:ring-0 block w-full ps-7 py-2.5 px-0 dark:bg-gray-700 dark:border-gray-600 placeholder-gray-500 dark:text-white dark:focus:border-blue-500">
+                                <label
+                                    class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 z-10 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                                    Tanggal dan waktu akad
+                                </label>
+                            </div>
+                            <div class="relative z-0 w-full mb-5 group">
+                                <input type="text" disabled
+                                    value="{{ $dataAcara->tempat_akad ?? 'Hotel Bunga Indah Indramayu' }}"
+                                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                    placeholder=" " required />
+                                <label
+                                    class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                                    Lokasi Akad
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="w-full flex flex-col sm:flex-row gap-5 sm:gap-x-7">
+                            <div class="relative z-0 w-full mb-5 group">
+                                <div class="absolute inset-y-0 start-0 flex items-center pointer-events-none">
+                                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                        <path
+                                            d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                                    </svg>
+                                </div>
+                                <input type="text" disabled
+                                    value="{{ \Carbon\Carbon::parse($dataAcara->tanggal_resepsi)->locale('id')->isoFormat('dddd, DD MMMM YYYY') }}"
+                                    placeholder="Tanggal dan waktu resepsi" id="resepsi"
+                                    class="border-0 border-b-2 border-gray-300 text-gray-900 text-sm focus:border-blue-500 focus:outline-none focus:ring-0 block w-full ps-7 py-2.5 px-0 dark:bg-gray-700 dark:border-gray-600 placeholder-gray-500 dark:text-white dark:focus:border-blue-500">
+                                <label
+                                    class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 z-10 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                                    Tanggal dan waktu resepsi
+                                </label>
+                            </div>
+                            <div class="relative z-0 w-full mb-5 group">
+                                <input type="text" disabled
+                                    value="{{ $dataAcara->tempat_resepsi ?? 'Hotel Bunga Indah Indramayu' }}"
+                                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                    placeholder=" " required />
+                                <label
+                                    class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                                    Lokasi Resepsi
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
     </div>
 
     <div class="flex flex-col w-full lg:max-w-[300px] gap-y-5">
@@ -187,7 +289,7 @@
             </a>
             <p class="mb-3 font-normal text-gray-500 dark:text-gray-400">Mending segera deh! Kami siap mendesain
                 undangan pernikahan digital untuk Anda ;)</p>
-            <a href="/demo" target="_blank" class="inline-flex items-center text-blue-600 hover:underline">
+            <a href="/demo/1" target="_blank" class="inline-flex items-center text-blue-600 hover:underline">
                 Lihat demo
                 <svg class="w-3 h-3 ms-2.5 rtl:rotate-[270deg]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     fill="none" viewBox="0 0 18 18">
@@ -198,7 +300,8 @@
         </div>
         <div
             class="w-full h-fit p-6 bg-white border border-gray-200 rounded-2xl shadow dark:bg-gray-800 dark:border-gray-700">
-            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white text-center">Statistik Tamu</h5>
+            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white text-center">Statistik Tamu
+            </h5>
             <canvas id="donutChart" width="100" height="100"></canvas>
             <script>
                 var ctx = document.getElementById('donutChart').getContext('2d');

@@ -32,8 +32,8 @@ Route::get('/mulai', function () {
     return view('user.setup_acara');
 });
 
-Route::get('/demo', [WebUndanganController::class, 'index']);
-Route::get('/play/{id}{userId}', [WebUndanganController::class, 'play']);
+Route::get('/demo/{id}', [WebUndanganController::class, 'index'])->name('demonstrasi');
+Route::get('/play/{id}', [WebUndanganController::class, 'play']);
 
 // hanya bisa diakses user
 Auth::routes();
@@ -47,7 +47,7 @@ Route::group(['middleware' => 'user'], function () {
     Route::patch('/profil', [ProfileController::class, 'update'])->name('profile.update');
     
     Route::get('/tambah', [HomeController::class, 'tambah'])->name('tambah');
-    Route::get('/tambah/edit/{id}/{userId}', [WebUndanganController::class, 'create']);
+    Route::get('/tambah/edit/{id}', [WebUndanganController::class, 'create']);
 
     Route::get('/tamu', [CrudTamuController::class, 'index'])->name('tamu.index');
     Route::get('/tamu/tambah', [CrudTamuController::class, 'tambah'])->name('tamu.tambah');
@@ -57,11 +57,12 @@ Route::group(['middleware' => 'user'], function () {
     Route::get('/tamu/hapus/{id}', [CrudTamuController::class, 'delete'])->name('tamu.delete');
 
     Route::get('/pembayaran', [PembayaranController::class, 'index'])->name('pembayaran.index');
-    Route::get('/pembayaran/tambah', [PembayaranController::class, 'create'])->name('pembayaran.tambah');
+    Route::post('/pembayaran/proses', [PembayaranController::class, 'create'])->name('pembayaran.proses');
     Route::post('/pembayaran/store', [PembayaranController::class, 'store'])->name('pembayaran.store');
     Route::get('/pembayaran/edit/{id}', [PembayaranController::class, 'edit'])->name('pembayaran.edit');
     Route::put('/pembayaran/update/{id}', [PembayaranController::class, 'update'])->name('pembayaran.update');
     Route::get('/pembayaran/hapus/{id}', [PembayaranController::class, 'delete'])->name('pembayaran.delete');
+    Route::get('/beli/{templateId}', [PembayaranController::class, 'beliTemplate'])->name('pembayaran.beli');
 });
 
 
@@ -82,6 +83,13 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
     Route::patch('/pengaturan', [AdminSettingController::class, 'update'])->name('admin.pengaturan.update');
 
     Route::resource('pengguna', CrudUserController::class);
+    Route::get('/pengguna', [CrudUserController::class, 'index'])->name('cruduser.index');
+    Route::get('/pengguna/tambah', [CrudUserController::class, 'tambah'])->name('cruduser.tambah');
+    Route::post('/pengguna/store', [CrudUserController::class, 'store'])->name('cruduser.store');
+    Route::get('/pengguna/edit/{id}', [CrudUserController::class, 'edit'])->name('cruduser.edit');
+    Route::put('/pengguna/update/{id}', [CrudUserController::class, 'update'])->name('cruduser.update');
+    Route::get('/pengguna/hapus/{id}', [CrudUserController::class, 'delete'])->name('cruduser.delete');
+
     Route::resource('template', TemplateController::class);
 });
 

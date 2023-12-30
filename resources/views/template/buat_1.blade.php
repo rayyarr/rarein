@@ -7,13 +7,13 @@
 @section('content')
 <div class="flex flex-col lg:flex-row justify-center w-full gap-5">
 
-    <div class="flex flex-col max-w-[600px] lg:w-[600px]">
+    <div class="flex flex-col max-w-[600px] lg:w-[700px] lg:max-w-full">
 
-        <form method="POST" action="{{ route('setup.publish', ['id' => $id]) }}">
+        <form method="POST" action="{{ route('setup.publish', ['id' => $id]) }}" enctype="multipart/form-data">
             @csrf
             <div class="card bg-white rounded-2xl p-5 shadow">
                 <h1 class="font-bold text-2xl flex justify-center mb-10 mt-3 hidden">Data Pasangan</h1>
-                <div class="flex flex-col sm:flex-col justify-between gap-5">
+                <div class="flex flex-col sm:flex-col justify-between gap-0">
                     <div class="flex p-4 w-full">
                         <div class="w-full">
                             @if ($errors->any())
@@ -169,21 +169,86 @@
                         </div>
                     </div>
 
-                    {{--<div class="hidden flex p-4 w-full">
+                    <div class="flex p-4 w-full">
                         <div class="w-full">
-                            <h3 class="font-medium text-lg text-gray-900 mb-5">Calon Pengantin Wanita</h3>
 
+                            <h3 class="font-medium text-lg text-gray-900 mb-5">Foto Cover Depan</h3>
                             <div class="relative z-0 w-full mb-5 group">
-                                <input type="text" name="name"
-                                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                    placeholder=" " required />
-                                <label
-                                    class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                                    Nama Mempelai Wanita
-                                </label>
+                                <div class="flex items-center space-x-6">
+                                    <div class="shrink-0">
+                                      <img id='preview_foto_cover' class="h-16 w-16 object-cover rounded-full" src="{{ asset('images/default_cover.webp') }}" alt="Current profile photo" />
+                                    </div>
+                                    <label class="block">
+                                      <span class="sr-only">Choose profile photo</span>
+                                      <input type="file" onchange="aksi=fotoCover;loadFile(event,aksi)" class="block w-full text-sm text-slate-500 rounded-full
+                                        file:mr-4 file:py-2 file:px-4
+                                        file:rounded-full file:border-0
+                                        file:text-sm file:font-semibold
+                                        file:bg-violet-50 file:text-violet-700
+                                        hover:file:bg-violet-100
+                                      "/>
+                                    </label>
+                                  </div>
                             </div>
 
+                            <h3 class="font-medium text-lg text-gray-900 mb-5">Foto Mempelai Pria</h3>
                             <div class="relative z-0 w-full mb-5 group">
+                                <div class="flex items-center space-x-6">
+                                    <div class="shrink-0">
+                                      <img id='preview_foto_pria' class="h-16 w-16 object-cover rounded-full" src="{{ asset($dataTemplate->foto_pria) }}" alt="Current profile photo" />
+                                    </div>
+                                    <label class="block">
+                                      <span class="sr-only">Choose profile photo</span>
+                                      <input name="foto_pria" value="{{ $dataTemplate->foto_pria }}" type="file" onchange="aksi=fotoPria;loadFile(event,aksi)" class="block w-full text-sm text-slate-500 rounded-full
+                                        file:mr-4 file:py-2 file:px-4
+                                        file:rounded-full file:border-0
+                                        file:text-sm file:font-semibold
+                                        file:bg-violet-50 file:text-violet-700
+                                        hover:file:bg-violet-100
+                                      "/>
+                                    </label>
+                                  </div>
+                            </div>
+
+                            <h3 class="font-medium text-lg text-gray-900 mb-5">Foto Mempelai Wanita</h3>
+                            <div class="relative z-0 w-full mb-5 group">
+                                <div class="flex items-center space-x-6">
+                                    <div class="shrink-0">
+                                      <img id='preview_foto_wanita' class="h-16 w-16 object-cover rounded-full" src="{{ asset($dataTemplate->foto_wanita) }}" alt="Current profile photo" />
+                                    </div>
+                                    <label class="block">
+                                      <span class="sr-only">Choose profile photo</span>
+                                      <input name="foto_wanita" value="{{ $dataTemplate->foto_wanita }}" type="file" onchange="aksi=fotoWanita;loadFile(event,aksi)" class="block w-full text-sm text-slate-500 rounded-full
+                                        file:mr-4 file:py-2 file:px-4
+                                        file:rounded-full file:border-0
+                                        file:text-sm file:font-semibold
+                                        file:bg-violet-50 file:text-violet-700
+                                        hover:file:bg-violet-100
+                                      "/>
+                                    </label>
+                                  </div>
+                            </div>
+
+                            <script>
+                                var fotoCover = document.getElementById('preview_foto_cover');
+                                var fotoPria = document.getElementById('preview_foto_pria');
+                                var fotoWanita = document.getElementById('preview_foto_wanita');
+
+                                var loadFile = function(event,aksi) {
+                                    
+                                    var input = event.target;
+                                    var file = input.files[0];
+                                    var type = file.type;           
+                                    var output = aksi;
+                        
+                                    output.src = URL.createObjectURL(event.target.files[0]);
+                                    output.onload = function() {
+                                        URL.revokeObjectURL(output.src) // free memory
+                                    }
+                                };
+                            </script>
+
+                            {{--<div class="relative z-0 w-full mb-5 group">
                                 <input type="text" name="name"
                                     class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                     placeholder=" " required />
@@ -191,9 +256,9 @@
                                     class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
                                     Nama
                                 </label>
-                            </div>
+                            </div>--}}
                         </div>
-                    </div>--}}
+                    </div>
                 </div>
                 <button type="submit" name="submit"
                     class="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-2xl text-sm px-5 py-2.5 text-center me-2 mb-2">Simpan</button>
@@ -202,7 +267,7 @@
 
     </div>
 
-    <div class="flex flex-col w-full lg:max-w-[300px] gap-y-5">
+    <div class="hidden flex flex-col w-full lg:max-w-[300px] gap-y-5">
         <div
             class="w-full p-6 bg-white border border-gray-200 rounded-2xl shadow dark:bg-gray-800 dark:border-gray-700">
             <svg class="hidden w-7 h-7 text-gray-500 dark:text-gray-400 mb-3" aria-hidden="true"
@@ -216,7 +281,7 @@
             </a>
             <p class="mb-3 font-normal text-gray-500 dark:text-gray-400">Mending segera deh! Kami siap mendesain
                 undangan pernikahan digital untuk Anda ;)</p>
-            <a href="/demo" target="_blank" class="inline-flex items-center text-blue-600 hover:underline">
+            <a href="/demo/1" target="_blank" class="inline-flex items-center text-blue-600 hover:underline">
                 Lihat demo
                 <svg class="w-3 h-3 ms-2.5 rtl:rotate-[270deg]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     fill="none" viewBox="0 0 18 18">

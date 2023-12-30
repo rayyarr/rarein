@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('users_id');
             $table->string('name')->nullable();
             $table->string('address')->nullable();
+            $table->enum('status', ['Hadir','Tidak hadir'])->default('Tidak hadir');
             $table->timestamps();
 
             $table->foreign('users_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');

@@ -121,13 +121,31 @@ const util = (() => {
     const timer = () => {
         let countDownDate = (new Date(document.getElementById('tampilan-waktu').getAttribute('data-waktu').replace(' ', 'T'))).getTime();
 
-        setInterval(() => {
+        /*setInterval(() => {
             let distance = Math.abs(countDownDate - (new Date()).getTime());
 
             document.getElementById('hari').innerText = Math.floor(distance / (1000 * 60 * 60 * 24));
             document.getElementById('jam').innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             document.getElementById('menit').innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             document.getElementById('detik').innerText = Math.floor((distance % (1000 * 60)) / 1000);
+        }, 1000);*/
+
+        setInterval(() => {
+            let now = new Date().getTime();
+            let distance = Math.abs(countDownDate - now);
+    
+            if (now > countDownDate) {
+                // Waktu acara sudah berlalu, hilangkan elemen HTML
+                //tampilanWaktu.style.display = 'none';
+                document.getElementById('tampilan-waktu').innerHTML = "Telah Selesai";
+                document.getElementById('tampilan-waktu').style.fontSize = "25px";
+            } else {
+                // Perbarui nilai timer
+                document.getElementById('hari').innerText = Math.floor(distance / (1000 * 60 * 60 * 24));
+                document.getElementById('jam').innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                document.getElementById('menit').innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                document.getElementById('detik').innerText = Math.floor((distance % (1000 * 60)) / 1000);
+            }
         }, 1000);
     };
 

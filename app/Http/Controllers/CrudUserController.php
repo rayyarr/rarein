@@ -43,6 +43,14 @@ class CrudUserController extends Controller
 			'address' => $request->address,
 		]);
 
-		return redirect('/tamu')->with('success', 'Anda berhasil menambahkan data!');
+		return redirect('/admin/pengguna')->with('success', 'Anda berhasil menambahkan data!');
+	}
+
+	public function delete($id)
+	{
+		$user = User::find($id);
+
+		$user->delete();
+		return redirect('/admin/pengguna')->with('success', 'Anda berhasil menghapus pengguna!');
 	}
 }

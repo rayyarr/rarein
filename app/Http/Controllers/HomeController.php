@@ -5,6 +5,9 @@ use Illuminate\Http\Request;
 use App\Models\UserdataUndangan;
 use App\Models\UserdataAcara;
 use App\Models\Template;
+use App\Models\UserdataTamu;
+use App\Models\UserdataTemplate;
+use App\Models\UserdataPembayaran;
 use App\Models\ChartTamu;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -44,7 +47,18 @@ class HomeController extends Controller
 
         $countByKehadiran = ChartTamu::countByKehadiran();
 
-        return view('home', compact('userdata', 'dataAcara', 'comments', 'countByKehadiran'));
+        $totalUndangan = UserdataTemplate::where('users_id', $user_id)->count();
+        $totalTamu = UserdataTamu::where('users_id', $user_id)->count();
+        $totalTagihan = UserdataPembayaran::where('users_id', $user_id)->count();
+
+        $dataAcara = UserDataAcara::where('users_id', $user_id)->first();
+        $dataTemplate = DB::table('userdata_template')
+        ->join('userdata_acara', 'userdata_template.users_id', '=', 'userdata_acara.users_id')
+        ->where('userdata_template.users_id', $user_id)
+        ->select('userdata_acara.*', 'userdata_template.*')
+        ->get();
+
+        return view('home', compact('userdata', 'dataAcara', 'dataTemplate', 'comments', 'countByKehadiran', 'totalUndangan', 'totalTamu', 'totalTagihan', 'dataAcara'));
     }
 
     private function hasEmptyColumns($model)
@@ -75,8 +89,11 @@ class HomeController extends Controller
     public function tambah()
     {
         $userId = Auth::id();
-        $template = Template::orderBy('id', 'asc')->paginate(5);
+        $templates = Template::orderBy('id', 'asc')->paginate(5);
+
+        $pembayaran = UserDataPembayaran::where('users_id', $userId)->first();
         
-        return view('user.buat',compact('template', 'userId'))->with('i', (request()->input('page', 1) - 1) * 5);
+        return view('user.buat',compact('pembayaran', 'templates', 'userId'))->with('i', (request()->input('page', 1) - 1) * 5);
     }
+    
 }

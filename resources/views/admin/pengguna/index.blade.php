@@ -16,7 +16,7 @@
     @endif
 
     <div class="flex items-center justify-between flex-column md:flex-row flex-wrap space-y-4 md:space-y-0 p-4 bg-white">
-        <form action="{{ route('pengguna.index') }}" method="GET">
+        <form action="{{ route('cruduser.index') }}" method="GET">
             <label for="table-search" class="sr-only">Search</label>
             <div class="relative">
                 <div class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -35,7 +35,7 @@
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
                 </svg>
             </button>
-            <a href="{{ route('pengguna.create') }}" class="inline-flex items-center ml-2 text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-4 py-2">
+            <a href="{{ route('pengguna.create') }}" class="hidden inline-flex items-center ml-2 text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-4 py-2">
                 <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewbox="0 0 20 20"
                                 xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                 <path clip-rule="evenodd" fill-rule="evenodd"
@@ -100,8 +100,8 @@
                     <div class="text-base text-black">{{ $d->email }}</div>
                 </td>
                 <td class="px-6 py-4">
-                    <a href="/tamu/edit/{{ $d->id }}" type="button" data-modal-show="editUserModal" class="hidden font-medium text-blue-600 hover:underline">Ubah</a>
-                    <a href="/tamu/hapus/{{ $d->id }}" type="button" data-modal-show="editUserModal" class="font-medium text-blue-600 hover:underline">Hapus</a>
+                    <a href="/admin/pengguna/edit/{{ $d->id }}" type="button" data-modal-show="editUserModal" class="hidden font-medium text-blue-600 hover:underline">Ubah</a>
+                    <a href="/admin/pengguna/hapus/{{ $d->id }}" type="button" data-modal-show="editUserModal" class="font-medium text-blue-600 hover:underline">Hapus</a>
                 </td>
             </tr>
             @endforeach

@@ -13,10 +13,10 @@
                     <div class="flex p-4 rounded-2xl bg-slate-50 w-full">
                         <div class="flex items-center flex-shrink-0">
                             @if (auth()->user()->image)
-                            <img src="{{ asset('images/' . auth()->user()->image) }}" class="w-16 h-16 rounded-full"
+                            <img src="{{ asset(auth()->user()->image) }}" class="w-16 h-16 rounded-full"
                                 alt="Profile image">
                             @else
-                            <img src="{{ asset('images/default.jpg') }}" class="w-16 h-16 rounded-full"
+                            <img src="{{ asset('images/profile/default.jpg') }}" class="w-16 h-16 rounded-full"
                                 alt="Profile image">
                             @endif
                             <div class="mb-2 mr-2">

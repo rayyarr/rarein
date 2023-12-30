@@ -72,13 +72,16 @@ class CrudTamuController extends Controller
 			'address' => 'required',
 		]);
 
+		/*UserdataTamu::create([
+			'users_id' => Auth::id(),
+			'name' => $request->name,
+			'address' => $request->address,
+		]);*/
+
 		$user = UserdataTamu::find($id);
 
-		// Update name and email
 		$user->name = $request->name;
 		$user->address = $request->address;
-
-		// Save changes to the database
 		$user->save();
 
 		// Redirect to the desired location (e.g., home page)

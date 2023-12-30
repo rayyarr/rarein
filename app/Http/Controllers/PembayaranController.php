@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Pembayaran;
+use App\Models\UserdataPembayaran;
+use App\Models\Template;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Auth;
+
+use function PHPUnit\Framework\isEmpty;
 
 class PembayaranController extends Controller
 {
@@ -16,8 +20,13 @@ class PembayaranController extends Controller
      */
     public function index()
     {
-        //
-        $pembayaran = Pembayaran::latest()->paginate(5);
+        $userId = Auth::id();
+        //$pembayaran = UserdataPembayaran::latest()->paginate(5);
+        $pembayaran = UserDataPembayaran::join('template', 'userdata_pembayaran.template_id', '=', 'template.id')
+        ->select('userdata_pembayaran.*', 'template.name as nama_template')
+        ->where('userdata_pembayaran.users_id', $userId)
+        ->latest()
+        ->paginate(5);
 
         return view('user.pembayaran.index', compact('pembayaran'))->with('i', (request()->input('page', 1) - 1) * 5);
     }
@@ -25,52 +34,57 @@ class PembayaranController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('user.pembayaran.create');
+        $id = $request->input('id');
+        $userId = Auth::id();
+
+        $cekData = UserDataPembayaran::where('users_id', $userId)->where('id', $id)->first();
+        if ($cekData->metode_pembayaran !== null || $cekData->gambar !== null) {
+            return redirect()->route('pembayaran.index')->with('success', 'Anda sudah membayar template ini.');
+        }
+
+        $pembayaran = UserDataPembayaran::join('template', 'userdata_pembayaran.template_id', '=', 'template.id')
+        ->select('userdata_pembayaran.*', 'template.name as nama_template')
+        ->where('userdata_pembayaran.users_id', $userId)
+        ->where('userdata_pembayaran.id', $id)
+        ->first();
+
+        return view('user.pembayaran.create', compact('pembayaran'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request)
     {
+        $id = $request->input('id');
+        $userId = Auth::id();
+        
         $request->validate([
-            'nama_pemesan' => 'required|string|max:255',
-            'template' => 'required|string|max:255',
-            'tanggal_pemesanan' => 'required|datetime',
-            'jumlah_tagihan' => 'required|unsignedBigInteger',
-            'metode_pembayaran' => 'required|string|max:255',
-            'gambar' => 'required|varchar'
+            'metode_pembayaran' => 'required|in:DANA,GOPAY,SHOPEEPAY',
+            'gambar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        // Simpan data template tanpa menyertakan file gambar
-        $pembayaran = Pembayaran::create([
-            'nama_pemesan' => 'required|string|max:255',
-            'template' => 'required|string|max:255',
-            'tanggal_pemesanan' => 'required|datetime',
-            'jumlah_tagihan' => 'required|unsignedBigInteger',
-            'metode_pembayaran' => 'required|string|max:255',
-            'gambar' => 'required|varchar'
-        ]);
+        // Simpan file gambar pembayaran
+        $imageName = $id . time().'.'.$request->gambar->extension();
+        $request->gambar->move(public_path('images/pembayaran'), $imageName);
 
-        // Dapatkan ID template yang baru saja dibuat
-        $pembayaranId = $pembayaran->id;
+        // Update kolom metode_pembayaran dan gambar pada data pembayaran
+        UserdataPembayaran::where('users_id', $userId)
+            ->where('id', $id)
+            ->update([
+                'metode_pembayaran' => $request->input('metode_pembayaran'),
+                'gambar' => public_path('images/pembayaran/') . $imageName,
+            ]);
 
-        // Ubah nama file gambar sesuai dengan ID template
-        $pembayaran = $pembayaranId . '.' . $request->file('gambar')->getClientOriginalExtension();
-        $request->file('image')->move(public_path('gambar'), $gambar);
-
-        // Update nama file gambar dalam data template
-        $pembayaran->update(['gambar' => $gambar]);
-
-        return redirect()->route('pembayaran.index')->with('success', 'Berhasil menambahkan gambar.');
+        return redirect()->route('pembayaran.index')->with('success', 'Berhasil bayar template. Hubungi admin untuk konfirmasi.');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Pembayaran $pembayaran)
+    public function show(UserdataPembayaran $pembayaran)
     {
         return view('pembayaran.show', compact('gambar'));
     }
@@ -78,7 +92,7 @@ class PembayaranController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Pembayaran $pembayaran)
+    public function edit(UserdataPembayaran $pembayaran)
     {
         return view('pembayaran.edit', compact('gambar'));
     }
@@ -86,7 +100,7 @@ class PembayaranController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Pembayaran $pembayaran): RedirectResponse
+    public function update(Request $request, UserdataPembayaran $pembayaran): RedirectResponse
     {
         $request->validate([
             'nama_pemesan' => 'required|string|max:255',
@@ -95,9 +109,9 @@ class PembayaranController extends Controller
             'jumlah_tagihan' => 'required|unsignedBigInteger',
             'metode_pembayaran' => 'required|string|max:255',
             'gambar' => 'required|varchar'
-            
-            
-            
+
+
+
         ]);
 
         // Dapatkan ID template
@@ -107,7 +121,7 @@ class PembayaranController extends Controller
         $previousImage = $pembayaran->gambar;
 
         // Update data template tanpa memperbarui gambar jika tidak ada perubahan
-        $template->update([
+        $pembayaran->update([
             'nama_pemesan' => $request->input('nama_pemesan'),
             'template' => $request->input('template'),
             'tanggal_pemesanan' => $request->input('tanggal_pemesanan'),
@@ -138,7 +152,7 @@ class PembayaranController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Pembayaran $pembayaran)
+    public function destroy(UserdataPembayaran $pembayaran)
     {
         // Hapus file gambar sebelumnya jika ada
         $previousImage = $pembayaran->gambar;
@@ -152,5 +166,26 @@ class PembayaranController extends Controller
         $pembayaran->delete();
 
         return redirect()->route('pembayaran.index')->with('success', 'Berhasil menghapus gambar.');
+    }
+
+    public function beliTemplate($templateId)
+    {
+        $userId = Auth::id();
+        $template = Template::find($templateId);
+
+        if (!$template || $template->price == 0) {
+            // Handle error or redirect as needed
+            return redirect()->back()->with('error', 'Tidak dapat melakukan pembelian template ini.');
+        }
+
+        // Tambahkan atau update data ke userdata_pembayaran
+        $userDataPembayaran = UserDataPembayaran::updateOrCreate(
+            ['users_id' => $userId, 'template_id' => $templateId],
+            ['tanggal_pemesanan' => now(), 'jumlah_tagihan' => $template->price]
+        );
+
+        // Tambahkan log atau pesan sukses jika diperlukan
+
+        return redirect()->route('pembayaran.index')->with('success', 'Pembelian template berhasil.');
     }
 }

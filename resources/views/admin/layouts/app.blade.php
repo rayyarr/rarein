@@ -65,7 +65,7 @@
                                 class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
                                 aria-expanded="false" data-dropdown-toggle="dropdown-user">
                                 <span class="sr-only">Open user menu</span>
-                                <img class="w-8 h-8 rounded-full" src="{{ asset('images/' . auth()->user()->image) }}"
+                                <img class="w-8 h-8 rounded-full" src="{{ asset(auth()->user()->image) }}"
                                     alt="user photo">
                             </button>
                         </div>
@@ -181,7 +181,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('pengguna.index') }}"
+                    <a href="{{ route('cruduser.index') }}"
                         class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group @if(request()->is('admin/pengguna*')) bg-gray-100 @endif">
                         <svg class='flex-shrink-0 w-5 h-5 fill-none stroke-black stroke-[1.5]'
                             xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'>
@@ -207,6 +207,13 @@
                             </g>
                         </svg>
                         <span class="flex-1 ms-3 whitespace-nowrap">{{ __('Pengguna') }}</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('pembayaran.index') }}"
+                        class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group @if(request()->is('pembayaran*')) bg-gray-100 @endif">
+                        <svg class='flex-shrink-0 w-5 h-5 fill-none stroke-black stroke-[1.5]' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><g transform='translate(3.650200, 2.850200)'><path d='M2.044,3.58024493 C7.3705141,2.243 13.9926469,2.32498848 15.5231061,4.06777179 C17.0535652,5.8105551 17.0220031,11.638 15.2330031,13.237 C13.4450031,14.836 5.68,14.988 3.22,13.237 C0.621,11.386 2.129,5.692 2.044,2.243 C2.095,0.313 -1.13686838e-13,0 -1.13686838e-13,0'></path><line x1='10.5059' y1='7.8696' x2='13.2789' y2='7.8696'></line><path d='M3.6138,17.2773 C3.9138,17.2773 4.1578,17.5213 4.1578,17.8213 C4.1578,18.1223 3.9138,18.3663 3.6138,18.3663 C3.3128,18.3663 3.0688,18.1223 3.0688,17.8213 C3.0688,17.5213 3.3128,17.2773 3.6138,17.2773 Z'></path><path d='M13.9453,17.2773 C14.2463,17.2773 14.4903,17.5213 14.4903,17.8213 C14.4903,18.1223 14.2463,18.3663 13.9453,18.3663 C13.6453,18.3663 13.4013,18.1223 13.4013,17.8213 C13.4013,17.5213 13.6453,17.2773 13.9453,17.2773 Z'></path></g></svg>
+                        <span class="flex-1 ms-3 whitespace-nowrap">{{ __('Transaksi') }}</span>
                     </a>
                 </li>
                 <li>

@@ -13,6 +13,7 @@ class UserdataTemplate extends Model
         'foto_pria',
         'foto_wanita',
         'status',
+        'link',
     ];
     
     protected $table = 'userdata_template';

@@ -12,7 +12,7 @@
         <div
             class="inline-grid sm:grid-cols-2 md:grid-cols-4 overflow-hidden w-full rounded-3xl bg-transparent md:bg-white shadow">
 
-            <a href="{{ route('pengguna.index') }}"
+            <a href="{{ route('cruduser.index') }}"
                 class="inline-grid border-gray-200 md:border-e w-full p-4 sm:col-span-1 bg-white hover:bg-slate-50 md:bg-transparent sm:border-e gap-x-4 hover:scale-105 transition ease-in-out duration-200">
                 <div class="col-start-2 row-span-3 row-start-1 place-self-center justify-self-end text-blue-600">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -69,9 +69,9 @@
                     <div class="relative inline-flex ">
                         <div class="w-16 rounded-full">
                             @if (auth()->user()->image)
-                            <img src="{{ asset('images/' . auth()->user()->image) }}" alt="Profile image">
+                            <img src="{{ asset(auth()->user()->image) }}" alt="Profile image">
                             @else
-                            <img src="{{ asset('images/default.webp') }}" alt="Profile image">
+                            <img src="{{ asset('images/profile/default.webp') }}" alt="Profile image">
                             @endif
                         </div>
                     </div>
@@ -84,101 +84,10 @@
 
         </div>
 
-
-        <div class="card bg-white rounded-2xl p-5 shadow mt-5">
-            <h1 class="font-bold text-2xl flex justify-center mb-10 mt-3 hidden">Data Pasangan</h1>
-            <div class="flex flex-col sm:flex-row items-center justify-between gap-5">
-                <div class="flex p-4 rounded-2xl w-full">
-                    <div class="w-full">
-                        <h3 class="font-medium text-lg text-gray-900 mb-8">Calon Pengantin Pria</h3>
-
-                        <label class="block mb-2 text-xs text-gray-700 font-medium">Nama</label>
-                        <input type="text"
-                            class="border-0 border-b-2 border-gray-700 text-black text-sm focus:ring-blue-500 focus:border-blue-500 block w-full pb-2.5 px-0"
-                            value="{{ $dataPasangan->nama_pria ?? '' }}" disabled>
-
-                        <label class="block mt-5 mb-2 text-xs text-gray-700 font-medium">Biodata</label>
-                        <input type="text"
-                            class="hidden border border-gray-300 text-black text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                            value="{{ $dataPasangan->bio_pria ?? '' }}" disabled>
-                        <textarea id="message" rows="3"
-                            class="block p-2.5 px-0 w-full text-sm text-gray-900 border-0 border-b-2 border-gray-700 focus:ring-blue-500 focus:border-blue-500"
-                            disabled>{{ $dataPasangan->bio_pria ?? '' }}</textarea>
-
-                        <label class="block hidden mt-5 mb-3 text-sm text-gray-900">Instagram</label>
-                        <div class="flex hidden">
-                            <span
-                                class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-e-0 rounded-e-0 border-gray-300 rounded-s-md">
-                                <svg class="w-5 h-5 text-gray-500" xmlns='http://www.w3.org/2000/svg'
-                                    viewBox='0 0 32 32'>
-                                    <g>
-                                        <path
-                                            d='M22,3H10a7,7,0,0,0-7,7V22a7,7,0,0,0,7,7H22a7,7,0,0,0,7-7V10A7,7,0,0,0,22,3Zm5,19a5,5,0,0,1-5,5H10a5,5,0,0,1-5-5V10a5,5,0,0,1,5-5H22a5,5,0,0,1,5,5Z'>
-                                        </path>
-                                        <path
-                                            d='M16,9.5A6.5,6.5,0,1,0,22.5,16,6.51,6.51,0,0,0,16,9.5Zm0,11A4.5,4.5,0,1,1,20.5,16,4.51,4.51,0,0,1,16,20.5Z'>
-                                        </path>
-                                        <circle cx='23' cy='9' r='1'></circle>
-                                    </g>
-                                </svg>
-                            </span>
-                            <input type="text"
-                                class="border border-gray-300 text-black text-sm rounded-none rounded-e-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                                value="Rayya" disabled>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex p-4 rounded-2xl w-full">
-                    <div class="w-full">
-                        <h3 class="font-medium text-lg text-gray-900 mb-8">Calon Pengantin Wanita</h3>
-
-                        <label class="block mb-2 text-xs text-gray-700 font-medium">Nama</label>
-                        <input type="text"
-                            class="border-0 border-b-2 border-gray-700 text-black text-sm focus:ring-blue-500 focus:border-blue-500 block w-full pb-2.5 px-0"
-                            value="{{ $dataPasangan->nama_wanita ?? '' }}" disabled>
-
-                        <label class="block mt-5 mb-2 text-xs text-gray-700 font-medium">Biodata</label>
-                        <input type="text"
-                            class="hidden border border-gray-300 text-black text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                            value="{{ $dataPasangan->bio_wanita ?? '' }}" disabled>
-                        <textarea id="message" rows="3"
-                            class="block p-2.5 px-0 w-full text-sm text-gray-900 border-0 border-b-2 border-gray-700 focus:ring-blue-500 focus:border-blue-500"
-                            disabled>{{ $dataPasangan->bio_wanita ?? '' }}</textarea>
-
-                        <label class="block hidden mt-5 mb-3 text-sm text-gray-900">Instagram</label>
-                        <div class="flex hidden">
-                            <span
-                                class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-e-0 rounded-e-0 border-gray-300 rounded-s-md">
-                                <svg class="w-5 h-5 text-gray-500" xmlns='http://www.w3.org/2000/svg'
-                                    viewBox='0 0 32 32'>
-                                    <g>
-                                        <path
-                                            d='M22,3H10a7,7,0,0,0-7,7V22a7,7,0,0,0,7,7H22a7,7,0,0,0,7-7V10A7,7,0,0,0,22,3Zm5,19a5,5,0,0,1-5,5H10a5,5,0,0,1-5-5V10a5,5,0,0,1,5-5H22a5,5,0,0,1,5,5Z'>
-                                        </path>
-                                        <path
-                                            d='M16,9.5A6.5,6.5,0,1,0,22.5,16,6.51,6.51,0,0,0,16,9.5Zm0,11A4.5,4.5,0,1,1,20.5,16,4.51,4.51,0,0,1,16,20.5Z'>
-                                        </path>
-                                        <circle cx='23' cy='9' r='1'></circle>
-                                    </g>
-                                </svg>
-                            </span>
-                            <input type="text"
-                                class="border border-gray-300 text-black text-sm rounded-none rounded-e-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                                value="Rayya" disabled>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="flex flex-col w-full lg:max-w-[300px] gap-y-5">
-
-        <div
-            class="w-full max-w-md p-6 bg-white border border-gray-200 rounded-2xl shadow dark:bg-gray-800 dark:border-gray-700">
+        <div class="mt-5 w-full p-6 bg-white border border-gray-200 rounded-2xl shadow dark:bg-gray-800 dark:border-gray-700">
             <div class="flex items-center justify-between mb-4">
                 <h5 class="text-lg font-bold leading-none text-gray-900 dark:text-white">Pengguna Terakhir</h5>
-                <a href="{{ route('pengguna.index') }}"
+                <a href="{{ route('cruduser.index') }}"
                     class="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500">
                     Tampilkan
                 </a>
@@ -189,7 +98,7 @@
                     <li class="py-3 sm:py-4">
                         <div class="flex items-center">
                             <div class="flex-shrink-0">
-                                <img class="w-8 h-8 rounded-full" src="{{ asset('images/' . $d->image) }}"
+                                <img class="w-8 h-8 rounded-full" src="{{ asset($d->image) }}"
                                     alt="{{ $d->name }}">
                             </div>
                             <div class="flex-1 min-w-0 ms-4">
@@ -210,6 +119,9 @@
                 </ul>
             </div>
         </div>
+    </div>
+
+    <div class="flex flex-col w-full lg:max-w-[300px] gap-y-5">
 
         <div
             class="w-full h-fit p-6 bg-white border border-gray-200 rounded-2xl shadow dark:bg-gray-800 dark:border-gray-700">

@@ -73,7 +73,7 @@
         <section class="container" id="home">
 
             <div class="text-center pt-4">
-                <h1 class="font-esthetic my-4" style="font-size: 2.5rem;">Undangan Pernikahan</h1>
+                <h1 class="font-esthetic my-4" style="font-size: 2.5rem;">{{ isset($data->nama_acara) ? $data->nama_acara : 'Pernikahan' }}</h1>
 
                 <div class="py-4">
                     <div class="img-crop border border-3 border-light shadow mx-auto">
@@ -81,13 +81,13 @@
                     </div>
                 </div>
 
-                <h1 id="awalan" class="font-esthetic my-4" style="font-size: 3rem;"></h1>
-                <script>
-                    awalan.innerHTML = "" + {{ $data->nama_pria }} & {{ $data->nama_wanita }}
-                </script>
-                <h4>Rabu, 15 Maret 2023</h4>
+                <h1 id="awalan" class="font-esthetic my-4" style="font-size: 3rem;">{{ isset($data->nama_pria) ? $data->nama_pria : 'Nama Pria' }} & {{ isset($data->nama_wanita) ? $data->nama_wanita : 'Nama Wanita' }}</h1>
+                
+                @if (isset($data->tanggal_resepsi))
+                    <h4 style="margin-top: 15px;margin-bottom: 15px">{{ \Carbon\Carbon::parse($data->tanggal_resepsi)->locale('id')->isoFormat('dddd, DD MMMM YYYY') }}</h4>
+                @endif
 
-                <a class="btn btn-outline-light btn-sm shadow rounded-pill px-3 my-2" target="_blank" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=The%20Wedding%20of%20Wahyu%20and%20Riski&details=The%20Wedding%20of%20Wahyu%20and%20Riski%20%7C%2015%20Maret%202023%20%7C%20RT%2010%20RW%2002,%20Desa%20Pajerukan,%20Kec.%20Kalibagor,%20Kab.%20Banyumas,%20Jawa%20Tengah%2053191%20%7C%2010.00%20-%2011.00%20WIB&dates=20230315T100000/20230315T110000&location=https://goo.gl/maps/ALZR6FJZU3kxVwN86">
+                <a class="d-none btn btn-outline-light btn-sm shadow rounded-pill px-3 my-2" target="_blank" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=The%20Wedding%20of%20Wahyu%20and%20Riski&details=The%20Wedding%20of%20Wahyu%20and%20Riski%20%7C%2015%20Maret%202023%20%7C%20RT%2010%20RW%2002,%20Desa%20Pajerukan,%20Kec.%20Kalibagor,%20Kab.%20Banyumas,%20Jawa%20Tengah%2053191%20%7C%2010.00%20-%2011.00%20WIB&dates=20230315T100000/20230315T110000&location=https://goo.gl/maps/ALZR6FJZU3kxVwN86">
                     <i class="fa-solid fa-calendar-check me-2"></i>Save The Date
                 </a>
 
@@ -124,9 +124,9 @@
                         <div class="img-crop border border-3 border-light shadow my-4 mx-auto">
                             <img src="{{ asset('template/template2/images/cowo.png') }}" alt="cowo" onclick="util.modal(this)">
                         </div>
-                        <h1 class="font-esthetic" style="font-size: 3rem;">{{ $data->nama_pria }}</h1>
-                        <h5 class="mt-3 mb-0">Putra</h5>
-                        <p class="mb-0">Bapak ... & Ibu ...</p>
+                        <h1 class="font-esthetic" style="font-size: 3rem;">{{ isset($data->nama_pria) ? $data->nama_pria : 'Nama Pria' }}</h1>
+                        <h5 class="mt-3 mb-0">{{ isset($data->bio_pria) ? $data->bio_pria : 'Biodata Pria' }}</h5>
+                        <p class="d-none mb-0">Bapak ... & Ibu ...</p>
                     </div>
 
                     <h1 class="font-esthetic my-4" style="font-size: 4rem;">&</h1>
@@ -135,9 +135,9 @@
                         <div class="img-crop border border-3 border-light shadow my-4 mx-auto">
                             <img src="{{ asset('template/template2/images/cewe.png') }}" alt="cewe" onclick="util.modal(this)">
                         </div>
-                        <h1 class="font-esthetic" style="font-size: 3rem;">{{ $data->nama_wanita }}</h1>
-                        <h5 class="mt-3 mb-0">Putri</h5>
-                        <p class="mb-0">Bapak ... & Ibu ...</p>
+                        <h1 class="font-esthetic" style="font-size: 3rem;">{{ isset($data->nama_wanita) ? $data->nama_wanita : 'Nama Wanita' }}</h1>
+                        <h5 class="mt-3 mb-0">{{ isset($data->bio_wanita) ? $data->bio_wanita : 'Biodata Wanita' }}</h5>
+                        <p class="d-none mb-0">Bapak ... & Ibu ...</p>
                     </div>
                 </div>
             </div>
@@ -182,7 +182,7 @@
                     <div class="border rounded-pill shadow py-2 px-4 mx-2 mb-4">
 
                         <!-- Ganti waktunya pada data-waktu (sesuai format tersebut) -->
-                        <div class="row justify-content-center" data-waktu="2024-01-01 00:00:00" id="tampilan-waktu">
+                        <div class="row justify-content-center" data-waktu="{{ isset($data->tanggal_akad) ? $data->tanggal_akad : '2023-12-12 12:00:00' }}" id="tampilan-waktu">
                             <div class="col-3 p-1">
                                 <h2 class="d-inline m-0 p-0" id="hari">0</h2><small class="ms-1 me-0 my-0 p-0 d-inline">Hari</small>
                             </div>
@@ -206,16 +206,18 @@
                     <div class="overflow-x-hidden">
                         <div class="py-2" data-aos="fade-left" data-aos-duration="1500">
                             <h1 class="font-esthetic" style="font-size: 2rem;">Akad</h1>
-                            <p>Pukul 10.00 WIB - Selesai</p>
+                            <p>{{ isset($data->tanggal_akad) ? $data->tanggal_akad : '2023-12-12 12:00:00' }}</p>
+                            <p>{{ isset($data->tempat_akad) ? $data->tempat_akad : 'Hotel Satu Nusantara' }}</p>
                         </div>
 
                         <div class="py-2" data-aos="fade-right" data-aos-duration="1500">
                             <h1 class="font-esthetic" style="font-size: 2rem;">Resepsi</h1>
-                            <p>Pukul 13.00 WIB - Selesai</p>
+                            <p>{{ isset($data->tanggal_resepsi) ? $data->tanggal_resepsi : '2023-12-13 12:00:00' }}</p>
+                            <p>{{ isset($data->tempat_resepsi) ? $data->tempat_resepsi : 'Hotel Dua Jakarta' }}</p>
                         </div>
                     </div>
 
-                    <div class="py-2" data-aos="fade-up" data-aos-duration="1500">
+                    <div class="d-none py-2" data-aos="fade-up" data-aos-duration="1500">
                         <a href="https://goo.gl/maps/ALZR6FJZU3kxVwN86" target="_blank" class="btn btn-outline-light btn-sm rounded-pill shadow-sm mb-2 px-3">
                             <i class="fa-solid fa-map-location-dot me-2"></i>Lihat Google Maps
                         </a>
@@ -233,7 +235,7 @@
             <div class="container pb-2 pt-4">
                 <div class="card-body border rounded-4 shadow p-3">
 
-                    <h1 class="font-esthetic text-center py-3" data-aos="fade-down" data-aos-duration="1500" style="font-size: 2rem;">Galeri</h1>
+                    <h1 class="font-esthetic text-center py-3" data-aos="fade-down" data-aos-duration="1500" style="font-size: 2rem;">Moments</h1>
 
                     <div id="carousel-foto-satu" data-aos="fade-up" data-aos-duration="1500" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-indicators">
@@ -265,7 +267,7 @@
                         </button>
                     </div>
 
-                    <div id="carousel-foto-dua" data-aos="fade-up" data-aos-duration="1500" class="carousel slide mt-4" data-bs-ride="carousel">
+                    <div class="d-none" id="carousel-foto-dua" data-aos="fade-up" data-aos-duration="1500" class="carousel slide mt-4" data-bs-ride="carousel">
                         <div class="carousel-indicators">
                             <button type="button" data-bs-target="#carousel-foto-dua" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
                             <button type="button" data-bs-target="#carousel-foto-dua" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -299,12 +301,40 @@
         </section>
 
         <!-- Wave Separator -->
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-            <path fill="#111111" fill-opacity="1" d="M0,96L30,106.7C60,117,120,139,180,154.7C240,171,300,181,360,186.7C420,192,480,192,540,181.3C600,171,660,149,720,154.7C780,160,840,192,900,208C960,224,1020,224,1080,208C1140,192,1200,160,1260,138.7C1320,117,1380,107,1410,101.3L1440,96L1440,0L1410,0C1380,0,1320,0,1260,0C1200,0,1140,0,1080,0C1020,0,960,0,900,0C840,0,780,0,720,0C660,0,600,0,540,0C480,0,420,0,360,0C300,0,240,0,180,0C120,0,60,0,30,0L0,0Z"></path>
+        <svg class="d-none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+            <path fill="#111111" fill-opacity="1" d="M0,192L40,181.3C80,171,160,149,240,149.3C320,149,400,171,480,165.3C560,160,640,128,720,128C800,128,880,160,960,186.7C1040,213,1120,235,1200,218.7C1280,203,1360,149,1400,122.7L1440,96L1440,0L1400,0C1360,0,1280,0,1200,0C1120,0,1040,0,960,0C880,0,800,0,720,0C640,0,560,0,480,0C400,0,320,0,240,0C160,0,80,0,40,0L0,0Z"></path>
+        </svg>
+        
+        <!-- Firman Allah Subhanahu Wa Ta'ala -->
+        <div class="container d-none">
+            <div class="text-center" data-aos="fade-up" data-aos-duration="2000">
+
+                <h1 class="font-esthetic mt-0 mb-3" style="font-size: 2rem">
+                    Allah Subhanahu Wa Ta'ala berfirman
+                </h1>
+
+                <p style="font-size: 0.9rem;" class="px-2">
+                    Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari
+                    jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu
+                    rasa kasih dan sayang. Sungguh, pada yang demikian itu benar-benar terdapat tanda-tanda
+                    (kebesaran Allah) bagi kaum yang berpikir.
+                </p>
+
+                <span class="mb-0"><strong>QS. Ar-Rum Ayat 21</strong></span>
+            </div>
+        </div>
+
+        <!-- Wave Separator -->
+        <svg class="d-none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+            <path fill="#111111" fill-opacity="1" d="M0,96L30,106.7C60,117,120,139,180,154.7C240,171,300,181,360,186.7C420,192,480,192,540,181.3C600,171,660,149,720,154.7C780,160,840,192,900,208C960,224,1020,224,1080,208C1140,192,1200,160,1260,138.7C1320,117,1380,107,1410,101.3L1440,96L1440,320L1410,320C1380,320,1320,320,1260,320C1200,320,1140,320,1080,320C1020,320,960,320,900,320C840,320,780,320,720,320C660,320,600,320,540,320C480,320,420,320,360,320C300,320,240,320,180,320C120,320,60,320,30,320L0,320Z"></path>
         </svg>
 
         <!-- Hadiah -->
-        <div class="container" style="display: none">
+        <!-- Wave Separator -->
+        <svg class="d-none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+            <path fill="#111111" fill-opacity="1" d="M0,96L30,106.7C60,117,120,139,180,154.7C240,171,300,181,360,186.7C420,192,480,192,540,181.3C600,171,660,149,720,154.7C780,160,840,192,900,208C960,224,1020,224,1080,208C1140,192,1200,160,1260,138.7C1320,117,1380,107,1410,101.3L1440,96L1440,0L1410,0C1380,0,1320,0,1260,0C1200,0,1140,0,1080,0C1020,0,960,0,900,0C840,0,780,0,720,0C660,0,600,0,540,0C480,0,420,0,360,0C300,0,240,0,180,0C120,0,60,0,30,0L0,0Z"></path>
+        </svg>
+        <div class="container d-none">
             <div class="py-4">
 
                 <div class="text-center">
@@ -344,50 +374,78 @@
         </div>
 
         <!-- Ucapan -->
-        <section class="m-0 p-0" id="ucapan" style="display: none">
+        <section class="my-5 p-0">
             <div class="container">
 
-                <div class="card-body border rounded-4 shadow p-3">
-                    <h1 class="font-esthetic text-center mb-3" style="font-size: 3rem;">Ucapan & Doa</h1>
+                <h1 class="font-esthetic text-center mb-3" style="font-size: 3rem;">Ucapan & Doa</h1>
+                
+                          <div class="card mb-4 rounded-4">
+                            <div class="card-body">
+                              <p>Type your note, and hit enter to add it</p>
+                  
+                              <div class="d-flex justify-content-between">
+                                <div class="d-flex flex-row align-items-center">
+                                  <img class="d-none" src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(4).webp" alt="avatar" width="25"
+                                    height="25" />
+                                  <p class="small mb-0">Martha</p>
+                                </div>
+                                <div class="d-flex d-none flex-row align-items-center">
+                                  <p class="small text-muted mb-0">Upvote?</p>
+                                  <i class="far fa-thumbs-up mx-2 fa-xs text-black" style="margin-top: -0.16rem;"></i>
+                                  <p class="small text-muted mb-0">3</p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                <div class="mt-4 card-body border rounded-4 shadow p-3">
+                    
                     <div class="mb-1" id="balasan"></div>
 
-                    <div class="mb-3">
-                        <label for="form-nama" class="form-label">Nama</label>
-                        <input type="text" class="form-control shadow-sm" id="form-nama" placeholder="Isikan Nama Anda">
-                    </div>
+                    <form action="" method="post">
+                        <div class="mb-3">
+                            <label for="form-nama" class="form-label">Nama</label>
+                            <input type="text" class="form-control shadow-sm" id="form-nama" placeholder="Isikan Nama Anda">
+                        </div>
+    
+                        <div class="mb-3">
+                            <label for="form-alamat" class="form-label">Alamat</label>
+                            <input type="text" class="form-control shadow-sm" id="form-alamat" placeholder="Isikan Alamat Anda">
+                        </div>
+    
+                        <div class="d-none mb-3">
+                            <label for="form-kehadiran" class="form-label" id="label-kehadiran">Kehadiran</label>
+                            <select class="form-select shadow-sm" id="form-kehadiran">
+                                <option value="0" selected>Konfirmasi Kehadiran</option>
+                                <option value="1">Hadir</option>
+                                <option value="2">Berhalangan</option>
+                            </select>
+                        </div>
+    
+                        <div class="mb-3">
+                            <label for="form-pesan" class="form-label">Ucapan & Doa</label>
+                            <textarea class="form-control shadow-sm" id="form-pesan" rows="4" placeholder="Tulis Ucapan & Doa"></textarea>
+                        </div>
+    
+                        <div class="d-flex">
+                            {{--<button class="flex-fill btn btn-danger btn-sm rounded-3 shadow m-1" style="display: none;" onclick="comment.batal()" id="batal">
+                                Batal<i class="fa-solid fa-xmark ms-1"></i>
+                            </button>
+                            <button class="flex-fill btn btn-success btn-sm rounded-3 shadow m-1" style="display: none;" onclick="comment.reply()" id="reply">
+                                Balas<i class="fa-solid fa-reply ms-1"></i>
+                            </button>
+                            <button class="flex-fill btn btn-warning btn-sm rounded-3 shadow m-1" style="display: none;" onclick="comment.ubah()" id="ubah">
+                                Edit<i class="fa-solid fa-pen-to-square ms-1"></i>
+                            </button>--}}
+                            <button class="flex-fill btn btn-primary btn-sm rounded-3 shadow p-2 m-1" onclick="comment.kirim()" id="kirim">
+                                Kirim<i class="fa-solid fa-paper-plane ms-1"></i>
+                            </button>
+                        </div>
+                    </form>
 
-                    <div class="mb-3">
-                        <label for="form-kehadiran" class="form-label" id="label-kehadiran">Kehadiran</label>
-                        <select class="form-select shadow-sm" id="form-kehadiran">
-                            <option value="0" selected>Konfirmasi Kehadiran</option>
-                            <option value="1">Hadir</option>
-                            <option value="2">Berhalangan</option>
-                        </select>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="form-pesan" class="form-label">Ucapan & Doa</label>
-                        <textarea class="form-control shadow-sm" id="form-pesan" rows="4" placeholder="Tulis Ucapan & Doa"></textarea>
-                    </div>
-
-                    <div class="d-flex">
-                        <button class="flex-fill btn btn-danger btn-sm rounded-3 shadow m-1" style="display: none;" onclick="comment.batal()" id="batal">
-                            Batal<i class="fa-solid fa-xmark ms-1"></i>
-                        </button>
-                        <button class="flex-fill btn btn-success btn-sm rounded-3 shadow m-1" style="display: none;" onclick="comment.reply()" id="reply">
-                            Balas<i class="fa-solid fa-reply ms-1"></i>
-                        </button>
-                        <button class="flex-fill btn btn-warning btn-sm rounded-3 shadow m-1" style="display: none;" onclick="comment.ubah()" id="ubah">
-                            Edit<i class="fa-solid fa-pen-to-square ms-1"></i>
-                        </button>
-                        <button class="flex-fill btn btn-primary btn-sm rounded-3 shadow m-1" onclick="comment.kirim()" id="kirim">
-                            Kirim<i class="fa-solid fa-paper-plane ms-1"></i>
-                        </button>
-                    </div>
                 </div>
 
-                <div class="rounded-4 mt-4 mb-2" id="daftar-ucapan"></div>
-
+                {{--
                 <nav class="d-flex justify-content-center mb-0">
                     <ul class="pagination mb-0">
                         <li class="page-item disabled" id="previous">
@@ -404,19 +462,19 @@
                             </button>
                         </li>
                     </ul>
-                </nav>
+                </nav>--}}
             </div>
         </section>
 
         <!-- Wave Separator -->
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+        <svg class="d-none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
             <path fill="#111111" fill-opacity="1" d="M0,224L34.3,234.7C68.6,245,137,267,206,266.7C274.3,267,343,245,411,234.7C480,224,549,224,617,213.3C685.7,203,754,181,823,197.3C891.4,213,960,267,1029,266.7C1097.1,267,1166,213,1234,192C1302.9,171,1371,181,1406,186.7L1440,192L1440,320L1405.7,320C1371.4,320,1303,320,1234,320C1165.7,320,1097,320,1029,320C960,320,891,320,823,320C754.3,320,686,320,617,320C548.6,320,480,320,411,320C342.9,320,274,320,206,320C137.1,320,69,320,34,320L0,320Z"></path>
         </svg>
     </main>
 
     <!-- Footer Undangan -->
     <footer>
-        <div class="container">
+        <div class="container" style="padding-top:50px">
             <div class="text-center">
 
                 <p style="font-size: 0.9rem;" class="pt-2 pb-1 px-2" data-aos="fade-up" data-aos-duration="1500">
@@ -450,13 +508,13 @@
         <div class="d-flex justify-content-center align-items-center" style="height: 100vh !important;">
 
             <div class="text-center">
-                <h1 class="font-esthetic mb-4" style="font-size: 2.5rem;">The Wedding Of</h1>
+                <h1 class="font-esthetic mb-4" style="font-size: 2.5rem;">{{ isset($data->nama_acara) ? $data->nama_acara : 'Pernikahan' }}</h1>
 
                 <div class="img-crop border border-3 border-light shadow mb-4 mx-auto">
                     <img src="{{ asset('template/template2/images/bg.jpeg') }}" alt="bg">
                 </div>
 
-                <h1 class="font-esthetic my-4" style="font-size: 2.5rem;">{{ $data->nama_pria }} & {{ $data->nama_wanita }}</h1>
+                <h1 class="font-esthetic my-4" style="font-size: 2.5rem;">{{ isset($data->nama_pria) ? $data->nama_pria : 'Nama Pria' }} & {{ isset($data->nama_wanita) ? $data->nama_wanita : 'Nama Wanita' }}</h1>
                 <div id="nama-tamu"></div>
 
                 <button type="button" class="btn btn-light shadow rounded-4 mt-4" onclick="util.buka()">

@@ -31,13 +31,14 @@ class AdminSettingController extends Controller
 
         // Store the image
         $filename = $user->id . '.' . $image->extension();
-        $image->move(public_path('images'), $filename);
+        $filenameDB = 'images/profile/' . $filename;
+        $image->move(public_path('images/profile'), $filename);
 
         // Delete the old image
         $oldImage = $user->image;
 
         if ($oldImage && $oldImage !== $filename && $oldImage !== 'default.webp') {
-            $filePath = public_path('images/' . $oldImage);
+            $filePath = public_path('images/profile/' . $oldImage);
 
             if (file_exists($filePath)) {
                 unlink($filePath);
@@ -45,7 +46,7 @@ class AdminSettingController extends Controller
         }
 
         // Update the user's profile image
-        $user->image = $filename;
+        $user->image = $filenameDB;
         $user->save();
 
         // Redirect to the profile page

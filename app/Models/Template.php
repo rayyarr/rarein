@@ -17,4 +17,9 @@ class Template extends Model
     protected $table = 'template';
 
     use HasFactory;
+
+    public function userDataPembayaran()
+    {
+        return $this->hasMany(UserDataPembayaran::class, 'template_id');
+    }
 }

@@ -51,13 +51,6 @@
 
     <section class="px-3 sm:px-5">
         <div class="mx-auto max-w-screen-xl px-4 lg:px-12">
-            @if(session('success'))
-            <div class="bg-green-100 border border-green-400 text-green-700 m-2 px-4 py-3 rounded relative"
-                role="alert">
-                <strong class="font-bold">Hore!</strong>
-                <span class="block sm:inline">{{ session('success') }}</span>
-            </div>
-            @endif
             <div class="bg-white relative shadow-md sm:rounded-lg overflow-hidden">
                 <div
                     class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
