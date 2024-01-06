@@ -71,7 +71,7 @@
                                         placeholder=" " required />
                                     <label
                                         class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                                        Biodata Pria
+                                        Deskripsi Pria
                                     </label>
                                 </div>
 
@@ -82,7 +82,7 @@
                                         placeholder=" " required />
                                     <label
                                         class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                                        Biodata Wanita
+                                        Deskripsi Wanita
                                     </label>
                                 </div>
                             </div>
@@ -169,68 +169,73 @@
                         </div>
                     </div>
 
-                    <div class="flex p-4 w-full">
-                        <div class="w-full">
+                    <div class="p-4 w-full">
 
-                            <h3 class="font-medium text-lg text-gray-900 mb-5">Foto Cover Depan</h3>
-                            <div class="relative z-0 w-full mb-5 group">
-                                <div class="flex items-center space-x-6">
-                                    <div class="shrink-0">
-                                      <img id='preview_foto_cover' class="h-16 w-16 object-cover rounded-full" src="{{ asset('images/default_cover.webp') }}" alt="Current profile photo" />
-                                    </div>
-                                    <label class="block">
-                                      <span class="sr-only">Choose profile photo</span>
-                                      <input type="file" onchange="aksi=fotoCover;loadFile(event,aksi)" class="block w-full text-sm text-slate-500 rounded-full
+                        <h3 class="font-medium text-lg text-gray-900 mb-5">Foto Cover Depan</h3>
+                        <div class="relative z-0 w-full mb-5 group">
+                            <div class="flex items-center space-x-6">
+                                <div class="shrink-0">
+                                    <img id='preview_foto_cover' class="h-16 w-16 object-cover rounded-full"
+                                        src="{{ asset($dataTemplate->foto_cover) }}" alt="Current profile photo" />
+                                </div>
+                                <label class="block">
+                                    <span class="sr-only">Choose profile photo</span>
+                                    <input name="foto_cover" type="file" onchange="aksi=fotoCover;loadFile(event,aksi)"
+                                        class="block w-full text-sm text-slate-500 rounded-full
                                         file:mr-4 file:py-2 file:px-4
                                         file:rounded-full file:border-0
                                         file:text-sm file:font-semibold
                                         file:bg-violet-50 file:text-violet-700
                                         hover:file:bg-violet-100
-                                      "/>
-                                    </label>
-                                  </div>
+                                      " />
+                                </label>
                             </div>
+                        </div>
 
-                            <h3 class="font-medium text-lg text-gray-900 mb-5">Foto Mempelai Pria</h3>
-                            <div class="relative z-0 w-full mb-5 group">
-                                <div class="flex items-center space-x-6">
-                                    <div class="shrink-0">
-                                      <img id='preview_foto_pria' class="h-16 w-16 object-cover rounded-full" src="{{ asset($dataTemplate->foto_pria) }}" alt="Current profile photo" />
-                                    </div>
-                                    <label class="block">
-                                      <span class="sr-only">Choose profile photo</span>
-                                      <input name="foto_pria" value="{{ $dataTemplate->foto_pria }}" type="file" onchange="aksi=fotoPria;loadFile(event,aksi)" class="block w-full text-sm text-slate-500 rounded-full
+                        <h3 class="font-medium text-lg text-gray-900 mb-5">Foto Mempelai Pria</h3>
+                        <div class="relative z-0 w-full mb-5 group">
+                            <div class="flex items-center space-x-6">
+                                <div class="shrink-0">
+                                    <img id='preview_foto_pria' class="h-16 w-16 object-cover rounded-full"
+                                        src="{{ asset($dataTemplate->foto_pria) }}" alt="Current profile photo" />
+                                </div>
+                                <label class="block">
+                                    <span class="sr-only">Choose profile photo</span>
+                                    <input name="foto_pria" value="{{ $dataTemplate->foto_pria }}" type="file"
+                                        onchange="aksi=fotoPria;loadFile(event,aksi)" class="block w-full text-sm text-slate-500 rounded-full
                                         file:mr-4 file:py-2 file:px-4
                                         file:rounded-full file:border-0
                                         file:text-sm file:font-semibold
                                         file:bg-violet-50 file:text-violet-700
                                         hover:file:bg-violet-100
-                                      "/>
-                                    </label>
-                                  </div>
+                                      " />
+                                </label>
                             </div>
+                        </div>
 
-                            <h3 class="font-medium text-lg text-gray-900 mb-5">Foto Mempelai Wanita</h3>
-                            <div class="relative z-0 w-full mb-5 group">
-                                <div class="flex items-center space-x-6">
-                                    <div class="shrink-0">
-                                      <img id='preview_foto_wanita' class="h-16 w-16 object-cover rounded-full" src="{{ asset($dataTemplate->foto_wanita) }}" alt="Current profile photo" />
-                                    </div>
-                                    <label class="block">
-                                      <span class="sr-only">Choose profile photo</span>
-                                      <input name="foto_wanita" value="{{ $dataTemplate->foto_wanita }}" type="file" onchange="aksi=fotoWanita;loadFile(event,aksi)" class="block w-full text-sm text-slate-500 rounded-full
+                        <h3 class="font-medium text-lg text-gray-900 mb-5">Foto Mempelai Wanita</h3>
+                        <div class="relative z-0 w-full mb-5 group">
+                            <div class="flex items-center space-x-6">
+                                <div class="shrink-0">
+                                    <img id='preview_foto_wanita' class="h-16 w-16 object-cover rounded-full"
+                                        src="{{ asset($dataTemplate->foto_wanita) }}" alt="Current profile photo" />
+                                </div>
+                                <label class="block">
+                                    <span class="sr-only">Choose profile photo</span>
+                                    <input name="foto_wanita" value="{{ $dataTemplate->foto_wanita }}" type="file"
+                                        onchange="aksi=fotoWanita;loadFile(event,aksi)" class="block w-full text-sm text-slate-500 rounded-full
                                         file:mr-4 file:py-2 file:px-4
                                         file:rounded-full file:border-0
                                         file:text-sm file:font-semibold
                                         file:bg-violet-50 file:text-violet-700
                                         hover:file:bg-violet-100
-                                      "/>
-                                    </label>
-                                  </div>
+                                      " />
+                                </label>
                             </div>
+                        </div>
 
-                            <script>
-                                var fotoCover = document.getElementById('preview_foto_cover');
+                        <script>
+                            var fotoCover = document.getElementById('preview_foto_cover');
                                 var fotoPria = document.getElementById('preview_foto_pria');
                                 var fotoWanita = document.getElementById('preview_foto_wanita');
 
@@ -246,19 +251,114 @@
                                         URL.revokeObjectURL(output.src) // free memory
                                     }
                                 };
-                            </script>
+                        </script>
 
-                            {{--<div class="relative z-0 w-full mb-5 group">
-                                <input type="text" name="name"
-                                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                    placeholder=" " required />
-                                <label
-                                    class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                                    Nama
-                                </label>
-                            </div>--}}
+                        {{--<div class="relative z-0 w-full mb-5 group">
+                            <input type="text" name="name"
+                                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                placeholder=" " required />
+                            <label
+                                class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                                Nama
+                            </label>
+                        </div>--}}
+
+                        <h3 class="font-medium text-lg text-gray-900 mt-10 mb-5">Isi Konten Awal</h3>
+
+                        <div class="relative z-0 w-full mb-5 group">
+                            <input name="teks_konten_1" value="{{ $data->teks_konten_1 ?? 'بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ' }}"
+                                type="text"
+                                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                placeholder=" " required />
+                            <label
+                                class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                                Bismillahirrahmanirrahim
+                            </label>
                         </div>
+
+                        <div class="relative z-0 w-full mb-5 group">
+                            <input name="teks_konten_2" value="{{ $data->teks_konten_2 ?? 'Assalamualaikum Warahmatullahi Wabarakatuh' }}"
+                                type="text"
+                                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                placeholder=" " required />
+                            <label
+                                class="text-nowrap peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                                Assalamu'alaikum Wr. Wb / Shalom / Om Swastiastu / dsb
+                            </label>
+                        </div>
+
+                        <div class="relative z-0 w-full mb-5 group">
+                            <textarea name="teks_konten_3"
+                                rows="4"
+                                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                placeholder=" " required>{{ $data->teks_konten_3 ?? 'Tanpa mengurangi rasa hormat. Kami mengundang Bapak/Ibu/Saudara/i serta kerabat sekalian untuk menghadiri acara pernikahan kami:' }}</textarea>
+                            <label
+                                class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                                Kalimat Undangan
+                            </label>
+                        </div>
+
+                        <h3 class="font-medium text-lg text-gray-900 mt-10 mb-5">Kutipan / Do'a</h3>
+
+                        <div class="relative z-0 w-full mb-5 group">
+                            <input name="teks_konten_4" value="{{ $data->teks_konten_4 ?? 'Allah Subhanahu Wa Ta`ala berfirman' }}"
+                                type="text"
+                                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                placeholder=" " required />
+                            <label
+                                class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                                Bismillahirrahmanirrahim
+                            </label>
+                        </div>
+
+                        <div class="relative z-0 w-full mb-5 group">
+                            <textarea name="teks_konten_5" rows="4"
+                                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                placeholder=" " required>{{ $data->teks_konten_5 ?? 'Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang. Sungguh, pada yang demikian itu benar-benar terdapat tanda-tanda (kebesaran Allah) bagi kaum yang berpikir.' }}</textarea>
+                            <label
+                                class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                                Isi Kutipan / Do'a
+                            </label>
+                        </div>
+
+                        <div class="relative z-0 w-full mb-5 group">
+                            <input name="teks_konten_6" value="{{ $data->teks_konten_6 ?? 'QS. Ar-Rum Ayat 21' }}"
+                                type="text"
+                                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                placeholder=" " required />
+                            <label
+                                class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                                Penutup
+                            </label>
+                        </div>
+
+                        <h3 class="font-medium text-lg text-gray-900 mt-10 mb-5">Isi Konten Penutup</h3>
+
+                        <div class="relative z-0 w-full mb-5 group">
+                            <textarea name="teks_konten_7"
+                                rows="4"
+                                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                placeholder=" " required>{{ $data->teks_konten_7 ?? 'Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila, Bapak / Ibu / Saudara / i. berkenan hadir untuk memberikan do`a restunya kami ucapkan terimakasih.' }}</textarea>
+                            <label
+                                class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                                Kalimat Penutup
+                            </label>
+                        </div>
+
+                        <div class="relative z-0 w-full mb-5 group">
+                            <input name="teks_konten_8" value="{{ $data->teks_konten_8 ?? 'Wassalamualaikum Warahmatullahi Wabarakatuh' }}"
+                                type="text"
+                                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                placeholder=" " required />
+                            <label
+                                class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                                Salam Penutup
+                            </label>
+                        </div>
+                        
                     </div>
+
+
                 </div>
                 <button type="submit" name="submit"
                     class="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-2xl text-sm px-5 py-2.5 text-center me-2 mb-2">Simpan</button>

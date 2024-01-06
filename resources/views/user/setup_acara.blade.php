@@ -48,23 +48,27 @@
             <div class="user-details flex-col !gap-2">
                 <div class="input-box">
                     <span class="details">Tanggal & Waktu Akad</span>
-                    <input type="datetime-local" name="tanggal_akad" placeholder="Tanggal Acara"
+                    <input type="datetime-local" name="tanggal_akad" id="tanggal_akad" placeholder="Tanggal Acara"
                     value="{{ $dataAcara->tanggal_akad ? \Carbon\Carbon::parse($dataAcara->tanggal_akad)->format('Y-m-d\TH:i') : '' }}" required>
                 </div>
                 <div class="input-box">
                     <span class="details">Tempat Akad</span>
-                    <input type="text" name="tempat_akad" placeholder="e.g. Hotel 1"
+                    <input type="text" name="tempat_akad" id="tempat_akad" placeholder="e.g. Hotel 1"
                         value="{{ $dataAcara->tempat_akad ?? '' }}" required>
                 </div>
                 <div class="input-box">
                     <span class="details">Tanggal & Waktu Resepsi</span>
-                    <input type="datetime-local" name="tanggal_resepsi" placeholder="Tanggal Acara"
+                    <input type="datetime-local" name="tanggal_resepsi" id="tanggal_resepsi" placeholder="Tanggal Acara"
                     value="{{ $dataAcara->tanggal_resepsi ? \Carbon\Carbon::parse($dataAcara->tanggal_resepsi)->format('Y-m-d\TH:i') : '' }}" required>
                 </div>
                 <div class="input-box">
                     <span class="details">Tempat Resepsi</span>
-                    <input type="text" name="tempat_resepsi" placeholder="e.g. Hotel 2"
+                    <input type="text" name="tempat_resepsi" id="tempat_resepsi" placeholder="e.g. Hotel 2"
                     value="{{ $dataAcara->tempat_resepsi }}" required>
+                </div>
+                <div class="flex items-center">
+                    <input id="sama_dengan_akad" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                    <label for="sama_dengan_akad" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Gunakan Tanggal & Tempat Resepsi yang Sama dengan Akad</label>
                 </div>
             </div>
             <div class="button">
@@ -72,5 +76,25 @@
             </div>
         </div>
     </form>
+    <script>
+        document.getElementById('sama_dengan_akad').addEventListener('change', function () {
+            var tanggalAkad = document.getElementById('tanggal_akad').value;
+            var tempatAkad = document.getElementById('tempat_akad').value;
+
+            if (this.checked) {
+                // Jika checkbox dicentang, set nilai Tanggal & Waktu Resepsi dan Tempat Resepsi sama dengan Tanggal & Waktu Akad dan Tempat Akad
+                document.getElementById('tanggal_resepsi').value = tanggalAkad;
+                document.getElementById('tempat_resepsi').value = tempatAkad;
+                document.getElementById('tempat_resepsi').readOnly = true;
+                document.getElementById('tempat_resepsi').classList.add('bg-gray-100','cursor-not-allowed');
+            } else {
+                // Jika checkbox tidak dicentang, reset nilai Tanggal & Waktu Resepsi dan Tempat Resepsi
+                document.getElementById('tanggal_resepsi').value = '';
+                document.getElementById('tempat_resepsi').value = '';
+                document.getElementById('tempat_resepsi').readOnly = false;
+                document.getElementById('tempat_resepsi').classList.remove('bg-gray-100','cursor-not-allowed');
+            }
+        });
+    </script>
 </div>
 @endsection

@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'rare.in') }} - Undangan Digital Paling Unik!</title>
+    <title>{{ config('app.name', 'rare.in') }} - Undangan Pernikahan Digital Paling Unik!</title>
     <link rel="icon" type="image/x-icon" href="https://feeldreams.github.io/main-icon.png">
 
     <!-- Fonts -->
@@ -188,6 +188,20 @@
                     </a>
                 </li>
                 <li>
+                    <a href="{{ route('tautan') }}"
+                        class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group @if(request()->is('tautan*')) bg-gray-100 @endif">
+                        <svg class='flex-shrink-0 w-5 h-5 fill-none stroke-black stroke-[1.5]' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><g transform='translate(2.800000, 2.800000)'><path d='M8.69324995,9.63816777 C8.69324995,9.63816777 -3.28340005,7.16056777 0.878549946,4.75801777 C4.39069995,2.73071777 16.4946499,-0.75483223 18.1856499,0.14576777 C19.0862499,1.83676777 15.6006999,13.9407178 13.5733999,17.4528678 C11.1708499,21.6148178 8.69324995,9.63816777 8.69324995,9.63816777 Z'></path><line x1='8.69325' y1='9.638168' x2='18.18565' y2='0.145768'></line></g></svg>
+                        <span class="flex-1 ms-3 whitespace-nowrap">{{ __('Tautan') }}</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('ucapan') }}"
+                        class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group @if(request()->is('ucapan*')) bg-gray-100 @endif">
+                        <svg class='flex-shrink-0 w-5 h-5 fill-none stroke-black stroke-[1.5]' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><g transform='translate(2.000000, 2.000000)'><line x1='13.9394' y1='10.413' x2='13.9484' y2='10.413'></line><line x1='9.9304' y1='10.413' x2='9.9394' y2='10.413'></line><line x1='5.9214' y1='10.413' x2='5.9304' y2='10.413'></line><path d='M17.0710351,17.0698449 C14.0159481,20.1263505 9.48959549,20.7867004 5.78630747,19.074012 C5.23960769,18.8538953 1.70113357,19.8338667 0.933341969,19.0669763 C0.165550368,18.2990808 1.14639409,14.7601278 0.926307229,14.213354 C-0.787154393,10.5105699 -0.125888852,5.98259958 2.93020311,2.9270991 C6.83146881,-0.9756997 13.1697694,-0.9756997 17.0710351,2.9270991 C20.9803405,6.8359285 20.9723008,13.1680512 17.0710351,17.0698449 Z'></path></g></svg>
+                        <span class="flex-1 ms-3 whitespace-nowrap">{{ __('Ucapan') }}</span>
+                    </a>
+                </li>
+                {{--<li>
                     <a href="{{ route('tamu.index') }}"
                         class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group @if(request()->is('tamu*')) bg-gray-100 @endif">
                         <svg class='flex-shrink-0 w-5 h-5 fill-none stroke-black stroke-[1.5]'
@@ -215,7 +229,7 @@
                         </svg>
                         <span class="flex-1 ms-3 whitespace-nowrap">{{ __('Tamu') }}</span>
                     </a>
-                </li>
+                </li>--}}
                 <li>
                     <a href="{{ route('pembayaran.index') }}"
                         class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group @if(request()->is('pembayaran*')) bg-gray-100 @endif">

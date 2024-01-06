@@ -10,6 +10,7 @@ class UserdataTemplate extends Model
     protected $fillable = [
         'templates_id',
         'users_id',
+        'foto_cover',
         'foto_pria',
         'foto_wanita',
         'status',

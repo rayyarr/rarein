@@ -43,8 +43,8 @@
                     class="bg-gray-50 mt-2 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                     <option selected>Pilih metode pembayaran</option>
                     <option value="DANA">Dana</option>
-                    <option value="GOPAY">GOPAY</option>
-                    <option value="SHOPEEPAY">SHOPEEPAY</option>
+                    {{--<option value="GOPAY">GOPAY</option>
+                    <option value="SHOPEEPAY">SHOPEEPAY</option>--}}
                 </select>
             </div>
 

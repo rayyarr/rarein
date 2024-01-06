@@ -43,7 +43,7 @@
                 <div class="col-start-1 text-slate-400 whitespace-nowrap text-xs hidden"></div>
             </a>
 
-            <a href="{{ route('tamu.index') }}"
+            {{--<a href="{{ route('tamu.index') }}"
                 class="inline-grid border-gray-200 w-full p-4 sm:col-span-1 bg-white hover:bg-slate-50 md:bg-transparent border-t sm:border-0 md:border-e gap-x-4 hover:scale-105 transition ease-in-out duration-200">
                 <div class="col-start-2 row-span-3 row-start-1 place-self-center justify-self-end text-pink-500">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -56,9 +56,9 @@
                 <div class="col-start-1 text-sky-700 whitespace-nowrap text-4xl font-extrabold my-2">{{
                     $totalTamu }}</div>
                 <div class="col-start-1 text-slate-400 whitespace-nowrap text-xs hidden"></div>
-            </a>
+            </a>--}}
 
-            <a href="#"
+            <a href="{{ route('ucapan') }}"
                 class="inline-grid border-gray-200 border-t md:border-0 md:border-e w-full p-4 sm:col-span-2 md:col-span-1 bg-white hover:bg-slate-50 md:bg-transparent gap-x-4 hover:scale-105 transition ease-in-out duration-200">
                 <div class="col-start-2 row-span-3 row-start-1 place-self-center justify-self-end text-teal-600">
                     <svg fill="none" class="hidden inline-block w-8 h-8 stroke-current stroke-2"
@@ -75,13 +75,32 @@
                 </div>
                 <div class="col-start-1 whitespace-nowrap text-slate-500">Ucapan & Do'a</div>
                 <div class="col-start-1 text-teal-600 whitespace-nowrap text-4xl font-extrabold my-2">{{
-                    $userdata->total_ucapan }}</div>
+                    $totalKomentar }}</div>
                 <div class="col-start-1 text-slate-400 whitespace-nowrap text-xs hidden"></div>
+            </a>
+
+            <a href="{{ route('profil') }}"
+                class="inline-grid border-gray-200 w-full p-4 sm:col-span-2 md:col-span-1 order-first md:order-last bg-white hover:bg-slate-50 md:bg-transparent border-b md:border-0 md:border-e gap-x-4 hover:scale-105 transition ease-in-out duration-200">
+                <div class="col-start-2 row-span-3 row-start-1 place-self-center justify-self-end text-pink-500">
+                    <div class="relative inline-flex ">
+                        <div class="w-16 rounded-full">
+                            @if (auth()->user()->image)
+                            <img src="{{ asset(auth()->user()->image) }}" alt="Profile image">
+                            @else
+                            <img src="{{ asset('images/profile/default.webp') }}" alt="Profile image">
+                            @endif
+                        </div>
+                    </div>
+                </div>
+                <div class="text-gray-700 text-xl font-bold md:max-w-[10ch] md:text-ellipsis md:overflow-hidden">{{
+                    Auth::user()->name }}</div>
+                <div class="col-start-1 whitespace-nowrap text-slate-500 my-2">Pengguna</div>
+                <div class="col-start-1 text-pink-500 whitespace-nowrap text-xs hidden"></div>
             </a>
 
         </div>
 
-        @forelse ($dataTemplate as $tmp)
+        {{--@forelse ($dataTemplate as $tmp)
         @if ($tmp->link !== null)
         <div class="card bg-white rounded-2xl p-5 pt-2 shadow mt-5">
             @foreach ($dataTemplate as $tmp)
@@ -96,7 +115,7 @@
         @endif
         @empty
         @endforelse
-
+        --}}
         <div class="card bg-white rounded-2xl p-5 shadow mt-5">
             <div class="font-bold text-slate-800 text-3xl text-center justify-center flex flex-col px-0"
                 data-waktu="{{ isset($dataAcara->tanggal_akad) ? $dataAcara->tanggal_akad : '2023-12-12 12:00:00' }}"

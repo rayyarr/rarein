@@ -271,11 +271,11 @@
             <h2 class="gunung"></h2>
           </div>
           <div class="image-box">
-            <img src="{{ asset('images/landingpage/demo-1.webp') }}" alt="blank" style="border-radius: 12px">
+            <img src="{{ asset('images/landingpage/demo-3.webp') }}" alt="blank" style="border-radius: 12px">
             <h2 class="gunung"></h2>
           </div>
           <div class="image-box">
-            <img src="{{ asset('images/landingpage/demo-2.webp') }}" alt="blank" style="border-radius: 12px">
+            <img src="{{ asset('images/landingpage/demo-4.webp') }}" alt="blank" style="border-radius: 12px">
             <h2 class="gunung"></h2>
           </div>
         </div>

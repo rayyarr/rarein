@@ -43,7 +43,7 @@
                 <div class="col-start-1 text-slate-400 whitespace-nowrap text-xs hidden"></div>
             </a>
 
-            <a href="#"
+            <a href="{{ route('transaksi') }}"
                 class="inline-grid border-gray-200 border-t md:border-0 md:border-e w-full p-4 sm:col-span-2 md:col-span-1 bg-white hover:bg-slate-50 md:bg-transparent gap-x-4 hover:scale-105 transition ease-in-out duration-200">
                 <div class="col-start-2 row-span-3 row-start-1 place-self-center justify-self-end text-teal-600">
                     <svg fill="none" class="hidden inline-block w-8 h-8 stroke-current stroke-2"
@@ -59,7 +59,7 @@
                     </svg>
                 </div>
                 <div class="col-start-1 whitespace-nowrap text-slate-500">Transaksi</div>
-                <div class="col-start-1 text-teal-600 whitespace-nowrap text-4xl font-extrabold my-2">0</div>
+                <div class="col-start-1 text-teal-600 whitespace-nowrap text-4xl font-extrabold my-2">{{ $totalTagihan }}</div>
                 <div class="col-start-1 text-slate-400 whitespace-nowrap text-xs hidden"></div>
             </a>
 

@@ -34,6 +34,8 @@ Route::get('/mulai', function () {
 
 Route::get('/demo/{id}', [WebUndanganController::class, 'index'])->name('demonstrasi');
 Route::get('/play/{id}', [WebUndanganController::class, 'play']);
+Route::get('/play/{id}/{id_tamu}', [WebUndanganController::class, 'play_tamu']);
+Route::post('/play/post', [WebUndanganController::class, 'postComment'])->name('postComment');
 
 // hanya bisa diakses user
 Auth::routes();
@@ -48,6 +50,9 @@ Route::group(['middleware' => 'user'], function () {
     
     Route::get('/tambah', [HomeController::class, 'tambah'])->name('tambah');
     Route::get('/tambah/edit/{id}', [WebUndanganController::class, 'create']);
+    Route::get('/tautan', [HomeController::class, 'tautan'])->name('tautan');
+    Route::get('/ucapan', [HomeController::class, 'ucapan'])->name('ucapan');
+    Route::get('/ucapan/hapus/{id}', [HomeController::class, 'ucapan_hapus']);
 
     Route::get('/tamu', [CrudTamuController::class, 'index'])->name('tamu.index');
     Route::get('/tamu/tambah', [CrudTamuController::class, 'tambah'])->name('tamu.tambah');
@@ -55,6 +60,7 @@ Route::group(['middleware' => 'user'], function () {
     Route::get('/tamu/edit/{id}', [CrudTamuController::class, 'edit'])->name('tamu.edit');
     Route::put('/tamu/update/{id}', [CrudTamuController::class, 'update'])->name('tamu.update');
     Route::get('/tamu/hapus/{id}', [CrudTamuController::class, 'delete'])->name('tamu.delete');
+    Route::get('/tamu/getUserDataByName/{name}', [CrudTamuController::class, 'getUserDataByName']);
 
     Route::get('/pembayaran', [PembayaranController::class, 'index'])->name('pembayaran.index');
     Route::post('/pembayaran/proses', [PembayaranController::class, 'create'])->name('pembayaran.proses');
@@ -91,6 +97,8 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
     Route::get('/pengguna/hapus/{id}', [CrudUserController::class, 'delete'])->name('cruduser.delete');
 
     Route::resource('template', TemplateController::class);
+    Route::get('/transaksi', [PembayaranController::class, 'transaksi'])->name('transaksi');
+    Route::post('/transaksi', [PembayaranController::class, 'transaksi_proses'])->name('transaksi.konfirmasi');
 });
 
 // bisa diakses siapa saja

@@ -34,7 +34,7 @@ body::before{content:"\00A9  rare.in";color:white;opacity:.7;font-size:10px;posi
 #counter{position:fixed;color:white;font-size:11px;top:20px;left:20px;z-index:999}
 
 section {position:relative;z-index:99;padding: 0;height: 100vh;display: flex; flex-direction: column;align-items:center;border-top:2px dotted #fff}
-section {text-shadow: 0px 1px 1px rgba(0, 0, 0, .5);background:#000;background-image: var(--bg);background-attachment: fixed;background-position: center;background-repeat: no-repeat;background-size: cover;}
+section {text-shadow: 0px 1px 1px rgba(0, 0, 0, .5);background:#ffc4c4;background-image: var(--bg);background-attachment: fixed;background-position: center;background-repeat: no-repeat;background-size: cover;}
 section.first{border-top:0 solid #fff}
 section:nth-child(even) {color:white}
 section:nth-child(odd) {color:white}
@@ -79,7 +79,7 @@ b.putih{padding-left:3px;padding-right:3px;background:white;}
 b.garismerah{border-bottom:2px solid red}
 b.gariskuning{border-bottom:2px solid yellow}
 
-p{color:white;line-height:1.5em;text-align:center}
+p{color:rgb(34, 34, 34);line-height:1.5em;text-align:center}
 p.anm{text-align:left;margin:0 60px;margin-left:55px;margin-top:-33px}
 .blocktext{max-width: 500px;height: auto;}
 @media  (min-width: 768px){.blocktext{margin-left: 30vw;}}

@@ -23,7 +23,7 @@ class PembayaranController extends Controller
         $userId = Auth::id();
         //$pembayaran = UserdataPembayaran::latest()->paginate(5);
         $pembayaran = UserDataPembayaran::join('template', 'userdata_pembayaran.template_id', '=', 'template.id')
-        ->select('userdata_pembayaran.*', 'template.name as nama_template')
+        ->select('userdata_pembayaran.*', 'template.name as nama_template', 'template.image as gambar_template')
         ->where('userdata_pembayaran.users_id', $userId)
         ->latest()
         ->paginate(5);
@@ -75,7 +75,7 @@ class PembayaranController extends Controller
             ->where('id', $id)
             ->update([
                 'metode_pembayaran' => $request->input('metode_pembayaran'),
-                'gambar' => public_path('images/pembayaran/') . $imageName,
+                'gambar' => 'images/pembayaran/' . $imageName,
             ]);
 
         return redirect()->route('pembayaran.index')->with('success', 'Berhasil bayar template. Hubungi admin untuk konfirmasi.');
@@ -108,10 +108,7 @@ class PembayaranController extends Controller
             'tanggal_pemesanan' => 'required|datetime',
             'jumlah_tagihan' => 'required|unsignedBigInteger',
             'metode_pembayaran' => 'required|string|max:255',
-            'gambar' => 'required|varchar'
-
-
-
+            'gambar' => 'required|varchar',
         ]);
 
         // Dapatkan ID template
@@ -186,6 +183,42 @@ class PembayaranController extends Controller
 
         // Tambahkan log atau pesan sukses jika diperlukan
 
-        return redirect()->route('pembayaran.index')->with('success', 'Pembelian template berhasil.');
+        return redirect()->route('pembayaran.index')->with('success', 'Berhasil memasukkan ke keranjang.');
+    }
+
+    // Untuk ADMIN
+
+    public function transaksi(){
+        $transaksi = UserDataPembayaran::join('template', 'userdata_pembayaran.template_id', '=', 'template.id')->join('users', 'userdata_pembayaran.users_id', '=', 'users.id')
+        ->select(
+            'userdata_pembayaran.*', 
+            'users.name as nama_user',
+            'users.email as email_user',
+            'template.name as nama_template',
+            'template.image',
+            )
+        ->whereNotNull('userdata_pembayaran.metode_pembayaran')
+        ->whereNotNull('userdata_pembayaran.gambar')
+        ->latest()
+        ->paginate(5);
+
+        return view('admin.transaksi.index', compact('transaksi'))->with('i', (request()->input('page', 1) - 1) * 5);
+    }
+
+    public function transaksi_proses(Request $request)
+    {
+        $id = $request->input('id');
+
+        $cekData = UserDataPembayaran::where('id', $id)->first();
+        if ($cekData->status == 'Selesai') {
+            return redirect()->route('transaksi')->with('success', 'Anda sudah mengkonfirmasi pembayaran ini.');
+        }
+
+        UserdataPembayaran::where('id', $id)
+            ->update([
+                'status' => 'Selesai',
+            ]);
+
+        return redirect()->route('transaksi')->with('success', 'Berhasil konfirmasi pembayaran.');
     }
 }

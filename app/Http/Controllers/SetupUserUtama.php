@@ -12,6 +12,8 @@ use Illuminate\Http\Response;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Auth;
 
+use function Psy\debug;
+
 class SetupUserUtama extends Controller
 {
     public function index()
@@ -203,44 +205,68 @@ class SetupUserUtama extends Controller
         }
         
         $userdata_template = UserdataTemplate::where('users_id', $userId)->where('templates_id', $id)->first();
-        if ($request->hasFile('foto_pria')) {
-            $foto_pria = $request->file('foto_pria');
-            // Store the image
-            $filename_foto_pria = $userId . '_foto_pria.' . $foto_pria->extension();
-            $filename_foto_priaDB = 'images/' . $filename_foto_pria;
-            $foto_pria->move(public_path('images'), $filename_foto_pria);
+        if ($request->hasFile('foto_cover')) {
+            $foto_cover = $request->file('foto_cover');
 
             // Delete the old image
-            $oldImage = $userdata_template->foto_pria;
+            $oldImage = $userdata_template->foto_cover;
 
-            if ($oldImage && $oldImage !== $filename_foto_pria && $oldImage !== 'default_pria.webp') {
-                $filePath = public_path('images/' . $oldImage);
+            if ($oldImage && $oldImage !== 'images/users_template/default_cover.webp') {
+                $filePath = public_path($oldImage);
 
                 if (file_exists($filePath)) {
                     unlink($filePath);
                 }
             }
+
+            // Store the image
+            $filename_foto_cover = $userId . '_foto_cover.' . $foto_cover->extension();
+            $filename_foto_coverDB = 'images/users_template/' . $filename_foto_cover;
+            $foto_cover->move(public_path('images/users_template'), $filename_foto_cover);
+
+            $userdata_template->update(['foto_cover' => $filename_foto_coverDB]);
+        }
+
+        if ($request->hasFile('foto_pria')) {
+            $foto_pria = $request->file('foto_pria');
+
+            // Delete the old image
+            $oldImage = $userdata_template->foto_pria;
+
+            if ($oldImage && $oldImage !== 'images/users_template/default_pria.webp') {
+                $filePath = public_path($oldImage);
+
+                if (file_exists($filePath)) {
+                    unlink($filePath);
+                }
+            }
+
+            // Store the image
+            $filename_foto_pria = $userId . '_foto_pria.' . $foto_pria->extension();
+            $filename_foto_priaDB = 'images/users_template/' . $filename_foto_pria;
+            $foto_pria->move(public_path('images/users_template'), $filename_foto_pria);
 
             $userdata_template->update(['foto_pria' => $filename_foto_priaDB]);
         }
 
         if ($request->hasFile('foto_wanita')) {
             $foto_wanita = $request->file('foto_wanita');
-            // Store the image
-            $filename_foto_wanita = $userId . '_foto_wanita.' . $foto_wanita->extension();
-            $filename_foto_wanitaDB = 'images/' . $filename_foto_wanita;
-            $foto_wanita->move(public_path('images'), $filename_foto_wanita);
 
             // Delete the old image
             $oldImage = $userdata_template->foto_wanita;
 
-            if ($oldImage && $oldImage !== $filename_foto_wanita && $oldImage !== 'default_wanita.webp') {
-                $filePath = public_path('images/' . $oldImage);
+            if ($oldImage && $oldImage !== 'images/users_template/default_wanita.webp') {
+                $filePath = public_path($oldImage);
 
                 if (file_exists($filePath)) {
                     unlink($filePath);
                 }
             }
+
+            // Store the image
+            $filename_foto_wanita = $userId . '_foto_wanita.' . $foto_wanita->extension();
+            $filename_foto_wanitaDB = 'images/users_template/' . $filename_foto_wanita;
+            $foto_wanita->move(public_path('images/users_template'), $filename_foto_wanita);
 
             $userdata_template->update(['foto_wanita' => $filename_foto_wanitaDB]);
         }
@@ -265,6 +291,6 @@ class SetupUserUtama extends Controller
             //'foto_wanita' => $filename_foto_wanitaDB,
         ]);
 
-        return redirect()->route('beranda')->with('success', 'Sukses mengisi form.');
+        return redirect()->route('tautan')->with('success', 'Sukses membuat undangan!');
     }
 }

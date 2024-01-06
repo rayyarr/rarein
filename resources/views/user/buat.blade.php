@@ -4,10 +4,10 @@
 @endsection
 @section('content')
 <div class="flex flex-row justify-center pt-10">
-    <div class="max-w-[800px] mx-auto">
+    <div class="max-w-full md:max-w-[800px] mx-auto">
         <div class="flex flex-col bg-white m-auto p-2 rounded-2xl mb-5 shadow">
-            <h1 class="flex py-5 lg:px-20 md:px-10 px-5 mx-auto font-bold text-2xl text-gray-800">
-                Temukan Pilihan Anda
+            <h1 class="flex py-5 lg:px-20 md:px-10 px-5 mx-auto font-bold text-lg md:text-2xl text-gray-800">
+                Temukan Tema Pilihan Anda
             </h1>
             <div class="flex overflow-x-scroll pb-5">
                 <div class="flex flex-nowrap mx-10 snap-x snap-mandatory overflow-x-auto">
@@ -17,9 +17,9 @@
                         <div class="flex font-sans w-[500px]">
                             <div class="flex-none w-56 relative scale-105 -rotate-1">
                                 <img src="{{ asset('images/template/' . $t->image) }}" alt=""
-                                    class="absolute inset-0 w-full h-full object-cover rounded-lg" loading="lazy" />
+                                    class="absolute inset-0 w-full h-[270px] object-cover shadow rounded-lg" loading="lazy" />
                             </div>
-                            <form class="flex-auto p-6 bg-white rounded-e-2xl shadow">
+                            <form class="h-[270px] flex-auto p-6 bg-white rounded-e-2xl shadow">
                                 <div class="flex flex-wrap">
                                     <h1 class="flex-auto font-medium text-xl text-slate-900">
                                         {{ $t->name }}

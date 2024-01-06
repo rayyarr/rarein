@@ -7,6 +7,7 @@ use App\Models\UserdataAcara;
 use App\Models\Template;
 use App\Models\UserdataTamu;
 use App\Models\UserdataTemplate;
+use App\Models\UserdataKomentar;
 use App\Models\UserdataPembayaran;
 use App\Models\ChartTamu;
 use Illuminate\Support\Facades\Auth;
@@ -50,7 +51,8 @@ class HomeController extends Controller
         $totalUndangan = UserdataTemplate::where('users_id', $user_id)->count();
         $totalTamu = UserdataTamu::where('users_id', $user_id)->count();
         $totalTagihan = UserdataPembayaran::where('users_id', $user_id)->count();
-
+        $totalKomentar = UserdataKomentar::where('users_id', $user_id)->count();
+    
         $dataAcara = UserDataAcara::where('users_id', $user_id)->first();
         $dataTemplate = DB::table('userdata_template')
         ->join('userdata_acara', 'userdata_template.users_id', '=', 'userdata_acara.users_id')
@@ -58,7 +60,7 @@ class HomeController extends Controller
         ->select('userdata_acara.*', 'userdata_template.*')
         ->get();
 
-        return view('home', compact('userdata', 'dataAcara', 'dataTemplate', 'comments', 'countByKehadiran', 'totalUndangan', 'totalTamu', 'totalTagihan', 'dataAcara'));
+        return view('home', compact('userdata', 'dataAcara', 'dataTemplate', 'comments', 'countByKehadiran', 'totalUndangan', 'totalTamu', 'totalTagihan', 'totalKomentar', 'dataAcara'));
     }
 
     private function hasEmptyColumns($model)
@@ -95,5 +97,46 @@ class HomeController extends Controller
         
         return view('user.buat',compact('pembayaran', 'templates', 'userId'))->with('i', (request()->input('page', 1) - 1) * 5);
     }
+
+    public function tautan(Request $request)
+	{
+        $data = DB::table('userdata_template')
+        ->join('userdata_acara', 'userdata_template.users_id', '=', 'userdata_acara.users_id')
+        ->join('template', 'template.id', '=', 'userdata_template.templates_id')
+        ->select('userdata_template.*', 'userdata_acara.*', 'template.*')
+        ->where('userdata_template.users_id', '=', Auth::user()->id)
+        ->get();
+
+		return view('user.tautan', compact('data'));
+	}
+
+    public function ucapan(Request $request)
+	{
+        $data = DB::table('userdata_komentar')
+        ->join('userdata_acara', 'userdata_komentar.users_id', '=', 'userdata_acara.users_id')
+        ->join('template', 'template.id', '=', 'userdata_komentar.templates_id')
+        ->select(
+            'userdata_komentar.id as id_tamu', 
+            'userdata_komentar.name as nama_tamu', 
+            'userdata_komentar.address', 
+            'userdata_komentar.content', 
+            'userdata_komentar.status', 
+            'userdata_acara.*', 
+            'template.*'
+        )
+        ->orderBy('userdata_komentar.id', 'desc')
+        ->where('userdata_komentar.users_id', '=', Auth::user()->id)
+        ->get();
+
+		return view('user.ucapan', compact('data'));
+	}
+
+    public function ucapan_hapus($id)
+	{
+		$data = UserdataKomentar::find($id);
+
+		$data->delete();
+		return redirect('/ucapan')->with('success', 'Berhasil menghapus komentar!');
+	}
     
 }

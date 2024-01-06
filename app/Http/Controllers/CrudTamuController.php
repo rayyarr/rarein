@@ -24,7 +24,16 @@ class CrudTamuController extends Controller
 		$user = UserdataTamu::when($search, function ($query, $search) {
 			return $query->where('name', 'like', '%' . $search . '%')
 				->orWhere('address', 'like', '%' . $search . '%');
-		})->get();
+		})
+		->where('users_id', '=', Auth::user()->id)
+		->get();
+
+		$data = DB::table('userdata_template')
+        ->join('userdata_acara', 'userdata_template.users_id', '=', 'userdata_acara.users_id')
+        ->join('template', 'template.id', '=', 'userdata_template.templates_id')
+        ->select('userdata_template.*', 'userdata_acara.*', 'template.*')
+        ->where('userdata_template.users_id', '=', Auth::user()->id)
+        ->get();
 
 		/*$comments = DB::table('userdata_tamu')
                     ->join('users', 'userdata_tamu.users_id', '=', 'users.id')
@@ -32,7 +41,7 @@ class CrudTamuController extends Controller
                     ->select('userdata_tamu.id', 'users.name as nama_pasangan')
                     ->first();
 		*/
-		return view('user.crud_tamu.index', compact('user'));
+		return view('user.crud_tamu.index', compact('user','data'));
 	}
 
 	public function tambah()
