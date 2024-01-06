@@ -381,7 +381,7 @@
                 d="M0,96L30,106.7C60,117,120,139,180,154.7C240,171,300,181,360,186.7C420,192,480,192,540,181.3C600,171,660,149,720,154.7C780,160,840,192,900,208C960,224,1020,224,1080,208C1140,192,1200,160,1260,138.7C1320,117,1380,107,1410,101.3L1440,96L1440,0L1410,0C1380,0,1320,0,1260,0C1200,0,1140,0,1080,0C1020,0,960,0,900,0C840,0,780,0,720,0C660,0,600,0,540,0C480,0,420,0,360,0C300,0,240,0,180,0C120,0,60,0,30,0L0,0Z">
             </path>
         </svg>
-        <div class="container d-none">
+        <div class="container">
             <div class="py-4">
 
                 <div class="text-center">
@@ -395,33 +395,21 @@
                     <div class="overflow-x-hidden">
                         <div class="row justify-content-center">
 
-                            <div class="col-12 card-body border rounded-4 shadow p-3 m-3" style="max-width: 25rem;"
+                            @foreach ($rekening as $rek)
+                                <div class="col-12 card-body border rounded-4 shadow p-3 m-3" style="max-width: 25rem;"
                                 data-aos="fade-down" data-aos-duration="1500">
-                                <img src="https://upload.wikimedia.org/wikipedia/id/thumb/5/55/BNI_logo.svg/1200px-BNI_logo.svg.png"
-                                    class="img-fluid rounded" width="150" alt="bni">
-
-                                <p class="card-text mt-3 mb-0" style="font-size: 0.9rem;">No. Rekening 123456789</p>
-                                <p class="card-text" style="font-size: 0.9rem;">a.n Lorem ipsum dolor</p>
+                                    <p class="card-text mt-3 mb-0" style="font-size: 0.9rem;">BANK: {{ $rek->bank}}</p>
+                                    <p class="card-text" style="font-size: 0.9rem;">No. Rekening {{ $rek->no_rekening}}</p>
+                                    <p class="card-text" style="font-size: 0.9rem;">a.n {{ $rek->pemilik_rekening}}</p>
 
                                 <!-- Ubah juga data-nomer sesuai dengan no rekening -->
-                                <button class="btn btn-light btn-sm rounded-3" data-nomer="123456789"
+                                <button class="btn btn-light btn-sm rounded-3" data-nomer="{{ $rek->no_rekening}}"
                                     onclick="util.salin(this)" autofocus>Salin No. Rekening</button>
-                            </div>
+                                </div>
+                            @endforeach
 
-                            <div class="col-12 card-body border rounded-4 shadow p-3 m-3" style="max-width: 25rem;"
-                                data-aos="fade-down" data-aos-duration="1500">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/BANK_BRI_logo.svg/2560px-BANK_BRI_logo.svg.png"
-                                    class="img-fluid rounded" width="150" alt="bri">
-
-                                <p class="card-text mt-3 mb-0" style="font-size: 0.9rem;">No. Rekening 123456789</p>
-                                <p class="card-text" style="font-size: 0.9rem;">a.n Lorem ipsum dolor</p>
-
-                                <!-- Ubah juga data-nomer sesuai dengan no rekening -->
-                                <button class="btn btn-light btn-sm rounded-3" data-nomer="123456789"
-                                    onclick="util.salin(this)" autofocus>Salin No. Rekening</button>
-                            </div>
                         </div>
-                    </div>
+                    </div> 
                 </div>
             </div>
         </div>

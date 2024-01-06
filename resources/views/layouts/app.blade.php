@@ -270,6 +270,12 @@
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.1.1/flowbite.min.js"></script>
+    
+    <div class="fixed bottom-4 right-4 z-50 transition-transform duration-200 transform hover:scale-110">
+        <a href="https://wa.me/6282126983296" target="_blank">
+            <img src="{{ asset('images/whatsapp-logo.png') }}" alt="WhatsApp Logo" class="w-12 h-auto rounded-full shadow-md">
+        </a>
+    </div>
 
 </body>
 

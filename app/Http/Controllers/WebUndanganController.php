@@ -50,6 +50,10 @@ class WebUndanganController extends Controller
             ->first();
 
         $id_template = $data->templates_id;
+        
+        $rekening = DB::table('tamu_hadiah')
+        ->where('users_id', $data->id_user)
+        ->get();
 
         if ($data) {
             // Check if userdata_komentar exists
@@ -57,21 +61,21 @@ class WebUndanganController extends Controller
                 ->where('users_id', $data->id_user)
                 ->where('templates_id', $data->templates_id)
                 ->exists();
-
+    
             if ($userdataKomentarExists) {
                 $ucapan = DB::table('userdata_komentar')
                     ->where('users_id', $data->id_user)
                     ->where('templates_id', $data->templates_id)
                     ->get();
 
-                return view('template.' . $id_template, compact('data', 'ucapan'));
+                return view('template.' . $id_template, compact('data', 'ucapan', 'rekening'));
             } else {
-                return view('template.' . $id_template, compact('data'));
+                return view('template.' . $id_template, compact('data', 'rekening'));
             }
         } else {
             return redirect()->back()->with('error', 'Data not found');
         }
-    }
+    } 
 
     public function postComment(Request $request)
     {

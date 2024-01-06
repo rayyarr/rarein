@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminSettingController;
+use App\Http\Controllers\CrudHadiahController;
 use App\Http\Controllers\TemplateController;
 use App\Http\Controllers\WebUndanganController;
 use App\Http\Controllers\CrudTamuController;
@@ -62,6 +63,11 @@ Route::group(['middleware' => 'user'], function () {
     Route::get('/tamu/hapus/{id}', [CrudTamuController::class, 'delete'])->name('tamu.delete');
     Route::get('/tamu/getUserDataByName/{name}', [CrudTamuController::class, 'getUserDataByName']);
 
+    Route::get('/hadiah', [CrudHadiahController::class, 'index'])->name('hadiah.index');
+    Route::post('/hadiah/store', [CrudHadiahController::class, 'store'])->name('hadiah.store');
+    Route::get('/hadiah/update/{id}', [CrudHadiahController::class, 'update'])->name('hadiah.update');
+    Route::get('/hadiah/hapus/{id}', [CrudHadiahController::class, 'hapus'])->name('hadiah.delete');
+    
     Route::get('/pembayaran', [PembayaranController::class, 'index'])->name('pembayaran.index');
     Route::post('/pembayaran/proses', [PembayaranController::class, 'create'])->name('pembayaran.proses');
     Route::post('/pembayaran/store', [PembayaranController::class, 'store'])->name('pembayaran.store');
