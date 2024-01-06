@@ -181,8 +181,14 @@ class SetupUserUtama extends Controller
             'tanggal_resepsi' => 'required|date_format:Y-m-d H:i|after_or_equal:tanggal_akad',
             'tempat_akad' => 'required|string|max:255',
             'tempat_resepsi' => 'required|string|max:255',
-            //'foto_pria' => 'required|image|mimes:jpeg,png,jpg',
-            //'foto_wanita' => 'required|image|mimes:jpeg,png,jpg',
+            'teks_konten_1' => 'required|string|max:255',
+            'teks_konten_2' => 'required|string|max:255',
+            'teks_konten_3' => 'required|string|max:255',
+            'teks_konten_4' => 'required|string|max:255',
+            'teks_konten_5' => 'required|string|max:255',
+            'teks_konten_6' => 'required|string|max:255',
+            'teks_konten_7' => 'required|string|max:255',
+            'teks_konten_8' => 'required|string|max:255',
         ], [
             'nama_pria.required' => 'Kolom Nama Pria wajib diisi.',
             'nama_wanita.required' => 'Kolom Nama Wanita wajib diisi.',
@@ -285,6 +291,14 @@ class SetupUserUtama extends Controller
         ]);
 
         $userdata_template->update([
+            'teks_konten_1' => $request->input('teks_konten_1'),
+            'teks_konten_2' => $request->input('teks_konten_2'),
+            'teks_konten_3' => $request->input('teks_konten_3'),
+            'teks_konten_4' => $request->input('teks_konten_4'),
+            'teks_konten_5' => $request->input('teks_konten_5'),
+            'teks_konten_6' => $request->input('teks_konten_6'),
+            'teks_konten_7' => $request->input('teks_konten_7'),
+            'teks_konten_8' => $request->input('teks_konten_8'),
             'status' => 1,
             'link' => empty($userdata_template->link) ? $uniqueLink : $userdata_template->link,
             //'foto_pria' => $filename_foto_priaDB,

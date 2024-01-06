@@ -266,10 +266,10 @@
                         <h3 class="font-medium text-lg text-gray-900 mt-10 mb-5">Isi Konten Awal</h3>
 
                         <div class="relative z-0 w-full mb-5 group">
-                            <input name="teks_konten_1" value="{{ $data->teks_konten_1 ?? 'بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ' }}"
+                            <input name="teks_konten_1" value="{{ $dataTemplate->teks_konten_1 ?? 'بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ' }}"
                                 type="text"
                                 class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                placeholder=" " required />
+                                placeholder=" " />
                             <label
                                 class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
                                 Bismillahirrahmanirrahim
@@ -277,10 +277,10 @@
                         </div>
 
                         <div class="relative z-0 w-full mb-5 group">
-                            <input name="teks_konten_2" value="{{ $data->teks_konten_2 ?? 'Assalamualaikum Warahmatullahi Wabarakatuh' }}"
+                            <input name="teks_konten_2" value="{{ $dataTemplate->teks_konten_2 ?? 'Assalamualaikum Warahmatullahi Wabarakatuh' }}"
                                 type="text"
                                 class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                placeholder=" " required />
+                                placeholder=" " />
                             <label
                                 class="text-nowrap peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
                                 Assalamu'alaikum Wr. Wb / Shalom / Om Swastiastu / dsb
@@ -291,7 +291,7 @@
                             <textarea name="teks_konten_3"
                                 rows="4"
                                 class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                placeholder=" " required>{{ $data->teks_konten_3 ?? 'Tanpa mengurangi rasa hormat. Kami mengundang Bapak/Ibu/Saudara/i serta kerabat sekalian untuk menghadiri acara pernikahan kami:' }}</textarea>
+                                placeholder=" ">{{ $dataTemplate->teks_konten_3 ?? 'Tanpa mengurangi rasa hormat. Kami mengundang Bapak/Ibu/Saudara/i serta kerabat sekalian untuk menghadiri acara pernikahan kami:' }}</textarea>
                             <label
                                 class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
                                 Kalimat Undangan
@@ -301,20 +301,20 @@
                         <h3 class="font-medium text-lg text-gray-900 mt-10 mb-5">Kutipan / Do'a</h3>
 
                         <div class="relative z-0 w-full mb-5 group">
-                            <input name="teks_konten_4" value="{{ $data->teks_konten_4 ?? 'Allah Subhanahu Wa Ta`ala berfirman' }}"
+                            <input name="teks_konten_4" value="{{ $dataTemplate->teks_konten_4 ?? 'Allah Subhanahu Wa Ta`ala berfirman' }}"
                                 type="text"
                                 class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                placeholder=" " required />
+                                placeholder=" " />
                             <label
                                 class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                                Bismillahirrahmanirrahim
+                                Kalimat Pembuka
                             </label>
                         </div>
 
                         <div class="relative z-0 w-full mb-5 group">
                             <textarea name="teks_konten_5" rows="4"
                                 class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                placeholder=" " required>{{ $data->teks_konten_5 ?? 'Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang. Sungguh, pada yang demikian itu benar-benar terdapat tanda-tanda (kebesaran Allah) bagi kaum yang berpikir.' }}</textarea>
+                                placeholder=" ">{{ $dataTemplate->teks_konten_5 ?? 'Dan di antara tanda kebesaran-Nya ialah Dia menciptakan pasangan dari jenismu sendiri agar kamu merasa tenteram kepadanya dan Dia menjadikan di antaramu rasa kasih sayang. Sungguh demikian itu terdapat kebesaran Allah bagi kaum yang berpikir.' }}</textarea>
                             <label
                                 class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
                                 Isi Kutipan / Do'a
@@ -322,10 +322,10 @@
                         </div>
 
                         <div class="relative z-0 w-full mb-5 group">
-                            <input name="teks_konten_6" value="{{ $data->teks_konten_6 ?? 'QS. Ar-Rum Ayat 21' }}"
+                            <input name="teks_konten_6" value="{{ $dataTemplate->teks_konten_6 ?? 'QS. Ar-Rum Ayat 21' }}"
                                 type="text"
                                 class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                placeholder=" " required />
+                                placeholder=" " />
                             <label
                                 class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
                                 Penutup
@@ -338,7 +338,7 @@
                             <textarea name="teks_konten_7"
                                 rows="4"
                                 class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                placeholder=" " required>{{ $data->teks_konten_7 ?? 'Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila, Bapak / Ibu / Saudara / i. berkenan hadir untuk memberikan do`a restunya kami ucapkan terimakasih.' }}</textarea>
+                                placeholder=" ">{{ $dataTemplate->teks_konten_7 ?? 'Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila, Bapak / Ibu / Saudara / i. berkenan hadir untuk memberikan do`a restunya kami ucapkan terimakasih.' }}</textarea>
                             <label
                                 class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
                                 Kalimat Penutup
@@ -346,10 +346,10 @@
                         </div>
 
                         <div class="relative z-0 w-full mb-5 group">
-                            <input name="teks_konten_8" value="{{ $data->teks_konten_8 ?? 'Wassalamualaikum Warahmatullahi Wabarakatuh' }}"
+                            <input name="teks_konten_8" value="{{ $dataTemplate->teks_konten_8 ?? 'Wassalamualaikum Warahmatullahi Wabarakatuh' }}"
                                 type="text"
                                 class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                placeholder=" " required />
+                                placeholder=" " />
                             <label
                                 class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
                                 Salam Penutup

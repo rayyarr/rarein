@@ -15,6 +15,14 @@ class UserdataTemplate extends Model
         'foto_wanita',
         'status',
         'link',
+        'teks_konten_1',
+        'teks_konten_2',
+        'teks_konten_3',
+        'teks_konten_4',
+        'teks_konten_5',
+        'teks_konten_6',
+        'teks_konten_7',
+        'teks_konten_8',
     ];
     
     protected $table = 'userdata_template';
